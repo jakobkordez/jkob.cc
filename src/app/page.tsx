@@ -12,17 +12,17 @@ export default function Home() {
       <div className="content">
         <h1>Hello World!</h1>
         <p>
-          Hi, I'm Jakob and I'm a software developer. I'm currently working at
-          Metrel d. d. as a software developer.
+          Hi, I&apos;m Jakob and I&apos;m a software developer. I&apos;m
+          currently working at Metrel d. d. as a software developer.
         </p>
         <p>
-          I'm a student at the University of Maribor where I'm studying computer
-          science. I'm currently in my 2nd year of the postgraduate study
-          program.
+          I&apos;m a student at the University of Maribor where I&apos;m
+          studying computer science. I&apos;m currently in my 2nd year of the
+          postgraduate study program.
         </p>
         <p>
-          I'm also an amateur radio operator. My callsign is S52KJ. I passed my
-          exam in december of 2021 with the extra CW exam.
+          I&apos;m also an amateur radio operator. My callsign is S52KJ. I
+          passed my exam in december of 2021 with the extra CW exam.
         </p>
 
         <h2>Most proficient with</h2>

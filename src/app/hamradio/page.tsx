@@ -1,9 +1,3 @@
-const columnData = [
-  { id: "qso", name: "QSO's", value: 1545 },
-  { id: "rare", name: "Rarest prefix", value: "TK" },
-  { id: "furthest", name: "Furthest QSO", value: "ZL" },
-];
-
 export default function Hamradio() {
   return (
     <div className="content">
@@ -12,7 +6,7 @@ export default function Hamradio() {
       <h2>My Stats</h2>
       <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-white/20 p-4 shadow-2xl backdrop-blur md:grid-cols-3">
         <div className="mx-auto my-auto text-center">
-          <div className="mb-1 text-lg">QSO's</div>
+          <div className="mb-1 text-lg">QSO&apos;s</div>
           <div className="text-4xl font-medium">1.7 k</div>
         </div>
         <div className="mx-auto my-auto text-center">
@@ -57,7 +51,7 @@ export default function Hamradio() {
       </div>
 
       {/* <div className="content my-6">
-        <h2>Most recent QSO's</h2>
+        <h2>Most recent QSO&apos;s</h2>
         <iframe
           className="w-full rounded bg-white"
           height="515"
