@@ -1,91 +1,115 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import { faBuilding } from "@fortawesome/free-regular-svg-icons";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import { LinkButton } from "@/components/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
+    <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div className="content">
+        <h1>Hello World!</h1>
         <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
+          Hi, I'm Jakob and I'm a software developer. I'm currently working at
+          Metrel d. d. as a software developer.
         </p>
+        <p>
+          I'm a student at the University of Maribor where I'm studying computer
+          science. I'm currently in my 2nd year of the postgraduate study
+          program.
+        </p>
+        <p>
+          I'm also an amateur radio operator. My callsign is S52KJ. I passed my
+          exam in december of 2021 with the extra CW exam.
+        </p>
+
+        <h2>Most proficient with</h2>
+        <div className="flex flex-wrap gap-2 text-white">
+          <Tag color="bg-sky-700" href="https://www.python.org/">
+            Python
+          </Tag>
+          <Tag color="bg-blue-700" href="https://flutter.dev/">
+            Flutter
+          </Tag>
+          <Tag color="bg-sky-600" href="https://dart.dev/">
+            Dart
+          </Tag>
+          <Tag color="bg-blue-800">C++</Tag>
+          <Tag color="bg-green-600" href="https://nodejs.org/">
+            Node.js
+          </Tag>
+          <Tag color="bg-red-600" href="https://nestjs.com/">
+            NestJS
+          </Tag>
+          <Tag color="bg-white text-black" href="https://nextjs.org/">
+            Next.js
+          </Tag>
+          <Tag color="bg-purple-700" href="https://dotnet.microsoft.com/">
+            .NET
+          </Tag>
+        </div>
+
+        <h2>Tools I use</h2>
+        <div className="flex flex-wrap gap-2 text-white">
+          <Tag color="bg-sky-600">Visual Studio Code</Tag>
+          <Tag color="bg-orange-600">Git</Tag>
+          <Tag color="bg-sky-500">Docker</Tag>
+        </div>
+      </div>
+
+      <UserCard />
+    </div>
+  );
+}
+
+interface TagProps {
+  color?: string;
+  children: React.ReactNode;
+  href?: string;
+}
+
+function Tag({ color, children, href }: TagProps) {
+  const className = "rounded-full py-1 px-3 font-bold " + color;
+
+  return href ? (
+    <Link href={href} className={className}>
+      {children}
+    </Link>
+  ) : (
+    <span className={className}>{children}</span>
+  );
+}
+
+function UserCard() {
+  return (
+    <div className="m-auto mt-0 max-w-xs overflow-hidden rounded bg-white/20 shadow-2xl backdrop-blur">
+      <Image
+        className="w-full"
+        src="/images/portrait.jpg"
+        alt="Portrait"
+        width={320}
+        height={320}
+      />
+      <div className="px-6 py-4">
+        <div className="text-xl font-bold">Jakob Kordež</div>
+        <div className="mb-2 text-lg font-medium">S52KJ</div>
         <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+          <FontAwesomeIcon icon={faBuilding} className="mr-2" />
+          <span>Metrel d. d.</span>
+        </div>
+        <div>
+          <FontAwesomeIcon icon={faLocationDot} className="mr-2" />
+          <span>Slovenia</span>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <LinkButton href="https://github.com/jakobkordez" icon={faGithub}>
+            GitHub
+          </LinkButton>
+          <LinkButton href="https://www.qrz.com/db/s52kj">QRZ.com</LinkButton>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
