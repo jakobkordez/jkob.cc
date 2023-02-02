@@ -21,7 +21,9 @@ export default function RootLayout({
         <Header />
 
         <main>
-          <div className="container mx-auto p-8">{children}</div>
+          <div className="container mx-auto max-w-screen-xl p-8">
+            {children}
+          </div>
         </main>
       </body>
     </html>
