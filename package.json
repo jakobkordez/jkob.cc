@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ./src/**",
-    "now-build": "next build"
+    "format": "prettier --write ./src/**"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
