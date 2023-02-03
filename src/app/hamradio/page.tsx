@@ -4,7 +4,7 @@ export default function Hamradio() {
       <h1>Amateur Radio</h1>
 
       <h2>My Stats</h2>
-      <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-white/20 p-4 shadow-2xl backdrop-blur md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 shadow-2xl md:grid-cols-3">
         <div className="mx-auto my-auto text-center">
           <div className="mb-1 text-lg">QSO&apos;s</div>
           <div className="text-4xl font-medium">1.7 k</div>
@@ -19,10 +19,11 @@ export default function Hamradio() {
           <div className="text-4xl font-medium">18,371 km</div>
           <div>RE78 FT8 20 W</div>
         </div>
+        {/* Grid squares, DXCC, ??? */}
       </div>
 
       <h2>QSO breakdown</h2>
-      <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-white/20 p-4 shadow-2xl backdrop-blur md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 shadow-2xl md:grid-cols-2">
         <div className="mx-auto my-auto">
           <div className="mb-2 text-center text-lg">By mode</div>
           <div>FT8 - 1349</div>
@@ -49,6 +50,18 @@ export default function Hamradio() {
           </div>
         </div>
       </div>
+
+      {/* Radios */}
+
+      {/* Antennas */}
+
+      {/* QSL */}
+
+      {/* SOTA */}
+
+      {/* DIY */}
+
+      {/* Special calls */}
 
       {/* <div className="content my-6">
         <h2>Most recent QSO&apos;s</h2>

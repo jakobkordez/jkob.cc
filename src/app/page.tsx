@@ -84,7 +84,7 @@ function Tag({ color, children, href }: TagProps) {
 
 function UserCard() {
   return (
-    <div className="m-auto mt-0 max-w-xs overflow-hidden rounded bg-white/20 shadow-2xl backdrop-blur">
+    <div className="m-auto mt-0 max-w-xs overflow-hidden rounded shadow-2xl">
       <Image
         className="w-full"
         src="/images/portrait.jpg"
@@ -92,7 +92,7 @@ function UserCard() {
         width={320}
         height={320}
       />
-      <div className="px-6 py-4">
+      <div className="bg-gradient-to-br from-white/10 to-white/20 px-6 py-4">
         <div className="text-xl font-bold">Jakob Kordež</div>
         <div className="mb-2 text-lg font-medium">S52KJ</div>
         <div>
