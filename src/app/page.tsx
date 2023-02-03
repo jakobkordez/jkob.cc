@@ -10,10 +10,10 @@ export default function Home() {
   return (
     <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
       <div className="content">
-        <h1>Hello World!</h1>
+        <h1>Hello!</h1>
         <p>
-          Hi, I&apos;m Jakob and I&apos;m a software developer. I&apos;m
-          currently working at Metrel d. d. as a software developer.
+          My name is Jakob and I&apos;m a software developer. I&apos;m currently
+          working at Metrel d. d. as a software developer.
         </p>
         <p>
           I&apos;m a student at the University of Maribor where I&apos;m

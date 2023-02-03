@@ -15,25 +15,26 @@ export default function Header() {
 
   return (
     <header className="py-4 px-6 font-medium tracking-wider drop-shadow-md backdrop-brightness-50 backdrop-saturate-200">
-      <nav className="flex space-x-8 text-lg">
-        <Link className="mr-auto" href="/">
+      <nav className="flex-none flex-wrap space-y-4 text-lg md:flex md:space-x-8 md:space-y-0">
+        <Link className="md:mr-auto" href="/">
           <Image
             src="/images/logo_48.png"
             height={48}
             width={48}
             alt="Logo"
-            className="h-10 w-10"
+            className="mx-auto h-10 w-10"
           />
         </Link>
 
         {links.map(({ href, label }) => (
-          <Link
-            key={href}
-            className={`link my-auto ${pathname === href ? "is-active" : ""}`}
-            href={href}
-          >
-            {label}
-          </Link>
+          <div key={href} className="flex">
+            <Link
+              className={`link my-auto ${pathname === href ? "is-active" : ""}`}
+              href={href}
+            >
+              {label}
+            </Link>
+          </div>
         ))}
       </nav>
     </header>
