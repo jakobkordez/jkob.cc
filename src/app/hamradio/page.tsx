@@ -119,7 +119,7 @@ export default function Hamradio() {
 
         <ImageWithText
           src="/images/lin_loaded.jpg"
-          alt="80m linear loaded Inverted V"
+          alt="80m linear loaded dipole"
           width={500}
           height={500}
         />
