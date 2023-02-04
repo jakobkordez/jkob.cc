@@ -13,12 +13,13 @@ export default function Home() {
         <h1>Hello!</h1>
         <p>
           My name is Jakob and I&apos;m a software developer. I&apos;m currently
-          working at Metrel d. d. as a software developer.
+          working at <span className="inline-block">Metrel d. d.</span> as a
+          software developer.
         </p>
         <p>
           I&apos;m a student at the University of Maribor where I&apos;m
-          studying computer science. I&apos;m currently in my 2nd year of the
-          postgraduate study program.
+          studying computer science. I&apos;m currently in my 2<sup>nd</sup>{" "}
+          year of the postgraduate study program.
         </p>
         <p>
           I&apos;m also an amateur radio operator. My callsign is S52KJ. I
@@ -95,14 +96,36 @@ function UserCard() {
       <div className="bg-gradient-to-br from-white/10 to-white/20 px-6 py-4">
         <div className="text-xl font-bold">Jakob Kordež</div>
         <div className="mb-2 text-lg font-medium">S52KJ</div>
-        <div>
-          <FontAwesomeIcon icon={faBuilding} className="mr-2" />
-          <span>Metrel d. d.</span>
-        </div>
-        <div>
-          <FontAwesomeIcon icon={faLocationDot} className="mr-2" />
-          <span>Slovenia</span>
-        </div>
+
+        <table>
+          <tbody>
+            <tr>
+              <th className="pr-4">
+                <FontAwesomeIcon icon={faBuilding} />
+              </th>
+              <td>Metrel d. d.</td>
+            </tr>
+            <tr>
+              <th className="pr-4">
+                <FontAwesomeIcon icon={faLocationDot} />
+              </th>
+              <td>Slovenia</td>
+            </tr>
+            <tr>
+              <th className="pr-4">CQ</th>
+              <td>15</td>
+            </tr>
+            <tr>
+              <th className="pr-4">ITU</th>
+              <td>28</td>
+            </tr>
+            <tr>
+              <th className="pr-4">Grid</th>
+              <td>JN76db</td>
+            </tr>
+          </tbody>
+        </table>
+
         <div className="mt-4 flex flex-wrap gap-3">
           <LinkButton href="https://github.com/jakobkordez" icon={faGithub}>
             GitHub

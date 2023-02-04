@@ -26,17 +26,16 @@ export default function Projects() {
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <div
+          <Link
             key={project.name}
             className="break-inside-avoid rounded bg-gradient-to-br from-white/10 to-white/20 p-4"
+            href={project.href}
           >
-            <Link href={project.href}>
-              <div className="mb-2 text-2xl font-bold">{project.name}</div>
-              {project.description && (
-                <div className="text-sm">{project.description}</div>
-              )}
-            </Link>
-          </div>
+            <div className="mb-2 text-2xl font-bold">{project.name}</div>
+            {project.description && (
+              <div className="text-sm">{project.description}</div>
+            )}
+          </Link>
         ))}
       </div>
     </div>
