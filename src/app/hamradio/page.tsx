@@ -69,7 +69,7 @@ export default function Hamradio() {
         <div className="m-auto">
           <div className="mb-2 text-center text-lg font-bold">By mode</div>
           <div className="columns-2 gap-8">
-            {Object.entries(stats.by_mode).map(([_, [mode, count]]) => (
+            {stats.by_mode.map(([mode, count]) => (
               <div key={mode}>
                 {mode} - {count}
               </div>
@@ -79,7 +79,7 @@ export default function Hamradio() {
         <div className="m-auto">
           <div className="mb-2 text-center text-lg font-bold">By band</div>
           <div className="columns-3 gap-8">
-            {Object.entries(stats.by_band).map(([_, [band, count]]) => (
+            {stats.by_band.map(([band, count]) => (
               <div key={band}>
                 {band} - {count}
               </div>
