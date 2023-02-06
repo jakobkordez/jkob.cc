@@ -92,6 +92,7 @@ function UserCard() {
         alt="Portrait"
         width={320}
         height={320}
+        priority
       />
       <div className="bg-gradient-to-br from-white/10 to-white/20 px-6 py-4">
         <div className="text-xl font-bold">Jakob Kordež</div>
