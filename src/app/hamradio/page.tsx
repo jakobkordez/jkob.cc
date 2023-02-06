@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Link from "next/link";
+import ModalImage from "@/components/modal_image";
 
 const stats = {
   total: 1717,
@@ -238,12 +237,6 @@ interface ImageWithTextProps {
 
 function ImageWithText({ src, alt, width, height, text }: ImageWithTextProps) {
   return (
-    <Link
-      href={src}
-      className="mx-auto mb-auto block w-fit overflow-hidden rounded bg-white/20 shadow-2xl"
-    >
-      <Image src={src} alt={alt} width={width} height={height} />
-      <div className="py-1 px-3">{text ?? alt}</div>
-    </Link>
+    <ModalImage src={src} alt={text ?? alt} width={width} height={height} />
   );
 }
