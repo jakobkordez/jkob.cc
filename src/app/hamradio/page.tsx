@@ -106,7 +106,7 @@ export default function Hamradio() {
             <strong>Yaesu FTDX-3000</strong>.
           </p>
 
-          <ImageWithText
+          <ModalImage
             src="/images/portable.jpg"
             alt="Portable setup"
             width={500}
@@ -114,7 +114,7 @@ export default function Hamradio() {
           />
         </div>
 
-        <ImageWithText
+        <ModalImage
           src="/images/setup.jpg"
           alt="Home setup"
           width={500}
@@ -143,21 +143,21 @@ export default function Hamradio() {
           </p>
         </div>
 
-        <ImageWithText
+        <ModalImage
           src="/images/4_1_balun.jpg"
           alt="4:1 Balun"
           height={500}
           width={500}
         />
 
-        <ImageWithText
+        <ModalImage
           src="/images/lin_loaded.jpg"
           alt="80m linear loaded dipole"
           width={500}
           height={500}
         />
 
-        <ImageWithText
+        <ModalImage
           src="/images/multi_inv_v.jpg"
           alt="17m, 15m and 10m Inverted V fan dipole"
           width={500}
@@ -182,7 +182,7 @@ export default function Hamradio() {
           </p>
         </div>
 
-        <ImageWithText
+        <ModalImage
           src="/images/qsl_2022.jpg"
           alt="My QSL card"
           width={500}
@@ -197,12 +197,11 @@ export default function Hamradio() {
           summits. I&apos;ve activated one summit two times so far.
         </p>
 
-        <ImageWithText
+        <ModalImage
           src="/images/sota_1.jpg"
-          alt="SOTA setup"
+          alt="My first SOTA pack"
           width={500}
           height={500}
-          text="My first SOTA pack"
         />
       </div>
 
@@ -224,19 +223,5 @@ export default function Hamradio() {
         ></iframe>
       </div> */}
     </div>
-  );
-}
-
-interface ImageWithTextProps {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  text?: string;
-}
-
-function ImageWithText({ src, alt, width, height, text }: ImageWithTextProps) {
-  return (
-    <ModalImage src={src} alt={text ?? alt} width={width} height={height} />
   );
 }

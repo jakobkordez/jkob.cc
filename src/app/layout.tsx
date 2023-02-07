@@ -1,3 +1,4 @@
+import { AnalyticsWrapper } from "@/components/analytics";
 import Header from "@/components/header";
 import "@/styles/globals.scss";
 
@@ -25,6 +26,8 @@ export default function RootLayout({
             {children}
           </div>
         </main>
+
+        <AnalyticsWrapper />
       </body>
     </html>
   );
