@@ -19,7 +19,7 @@ export default function ModalImage({
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <>
+    <div>
       <div
         onClick={() => setShowModal(true)}
         className="mx-auto mb-auto block w-fit cursor-pointer overflow-hidden rounded bg-white/20 shadow-2xl hover:brightness-75"
@@ -44,6 +44,6 @@ export default function ModalImage({
           />
         </div>
       )}
-    </>
+    </div>
   );
 }

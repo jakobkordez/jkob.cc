@@ -29,6 +29,8 @@ const stats = {
   dxccs: 122,
 };
 
+const colStyle = "gap-10 space-y-10 md:columns-2";
+
 export default function Hamradio() {
   return (
     <div className="content">
@@ -88,7 +90,7 @@ export default function Hamradio() {
       </div>
 
       <h2>My radios</h2>
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div className={colStyle}>
         <div>
           <p>
             My primary TRX is a <strong>Xiegu G90</strong> which is a 20W HF all
@@ -105,14 +107,14 @@ export default function Hamradio() {
             When I need more power I use my fathers{" "}
             <strong>Yaesu FTDX-3000</strong>.
           </p>
-
-          <ModalImage
-            src="/images/portable.jpg"
-            alt="Portable setup"
-            width={500}
-            height={500}
-          />
         </div>
+
+        <ModalImage
+          src="/images/portable.jpg"
+          alt="Portable setup"
+          width={500}
+          height={500}
+        />
 
         <ModalImage
           src="/images/setup.jpg"
@@ -123,7 +125,7 @@ export default function Hamradio() {
       </div>
 
       <h2>My antennas</h2>
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div className={colStyle}>
         <div>
           <p>
             All of the antennas are homebrewed. I mostly use a{" "}
@@ -166,7 +168,7 @@ export default function Hamradio() {
       </div>
 
       <h2>QSL</h2>
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div className={colStyle}>
         <div>
           <p>
             I use <strong>QRZ&apos;s Logbook</strong> so confirmations there are
@@ -191,7 +193,7 @@ export default function Hamradio() {
       </div>
 
       <h2>SOTA</h2>
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div className={colStyle}>
         <p>
           I sometimes take my radio and antennas with me on hikes and activate
           summits. I&apos;ve activated one summit two times so far.
