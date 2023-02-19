@@ -29,6 +29,11 @@ const stats = {
   dxccs: 122,
 };
 
+export const metadata = {
+  title: "Amateur Radio",
+  description: "My amateur radio activities.",
+};
+
 const colStyle = "gap-10 space-y-10 md:columns-2";
 
 export default function Hamradio() {

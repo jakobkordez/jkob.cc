@@ -19,6 +19,11 @@ const projects = [
   },
 ];
 
+export const metadata = {
+  title: 'Projects',
+  description: 'Projects I have worked on.',
+};
+
 export default function Projects() {
   return (
     <div className="content">
