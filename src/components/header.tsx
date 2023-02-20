@@ -11,7 +11,10 @@ const links = [
 ];
 
 export default function Header() {
-  const pathname = usePathname();
+  let pathname = usePathname();
+  if (pathname.startsWith("/projects/")) {
+    pathname = "/projects";
+  }
 
   return (
     <header className="py-4 px-6 font-medium tracking-wider drop-shadow-md backdrop-brightness-50 backdrop-saturate-200">

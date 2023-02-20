@@ -22,10 +22,10 @@ export default function ModalImage({
     <div>
       <div
         onClick={() => setShowModal(true)}
-        className="mx-auto mb-auto block w-fit cursor-pointer overflow-hidden rounded bg-white/20 shadow-2xl transition-all ease-in-out hover:scale-105 hover:brightness-75"
+        className="mx-auto mb-auto block w-fit cursor-pointer overflow-hidden rounded bg-white/20 shadow-2xl transition-all ease-in-out hover:brightness-75"
       >
         <Image src={src} alt={alt} width={width} height={height} />
-        <div className="py-1 px-3">{alt}</div>
+        {alt && <div className="py-1 px-3">{alt}</div>}
       </div>
 
       {showModal && (

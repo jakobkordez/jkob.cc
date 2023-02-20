@@ -34,8 +34,22 @@ img {
   height: auto;
 }
 
+article.blog {
+  max-width: 700px;
+  margin: 0 auto;
+
+  a {
+    color: #ccf;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
 .content {
   font-size: large;
+  color: #eee;
 
   h1 {
     font-size: 2rem;

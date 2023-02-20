@@ -1,4 +1,5 @@
 const path = require('path')
+const ncl = require("next-contentlayer");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -10,4 +11,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = ncl.withContentlayer(nextConfig)
