@@ -49,7 +49,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     <div className="content">
       <article className="blog">
         {project.image && (
-          <ModalImage width={1000} height={1000} src={project.image} alt="" />
+          <div className="h-60 overflow-clip rounded">
+            <ModalImage width={700} height={240} src={project.image} alt="" />
+          </div>
         )}
         <h1>{project.title}</h1>
         <div className="mb-8 flex flex-wrap gap-2">

@@ -26,7 +26,7 @@ export default function Projects() {
           .map((project) => (
             <Link
               key={project.slug}
-              className="mb-auto break-inside-avoid overflow-clip rounded"
+              className="mb-auto break-inside-avoid overflow-clip rounded transition-all hover:scale-[1.02]"
               href={`/projects/${project.slug}`}
             >
               {project.image && (
@@ -35,6 +35,7 @@ export default function Projects() {
                   width={400}
                   height={300}
                   alt={project.title}
+                  className="aspect-[3] w-full bg-gray-500/10 object-cover object-top"
                 />
               )}
               <div className="bg-gradient-to-br from-white/10 to-white/20 p-4">
