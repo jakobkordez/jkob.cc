@@ -1,4 +1,4 @@
-import { Metadata } from "next/types";
+import type { Metadata } from "next";
 import { AnalyticsWrapper } from "@/components/analytics";
 import Header from "@/components/header";
 import "@/styles/globals.scss";
@@ -14,7 +14,29 @@ export const metadata: Metadata = {
   },
   description: "Developer and amateur radio enthusiast.",
   icons: {
+    icon: "/images/logo_bg_256.png",
     shortcut: "/images/logo_bg_256.png",
+  },
+  creator: "Jakob Kordež",
+  keywords: ["Developer", "Amateur radio", "Software", "Next.js"],
+  themeColor: "#12071c",
+  colorScheme: "dark",
+  category: "portfolio",
+  openGraph: {
+    title: "Jakob Kordež",
+    description: "Developer and amateur radio enthusiast.",
+    url: "https://jkob.cc",
+    siteName: "Jakob Kordež",
+    locale: "en_US",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 
