@@ -12,7 +12,7 @@ const links = [
 
 export default function Header() {
   let pathname = usePathname();
-  if (pathname.startsWith("/projects/")) {
+  if (pathname?.startsWith("/projects/")) {
     pathname = "/projects";
   }
 
