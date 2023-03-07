@@ -1,5 +1,12 @@
 import IgImage from "@/components/ig_image";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Gallery",
+  description: "My latest Instagram posts",
+  keywords: ["gallery", "instagram"],
+};
 
 interface Post {
   id: string;

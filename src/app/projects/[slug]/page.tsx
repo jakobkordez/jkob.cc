@@ -20,6 +20,7 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.description,
+    keywords: project.tags,
   };
 }
 

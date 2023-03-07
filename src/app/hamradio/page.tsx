@@ -1,4 +1,5 @@
 import ModalImage from "@/components/modal_image";
+import { Metadata } from "next";
 
 const stats = {
   total: 1717,
@@ -29,9 +30,10 @@ const stats = {
   dxccs: 122,
 };
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Amateur Radio",
   description: "My amateur radio activities.",
+  keywords: ["hamradio", "amateur radio", "antennas", "qsl card", "sota"],
 };
 
 const colStyle = "gap-10 space-y-10 md:columns-2";

@@ -1,10 +1,12 @@
 import { allProjects } from "contentlayer/generated";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Projects",
   description: "Projects I have worked on.",
+  keywords: ["projects", "blog"],
 };
 
 export default function Projects() {
