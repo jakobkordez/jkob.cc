@@ -23,6 +23,10 @@ export async function generateMetadata({
   };
 }
 
+function CustomLink(props: any) {
+  return <a className="link" {...props} />;
+}
+
 function MdxImage(props: any) {
   return <ModalImage width={1000} height={1000} {...props} />;
 }
@@ -34,6 +38,7 @@ function Paragraph(props: any) {
 const components = {
   img: MdxImage,
   p: Paragraph,
+  a: CustomLink,
 };
 
 export default function ProjectPage({ params }: ProjectPageProps) {
