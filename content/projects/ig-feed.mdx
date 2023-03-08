@@ -1,0 +1,58 @@
+---
+title: "Instagram integration"
+description: "Showing my recent Instagram posts on my website"
+date: 2023-03-07
+tags:
+  - "Next.js"
+  - "Instagram API"
+  - "Gallery"
+image: "/images/projects/ig_feed.jpg"
+---
+
+To show of my Instagram posts I decided to implement a gallery on my website.
+I searched for a bit but I couldn't find a good solution.
+
+## The Instagram API
+
+I used the [Instagram Basic Display API](https://developers.facebook.com/docs/instagram-basic-display-api),
+but I was a bit confused on how to get the access token required for making the requests.
+
+I found a package called [instagram-gallery](https://www.npmjs.com/package/instagram-gallery) that
+gives some simple steps on how to get the access token.
+
+### Getting the access token
+
+The package documentation gave these steps:
+
+- Log in to [Facebook Developer](https://developers.facebook.com/)
+- Create an app that uses Instagram basic display
+- Add a test user in the roles section
+- Accept the tester invitation on Instagram (Settings > Apps and Websites > Tester Invites)
+- Go back to the Facebook Developer portal and you should be able to generate a token for the account
+
+## Enviromental variables
+
+To keep the access token and my user id hidden I used enviromental variables.
+
+The `.env` file in the source code is there to show the structure of the file.
+To store my secrets localy I used the file `.env.local` which is ignored by git by default.
+
+Because I use Vercel to host my website I had to add the enviromental variables to the Vercel dashboard.
+
+## Fetching and displaying the posts
+
+Displaying the posts was pretty simple. Because Next.js supports server side rendering
+I could just use a [Server Component](https://beta.nextjs.org/docs/rendering/server-and-client-components#server-components)
+which has access to the enviromental variables.
+
+To fetch the posts I used the [Media endpoint](https://developers.facebook.com/docs/instagram-basic-display-api/reference/media#fields).
+
+To avoid sending too many requests I used a [`revalidate`](https://beta.nextjs.org/docs/api-reference/segment-config#revalidate) value of 30 minutes.
+
+## Source code
+
+You can find the commit with the implementation on [GitHub](https://github.com/jakobkordez/jkob.cc/commit/85fd50c5965aad959e604239a6e5710417ebaeec)
+
+## The final product
+
+Check it out the final product here: [Gallery](/gallery)

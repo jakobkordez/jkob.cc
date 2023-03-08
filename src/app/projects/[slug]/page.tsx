@@ -36,10 +36,15 @@ function Paragraph(props: any) {
   return <div className="mb-4" {...props} />;
 }
 
+function List(props: any) {
+  return <ul className="mb-4 ml-8 list-disc" {...props} />;
+}
+
 const components = {
   img: MdxImage,
   p: Paragraph,
   a: CustomLink,
+  ul: List,
 };
 
 export default function ProjectPage({ params }: ProjectPageProps) {

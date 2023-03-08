@@ -77,6 +77,19 @@ article.blog {
     }
   }
 
+  h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+
+    &:not(:first-child) {
+      margin-top: 1.6rem;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
   p {
     margin: 1rem 0;
   }

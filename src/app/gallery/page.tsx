@@ -42,13 +42,13 @@ export default async function Gallery() {
           </Link>
           .
         </p>
-        {/* <p>
+        <p>
           To find out how I integrated this check out{" "}
           <Link className="link" href="/projects/ig-feed">
             Instagram integration
           </Link>
           .
-        </p> */}
+        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
