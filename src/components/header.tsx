@@ -22,7 +22,7 @@ export default function Header() {
       <nav className="flex-none flex-wrap space-y-4 text-lg md:flex md:space-x-8 md:space-y-0">
         <Link className="md:mr-auto" href="/">
           <Image
-            src="/images/logo_128.png"
+            src="/images/logo/logo_128.png"
             height={48}
             width={48}
             alt="Logo"

@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   },
   description: "Developer and amateur radio enthusiast.",
   icons: {
-    icon: "/images/logo_bg_256.png",
-    shortcut: "/images/logo_bg_256.png",
+    icon: "/images/logo/logo_bg_256.png",
+    shortcut: "/images/logo/logo_bg_256.png",
   },
   creator: "Jakob Kordež",
   keywords: ["Developer", "Amateur radio", "Software", "Next.js"],

@@ -117,14 +117,14 @@ export default function Hamradio() {
         </div>
 
         <ModalImage
-          src="/images/portable.jpg"
+          src="/images/hamradio/portable.jpg"
           alt="Portable setup"
           width={500}
           height={500}
         />
 
         <ModalImage
-          src="/images/setup.jpg"
+          src="/images/hamradio/setup.jpg"
           alt="Home setup"
           width={500}
           height={500}
@@ -153,21 +153,21 @@ export default function Hamradio() {
         </div>
 
         <ModalImage
-          src="/images/4_1_balun.jpg"
+          src="/images/hamradio/4_1_balun.jpg"
           alt="4:1 Balun"
           height={500}
           width={500}
         />
 
         <ModalImage
-          src="/images/lin_loaded.jpg"
+          src="/images/hamradio/lin_loaded.jpg"
           alt="80m linear loaded dipole"
           width={500}
           height={500}
         />
 
         <ModalImage
-          src="/images/multi_inv_v.jpg"
+          src="/images/hamradio/multi_inv_v.jpg"
           alt="17m, 15m and 10m Inverted V fan dipole"
           width={500}
           height={500}
@@ -192,7 +192,7 @@ export default function Hamradio() {
         </div>
 
         <ModalImage
-          src="/images/qsl_2022.jpg"
+          src="/images/hamradio/qsl_2022.jpg"
           alt="My QSL card"
           width={500}
           height={500}
@@ -207,7 +207,7 @@ export default function Hamradio() {
         </p>
 
         <ModalImage
-          src="/images/sota_1.jpg"
+          src="/images/hamradio/sota_1.jpg"
           alt="My first SOTA pack"
           width={500}
           height={500}
