@@ -16,8 +16,6 @@ interface Post {
   timestamp: string;
 }
 
-export const revalidate = 1800;
-
 export default async function Gallery() {
   let posts, username;
 
@@ -64,7 +62,8 @@ export default async function Gallery() {
 
 async function fetchInstagramPosts(): Promise<Post[]> {
   const res = await fetch(
-    `https://graph.instagram.com/v16.0/${process.env.USER_ID}/media?access_token=${process.env.ACCESS_TOKEN}&fields=id,media_type,media_url,thumbnail_url,timestamp`
+    `https://graph.instagram.com/v16.0/${process.env.USER_ID}/media?access_token=${process.env.ACCESS_TOKEN}&fields=id,media_type,media_url,thumbnail_url,timestamp`,
+    { next: { revalidate: 1800 } }
   );
   const data = await res.json();
 
