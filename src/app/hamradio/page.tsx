@@ -2,11 +2,11 @@ import ModalImage from "@/components/modal_image";
 import { Metadata } from "next";
 
 const stats = {
-  total: 1717,
+  total: 1768,
   by_mode: [
     ["CW", 75],
     ["SSB", 286],
-    ["FT8", 1349],
+    ["FT8", 1400],
     ["FT4", 3],
     ["FM", 1],
     ["RTTY", 2],
@@ -14,20 +14,20 @@ const stats = {
   ],
   by_band: [
     ["160m", 16],
-    ["80m", 112],
-    ["60m", 175],
-    ["40m", 261],
-    ["30m", 396],
+    ["80m", 115],
+    ["60m", 182],
+    ["40m", 275],
+    ["30m", 410],
     ["20m", 213],
-    ["17m", 120],
-    ["15m", 238],
-    ["12m", 57],
+    ["17m", 125],
+    ["15m", 243],
+    ["12m", 60],
     ["10m", 114],
     ["6m", 14],
     ["70cm", 1],
   ],
-  gridsquares: 496,
-  dxccs: 122,
+  gridsquares: 504,
+  dxccs: 124,
 };
 
 export const metadata: Metadata = {
@@ -62,8 +62,8 @@ export default function Hamradio() {
       <div className="mt-4 grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 text-center shadow-2xl md:grid-cols-2">
         <div className="m-auto">
           <div className="mb-1 text-lg">Most wanted prefix in logbook</div>
-          <div className="text-4xl font-medium">TN</div>
-          <div>#80 most wanted</div>
+          <div className="text-4xl font-medium">3B7</div>
+          <div>#54 most wanted</div>
         </div>
         <div className="m-auto">
           <div className="mb-1 text-lg">Furthest QSO</div>
