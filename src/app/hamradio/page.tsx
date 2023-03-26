@@ -168,7 +168,7 @@ export default function Hamradio() {
   );
 }
 
-export async function getStats(): Promise<QsoStats | null> {
+async function getStats(): Promise<QsoStats | null> {
   try {
     const client = await clientPromise;
     const db = client.db();
