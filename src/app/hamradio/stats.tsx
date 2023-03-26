@@ -56,7 +56,7 @@ const Value = async function Value({
   const value = await promise;
 
   return <div className="text-4xl font-medium">{value ?? "err"}</div>;
-} as any as ({
+} as unknown as ({
   promise,
 }: {
   promise: Promise<number | undefined>;

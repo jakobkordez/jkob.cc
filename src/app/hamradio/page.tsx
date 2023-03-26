@@ -251,6 +251,7 @@ export async function getStats(): Promise<QsoStats | null> {
   return null;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function getMostWanted(): Promise<number[]> {
   const uri = "https://clublog.org/mostwanted.php?api=1";
 

@@ -48,7 +48,7 @@ const Table = async function Table({
       ))}
     </div>
   );
-} as any as ({
+} as unknown as ({
   columns,
   entries,
 }: {
