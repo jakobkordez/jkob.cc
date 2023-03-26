@@ -1,34 +1,12 @@
 import ModalImage from "@/components/modal_image";
+import { QsoStats } from "@/interfaces/qso_stats";
+import clientPromise from "@/lib/mongodb";
 import { Metadata } from "next";
+import Breakdown from "./breakdown";
+import Stats from "./stats";
 
-const stats = {
-  total: 1768,
-  by_mode: [
-    ["CW", 75],
-    ["SSB", 286],
-    ["FT8", 1400],
-    ["FT4", 3],
-    ["FM", 1],
-    ["RTTY", 2],
-    ["JS8", 1],
-  ],
-  by_band: [
-    ["160m", 16],
-    ["80m", 115],
-    ["60m", 182],
-    ["40m", 275],
-    ["30m", 410],
-    ["20m", 213],
-    ["17m", 125],
-    ["15m", 243],
-    ["12m", 60],
-    ["10m", 114],
-    ["6m", 14],
-    ["70cm", 1],
-  ],
-  gridsquares: 504,
-  dxccs: 124,
-};
+// Revalidate every 24 hours
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Amateur Radio",
@@ -39,62 +17,17 @@ export const metadata: Metadata = {
 const colStyle = "gap-10 space-y-10 md:columns-2";
 
 export default function Hamradio() {
+  const stats = getStats();
+
   return (
     <div className="content">
       <h1>Amateur Radio</h1>
 
       <h2>My Stats</h2>
-      <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 text-center shadow-2xl md:grid-cols-3">
-        <div className="m-auto">
-          <div className="mb-1 text-lg">QSOs</div>
-          <div className="text-4xl font-medium">{stats.total}</div>
-        </div>
-        <div className="m-auto">
-          <div className="mb-1 text-lg">DXCCs</div>
-          <div className="text-4xl font-medium">{stats.dxccs}</div>
-        </div>
-        <div className="m-auto">
-          <div className="mb-1 text-lg">Grid Squares</div>
-          <div className="text-4xl font-medium">{stats.gridsquares}</div>
-        </div>
-      </div>
-
-      <div className="mt-4 grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 text-center shadow-2xl md:grid-cols-2">
-        <div className="m-auto">
-          <div className="mb-1 text-lg">Most wanted prefix in logbook</div>
-          <div className="text-4xl font-medium">3B7</div>
-          <div>#54 most wanted</div>
-        </div>
-        <div className="m-auto">
-          <div className="mb-1 text-lg">Furthest QSO</div>
-          <div className="text-4xl font-medium">18,371 km</div>
-          <div>RE78 FT8 20 W</div>
-        </div>
-      </div>
+      <Stats statsP={stats} />
 
       <h2>QSO breakdown</h2>
-      <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 shadow-2xl md:grid-cols-2">
-        <div className="m-auto">
-          <div className="mb-2 text-center text-lg font-bold">By mode</div>
-          <div className="columns-2 gap-8">
-            {stats.by_mode.map(([mode, count]) => (
-              <div key={mode}>
-                {mode} - {count}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="m-auto">
-          <div className="mb-2 text-center text-lg font-bold">By band</div>
-          <div className="columns-3 gap-8">
-            {stats.by_band.map(([band, count]) => (
-              <div key={band}>
-                {band} - {count}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <Breakdown statsP={stats} />
 
       <h2>My radios</h2>
       <div className={colStyle}>
@@ -233,4 +166,95 @@ export default function Hamradio() {
       </div> */}
     </div>
   );
+}
+
+export async function getStats(): Promise<QsoStats | null> {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    const count = await db.collection("logentries").countDocuments();
+
+    const bands = await db
+      .collection("logentries")
+      .aggregate([
+        {
+          $group: {
+            _id: { $toLower: "$data.BAND" },
+            count: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray()
+      .then((bands) =>
+        bands.reduce((acc, { _id, count }) => {
+          acc[_id] = count;
+          return acc;
+        }, {})
+      );
+
+    const modes = await db
+      .collection("logentries")
+      .aggregate([
+        {
+          $group: {
+            _id: { $toUpper: "$data.MODE" },
+            count: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray()
+      .then((modes) =>
+        modes.reduce((acc, { _id, count }) => {
+          acc[_id] = count;
+          return acc;
+        }, {})
+      );
+
+    const dxccs = await db.collection("logentries").distinct("data.DXCC");
+    const dxccsCount = dxccs.length;
+
+    const gridsquares = await db
+      .collection("logentries")
+      .aggregate([
+        {
+          $group: {
+            _id: { $toUpper: { $substr: ["$data.GRIDSQUARE", 0, 4] } },
+            count: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray()
+      .then((gridsquares) => gridsquares.length);
+
+    // TODO: Most wanted in log
+
+    // const mostWantedList = await getMostWanted();
+    // let mostWanted = 999;
+    // for (const dxcc of dxccs) {
+    //   const i = mostWantedList.indexOf(dxcc);
+    //   if (i === -1) continue;
+
+    // }
+
+    return {
+      total: count,
+      byBand: bands,
+      byMode: modes,
+      dxccs: dxccsCount,
+      gridsquares,
+    };
+  } catch (e) {
+    console.error(e);
+  }
+
+  return null;
+}
+
+async function getMostWanted(): Promise<number[]> {
+  const uri = "https://clublog.org/mostwanted.php?api=1";
+
+  return fetch(uri)
+    .then((res) => res.json())
+    .then((json) => Object.values(json).map(Number));
 }
