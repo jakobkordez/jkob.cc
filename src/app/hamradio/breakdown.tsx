@@ -1,29 +1,40 @@
-import { QsoStats } from "@/interfaces/qso_stats";
+import clientPromise from "@/lib/mongodb";
 import { Suspense } from "react";
 
-export default function Breakdown({
-  statsP,
-}: {
-  statsP: Promise<QsoStats | null>;
-}) {
+type ByCat = { key: string; count: number }[];
+
+export default function Breakdown() {
+  const byBand = getByBand();
+  const byMode = getByMode();
+  const byCallUsed = getByCallUsed();
+  const byContinent = getByContinent();
+
   return (
     <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 shadow-2xl md:grid-cols-2">
       <div className="m-auto">
         <div className="mb-2 text-center text-lg font-bold">By mode</div>
         <Suspense fallback={<SuspenseFallback />}>
-          <Table
-            columns={2}
-            entries={statsP.then((s) => (s ? prepareModes(s.byMode) : null))}
-          />
+          <Table columns={2} entries={byMode} />
         </Suspense>
       </div>
       <div className="m-auto">
         <div className="mb-2 text-center text-lg font-bold">By band</div>
         <Suspense fallback={<SuspenseFallback />}>
-          <Table
-            columns={3}
-            entries={statsP.then((s) => (s ? prepareBands(s.byBand) : null))}
-          />
+          <Table columns={3} entries={byBand} />
+        </Suspense>
+      </div>
+      <div className="m-auto">
+        <div className="mb-2 text-center text-lg font-bold">
+          By callsign used
+        </div>
+        <Suspense fallback={<SuspenseFallback />}>
+          <Table columns={1} entries={byCallUsed} />
+        </Suspense>
+      </div>
+      <div className="m-auto">
+        <div className="mb-2 text-center text-lg font-bold">By continent</div>
+        <Suspense fallback={<SuspenseFallback />}>
+          <Table columns={2} entries={byContinent} />
         </Suspense>
       </div>
     </div>
@@ -35,7 +46,7 @@ const Table = async function Table({
   entries,
 }: {
   columns: number;
-  entries: Promise<{ key: string; count: number }[] | null>;
+  entries: Promise<ByCat | null>;
 }) {
   const ent = await entries;
 
@@ -55,57 +66,171 @@ const Table = async function Table({
   entries,
 }: {
   columns: number;
-  entries: Promise<{ key: string; count: number }[] | null>;
+  entries: Promise<ByCat | null>;
 }) => JSX.Element;
 
 function SuspenseFallback() {
   return <div className="text-center text-4xl font-medium">-</div>;
 }
 
-function prepareBands(bands: {
-  [key: string]: number;
-}): { key: string; count: number }[] {
+async function getByBand(): Promise<ByCat | null> {
   const units = ["mm", "cm", "m"];
 
-  return Object.entries(bands)
-    .map(([band, count]) => {
-      band = band.toLowerCase();
+  try {
+    const client = await clientPromise;
+    const db = client.db();
 
-      // Split to number and unit
-      const [number, unit] = band.split(/(\d+)/).filter(Boolean);
+    const res = await db
+      .collection("logentries")
+      .aggregate([
+        {
+          $group: {
+            _id: { $toLower: "$data.BAND" },
+            count: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray();
 
-      return {
-        key: band,
-        count,
-        number: parseInt(number),
-        unit: units.indexOf(unit),
-      };
-    })
-    .sort((a, b) => {
-      if (a.unit !== b.unit) {
-        return b.unit - a.unit;
-      }
+    const byBand = res
+      .map(({ _id, count }) => {
+        const band = _id.toLowerCase();
 
-      return b.number - a.number;
-    });
+        // Split to number and unit
+        const [number, unit] = band.split(/(\d+)/).filter(Boolean);
+
+        return {
+          key: band,
+          count,
+          number: parseInt(number),
+          unit: units.indexOf(unit),
+        };
+      })
+      .sort((a, b) => {
+        if (a.unit !== b.unit) {
+          return b.unit - a.unit;
+        }
+
+        return b.number - a.number;
+      });
+
+    return byBand;
+  } catch (e) {
+    console.log(e);
+  }
+
+  return null;
 }
 
-function prepareModes(modes: {
-  [key: string]: number;
-}): { key: string; count: number }[] {
+async function getByMode(): Promise<ByCat | null> {
   const modesPriority = ["FT8", "SSB", "CW"];
 
-  return Object.entries(modes)
-    .map(([mode, count]) => {
-      mode = mode.toUpperCase();
+  try {
+    const client = await clientPromise;
+    const db = client.db();
 
-      return { key: mode, count, priority: modesPriority.indexOf(mode) };
-    })
-    .sort((a, b) => {
-      if (a.priority === -1 && b.priority === -1) {
+    const res = await db
+      .collection("logentries")
+      .aggregate([
+        {
+          $group: {
+            _id: { $toUpper: "$data.MODE" },
+            count: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray();
+
+    const byMode = res
+      .map(({ _id, count }) => {
+        const mode = _id.toUpperCase();
+
+        return { key: mode, count, priority: modesPriority.indexOf(mode) };
+      })
+      .sort((a, b) => {
+        if (a.priority === -1 && b.priority === -1) {
+          return b.count - a.count;
+        }
+
+        return b.priority - a.priority;
+      });
+
+    return byMode;
+  } catch (e) {
+    console.log(e);
+  }
+
+  return null;
+}
+
+async function getByCallUsed(): Promise<ByCat | null> {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    const res = await db
+      .collection("logentries")
+      .aggregate([
+        {
+          $group: {
+            _id: { $toUpper: "$data.STATION_CALLSIGN" },
+            count: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray();
+
+    const byCallUsed = res
+      .map(({ _id, count }) => {
+        const call = _id.toUpperCase();
+
+        return { key: call, count };
+      })
+      .filter((e) => e.key)
+      .sort((a, b) => {
         return b.count - a.count;
-      }
+      });
 
-      return b.priority - a.priority;
-    });
+    return byCallUsed;
+  } catch (e) {
+    console.log(e);
+  }
+
+  return null;
+}
+
+async function getByContinent(): Promise<ByCat | null> {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    const res = await db
+      .collection("logentries")
+      .aggregate([
+        {
+          $group: {
+            _id: { $toUpper: "$data.CONT" },
+            count: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray();
+
+    const byContinent = res
+      .map(({ _id, count }) => {
+        const continent = _id.toUpperCase();
+
+        return { key: continent, count };
+      })
+      .filter((e) => e.key)
+      .sort((a, b) => {
+        return b.count - a.count;
+      });
+
+    return byContinent;
+  } catch (e) {
+    console.log(e);
+  }
+
+  return null;
 }

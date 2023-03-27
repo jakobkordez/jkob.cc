@@ -1,9 +1,7 @@
 import ModalImage from "@/components/modal_image";
-import { QsoStats } from "@/interfaces/qso_stats";
-import clientPromise from "@/lib/mongodb";
-import { fromGridsquare, toPolarPosition } from "@/util/position";
 import { Metadata } from "next";
 import Breakdown from "./breakdown";
+import Latest from "./latest";
 import Stats from "./stats";
 
 // Revalidate every 24 hours
@@ -18,17 +16,18 @@ export const metadata: Metadata = {
 const colStyle = "gap-10 space-y-10 md:columns-2";
 
 export default function Hamradio() {
-  const stats = getStats();
-
   return (
     <div className="content">
       <h1>Amateur Radio</h1>
 
       <h2>My Stats</h2>
-      <Stats statsP={stats} />
+      <Stats />
 
       <h2>QSO breakdown</h2>
-      <Breakdown statsP={stats} />
+      <Breakdown />
+
+      <h2>Most recent QSO&apos;s</h2>
+      <Latest />
 
       <h2>My radios</h2>
       <div className={colStyle}>
@@ -36,9 +35,8 @@ export default function Hamradio() {
           <p>
             My primary TRX is a <strong>Xiegu G90</strong> which is a 20W HF all
             mode transceiver and an <strong>Icom IC-726</strong> that needs some
-            fixing. I also have a <strong>RTL-SDR v3</strong> connected to an
-            old laptop running <strong>rtl-tcp</strong> that I can connect to
-            over the network.
+            fixing. I also have a <strong>RTL-SDR v3</strong> which I sometimes
+            use to recieve higher bands.
           </p>
           <p>
             For VHF/UHF I use a <strong>Baofeng UV-5RTP</strong> which is a
@@ -117,7 +115,7 @@ export default function Hamradio() {
             <strong>LOTW</strong>. If you want to send me a QSL card, you can
             send it to my home address or via the <strong>bureau</strong>. My
             QRZ page has all the details. If you want my QSL card, please
-            contact me.
+            contact me or send a request via <strong>OQRS</strong>.
           </p>
           <p>
             I rarely upload my QSO&apos;s to <strong>eQSL</strong> and{" "}
@@ -156,128 +154,6 @@ export default function Hamradio() {
         activations. I also participated in the 2022 YOTA month with the
         callsign <strong>S50YOTA</strong>.
       </p>
-
-      {/* <div className="content my-6">
-        <h2>Most recent QSO&apos;s</h2>
-        <iframe
-          className="w-full rounded bg-white"
-          height="515"
-          src="https://logbook.qrz.com/lbstat/S52KJ/"
-        ></iframe>
-      </div> */}
     </div>
   );
-}
-
-async function getStats(): Promise<QsoStats | null> {
-  try {
-    const client = await clientPromise;
-    const db = client.db();
-
-    const count = await db.collection("logentries").countDocuments();
-
-    const bands = await db
-      .collection("logentries")
-      .aggregate([
-        {
-          $group: {
-            _id: { $toLower: "$data.BAND" },
-            count: { $sum: 1 },
-          },
-        },
-      ])
-      .toArray()
-      .then((bands) =>
-        bands.reduce((acc, { _id, count }) => {
-          acc[_id] = count;
-          return acc;
-        }, {})
-      );
-
-    const modes = await db
-      .collection("logentries")
-      .aggregate([
-        {
-          $group: {
-            _id: { $toUpper: "$data.MODE" },
-            count: { $sum: 1 },
-          },
-        },
-      ])
-      .toArray()
-      .then((modes) =>
-        modes.reduce((acc, { _id, count }) => {
-          acc[_id] = count;
-          return acc;
-        }, {})
-      );
-
-    const dxccs = await db.collection("logentries").distinct("data.DXCC");
-    const dxccsCount = dxccs.length;
-
-    const gridsquares = await db
-      .collection("logentries")
-      .aggregate([
-        {
-          $group: {
-            _id: { $toUpper: { $substr: ["$data.GRIDSQUARE", 0, 4] } },
-            count: { $sum: 1 },
-          },
-        },
-      ])
-      .toArray()
-      .then((e) => e.filter((g) => g._id.length === 4));
-
-    let furthestG = null;
-    let furthest = 0;
-    const from = fromGridsquare("JN76");
-    for (const grid of gridsquares) {
-      const { distance } = toPolarPosition(from, fromGridsquare(grid._id));
-      if (distance > furthest) {
-        furthest = distance;
-        furthestG = grid._id;
-      }
-    }
-
-    const mostWantedList = await getMostWanted();
-    let mostWantedI = 999;
-    for (const dxcc of dxccs) {
-      const i = mostWantedList.indexOf(dxcc);
-      if (i === -1) continue;
-      if (i < mostWantedI) mostWantedI = i;
-    }
-
-    // Get full callsign for most wanted DXCC
-    const mostWantedDxcc = await db
-      .collection("logentries")
-      .findOne({ "data.DXCC": mostWantedList[mostWantedI] });
-
-    return {
-      total: count,
-      byBand: bands,
-      byMode: modes,
-      dxccs: dxccsCount,
-      gridsquares: gridsquares.length,
-      mostWanted: {
-        callsign: mostWantedDxcc?.data.CALL,
-        wanted: mostWantedI + 1,
-      },
-      furthest: {
-        distance: furthest,
-        gridsquare: furthestG,
-      },
-    };
-  } catch (e) {
-    console.log(e);
-  }
-
-  return null;
-}
-
-async function getMostWanted(): Promise<number[]> {
-  const uri = "https://clublog.org/mostwanted.php?api=1";
-
-  return fetch(uri)
-    .then((res) => res.json())
-    .then((json) => Object.values(json));
 }

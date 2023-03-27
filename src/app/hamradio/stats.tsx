@@ -1,47 +1,49 @@
-import { QsoStats } from "@/interfaces/qso_stats";
+import clientPromise from "@/lib/mongodb";
+import { fromGridsquare, toPolarPosition } from "@/util/position";
 import { Suspense } from "react";
 
-export default function Stats({
-  statsP,
-}: {
-  statsP: Promise<QsoStats | null>;
-}) {
+export default function Stats() {
+  const total = getTotal();
+  const dxccs = getDxccs();
+  const gridsquares = getGridsquares();
+  const rarest = dxccs.then((d) => (d ? getRarest(d) : null));
+  const furthest = gridsquares.then((g) => (g ? getFurthest(g) : null));
+
   return (
     <>
       <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 text-center shadow-2xl md:grid-cols-3">
         <div className="m-auto">
           <div className="mb-1 text-lg">QSOs</div>
           <Suspense fallback={<SuspenseFallback />}>
-            <Value promise={statsP.then((s) => s?.total)} />
+            <Value promise={total} />
           </Suspense>
         </div>
         <div className="m-auto">
           <div className="mb-1 text-lg">DXCCs</div>
           <Suspense fallback={<SuspenseFallback />}>
-            <Value promise={statsP.then((s) => s?.dxccs)} />
+            <Value promise={dxccs.then((d) => d?.length ?? null)} />
           </Suspense>
         </div>
         <div className="m-auto">
           <div className="mb-1 text-lg">Grid Squares</div>
           <Suspense fallback={<SuspenseFallback />}>
-            <Value promise={statsP.then((s) => s?.gridsquares)} />
+            <Value promise={gridsquares.then((g) => g?.length ?? null)} />
           </Suspense>
         </div>
       </div>
 
-      {/* TODO: Dynamic */}
       <div className="mt-4 grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 text-center shadow-2xl md:grid-cols-2">
         <div className="m-auto">
           <div className="mb-1 text-lg">Rarest DXCC</div>
           <Suspense fallback={<SuspenseFallback />}>
             <ValueWithSub
-              promise={statsP.then((s) =>
-                s
+              promise={rarest.then((r) =>
+                r
                   ? {
-                      value: s.mostWanted.callsign,
-                      sub: `#${s.mostWanted.wanted} most wanted`,
+                      value: r.callsign,
+                      sub: `#${r.rank} most wanted`,
                     }
-                  : undefined
+                  : null
               )}
             />
           </Suspense>
@@ -50,15 +52,14 @@ export default function Stats({
           <div className="mb-1 text-lg">Furthest QSO</div>
           <Suspense fallback={<SuspenseFallback />}>
             <ValueWithSub
-              promise={statsP.then((s) => {
-                const furthest = s?.furthest;
-                if (!furthest) return undefined;
+              promise={furthest.then((s) => {
+                if (!s) return null;
 
-                const d = Math.round(furthest.distance / 1000).toLocaleString();
+                const d = Math.round(s.distance / 1000).toLocaleString();
 
                 return {
                   value: `${d} km`,
-                  sub: furthest.gridsquare,
+                  sub: s.gridsquare,
                 };
               })}
             />
@@ -74,7 +75,7 @@ export default function Stats({
 const Value = async function Value({
   promise,
 }: {
-  promise: Promise<number | undefined>;
+  promise: Promise<number | null>;
 }) {
   const value = await promise;
 
@@ -86,13 +87,13 @@ const Value = async function Value({
 } as unknown as ({
   promise,
 }: {
-  promise: Promise<number | undefined>;
+  promise: Promise<number | null>;
 }) => JSX.Element;
 
 const ValueWithSub = async function ValueWithSub({
   promise,
 }: {
-  promise: Promise<{ value: string; sub: string } | undefined>;
+  promise: Promise<{ value: string; sub: string } | null>;
 }) {
   const value = await promise;
 
@@ -107,9 +108,124 @@ const ValueWithSub = async function ValueWithSub({
 } as unknown as ({
   promise,
 }: {
-  promise: Promise<{ value: string; sub: string } | undefined>;
+  promise: Promise<{ value: string; sub: string } | null>;
 }) => JSX.Element;
 
 function SuspenseFallback() {
   return <div className="text-center text-4xl font-medium">-</div>;
+}
+
+async function getTotal(): Promise<number | null> {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    return db.collection("logentries").countDocuments();
+  } catch (e) {
+    console.log(e);
+  }
+
+  return null;
+}
+
+async function getDxccs(): Promise<string[] | null> {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    return db.collection("logentries").distinct("data.DXCC");
+  } catch (e) {
+    console.log(e);
+  }
+
+  return null;
+}
+
+async function getGridsquares(): Promise<string[] | null> {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    return db
+      .collection("logentries")
+      .aggregate([
+        {
+          $group: {
+            _id: { $toUpper: { $substr: ["$data.GRIDSQUARE", 0, 4] } },
+            count: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray()
+      .then((e) => e.filter((g) => g._id.length === 4))
+      .then((e) => e.map((g) => g._id));
+  } catch (e) {
+    console.log(e);
+  }
+
+  return null;
+}
+
+async function getRarest(
+  dxccs: string[]
+): Promise<{ callsign: string; rank: number } | null> {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    const mostWantedList = await getMostWanted();
+    let mostWantedI = 999;
+    for (const dxcc of dxccs) {
+      const i = mostWantedList.indexOf(dxcc);
+      if (i === -1) continue;
+      if (i < mostWantedI) mostWantedI = i;
+    }
+
+    // Get full callsign for most wanted DXCC
+    const callsign = await db
+      .collection("logentries")
+      .findOne({ "data.DXCC": mostWantedList[mostWantedI] })
+      .then((e) => e?.data.CALL);
+
+    return {
+      callsign,
+      rank: mostWantedI + 1,
+    };
+  } catch (e) {
+    console.log(e);
+  }
+
+  return null;
+}
+
+async function getFurthest(
+  gridsquares: string[]
+): Promise<{ gridsquare: string; distance: number } | null> {
+  try {
+    let furthestG = "JN76";
+    let furthest = 0;
+
+    const from = fromGridsquare("JN76");
+    for (const grid of gridsquares) {
+      const { distance } = toPolarPosition(from, fromGridsquare(grid));
+      if (distance > furthest) {
+        furthest = distance;
+        furthestG = grid;
+      }
+    }
+
+    return { gridsquare: furthestG, distance: furthest };
+  } catch (e) {
+    console.log(e);
+  }
+
+  return null;
+}
+
+async function getMostWanted(): Promise<string[]> {
+  const uri = "https://clublog.org/mostwanted.php?api=1";
+
+  return fetch(uri)
+    .then((res) => res.json())
+    .then((json) => Object.values(json));
 }
