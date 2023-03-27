@@ -13,7 +13,7 @@ export default function Breakdown({
         <Suspense fallback={<SuspenseFallback />}>
           <Table
             columns={2}
-            entries={statsP.then((s) => prepareModes(s!.byMode))}
+            entries={statsP.then((s) => (s ? prepareModes(s.byMode) : null))}
           />
         </Suspense>
       </div>
@@ -22,7 +22,7 @@ export default function Breakdown({
         <Suspense fallback={<SuspenseFallback />}>
           <Table
             columns={3}
-            entries={statsP.then((s) => prepareBands(s!.byBand))}
+            entries={statsP.then((s) => (s ? prepareBands(s.byBand) : null))}
           />
         </Suspense>
       </div>
@@ -35,25 +35,27 @@ const Table = async function Table({
   entries,
 }: {
   columns: number;
-  entries: Promise<{ key: string; count: number }[]>;
+  entries: Promise<{ key: string; count: number }[] | null>;
 }) {
   const ent = await entries;
 
-  return (
-    <div className={`columns-${columns} gap-8`}>
+  return ent ? (
+    <div className="gap-8" style={{ columnCount: columns }}>
       {ent.map(({ key, count }) => (
         <div key={key}>
           {key} - {count}
         </div>
       ))}
     </div>
+  ) : (
+    <SuspenseFallback />
   );
 } as unknown as ({
   columns,
   entries,
 }: {
   columns: number;
-  entries: Promise<{ key: string; count: number }[]>;
+  entries: Promise<{ key: string; count: number }[] | null>;
 }) => JSX.Element;
 
 function SuspenseFallback() {

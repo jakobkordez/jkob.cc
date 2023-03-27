@@ -32,14 +32,37 @@ export default function Stats({
       {/* TODO: Dynamic */}
       <div className="mt-4 grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 text-center shadow-2xl md:grid-cols-2">
         <div className="m-auto">
-          <div className="mb-1 text-lg">Most wanted prefix in logbook</div>
-          <div className="text-4xl font-medium">3B7</div>
-          <div>#54 most wanted</div>
+          <div className="mb-1 text-lg">Rarest DXCC</div>
+          <Suspense fallback={<SuspenseFallback />}>
+            <ValueWithSub
+              promise={statsP.then((s) =>
+                s
+                  ? {
+                      value: s.mostWanted.callsign,
+                      sub: `#${s.mostWanted.wanted} most wanted`,
+                    }
+                  : undefined
+              )}
+            />
+          </Suspense>
         </div>
         <div className="m-auto">
           <div className="mb-1 text-lg">Furthest QSO</div>
-          <div className="text-4xl font-medium">18,371 km</div>
-          <div>RE78 FT8 20 W</div>
+          <Suspense fallback={<SuspenseFallback />}>
+            <ValueWithSub
+              promise={statsP.then((s) => {
+                const furthest = s?.furthest;
+                if (!furthest) return undefined;
+
+                const d = Math.round(furthest.distance / 1000).toLocaleString();
+
+                return {
+                  value: `${d} km`,
+                  sub: furthest.gridsquare,
+                };
+              })}
+            />
+          </Suspense>
         </div>
       </div>
 
@@ -55,11 +78,36 @@ const Value = async function Value({
 }) {
   const value = await promise;
 
-  return <div className="text-4xl font-medium">{value ?? "err"}</div>;
+  return value ? (
+    <div className="text-4xl font-medium">{value}</div>
+  ) : (
+    <SuspenseFallback />
+  );
 } as unknown as ({
   promise,
 }: {
   promise: Promise<number | undefined>;
+}) => JSX.Element;
+
+const ValueWithSub = async function ValueWithSub({
+  promise,
+}: {
+  promise: Promise<{ value: string; sub: string } | undefined>;
+}) {
+  const value = await promise;
+
+  return value ? (
+    <>
+      <div className="text-4xl font-medium">{value.value}</div>
+      <div>{value.sub}</div>
+    </>
+  ) : (
+    <SuspenseFallback />
+  );
+} as unknown as ({
+  promise,
+}: {
+  promise: Promise<{ value: string; sub: string } | undefined>;
 }) => JSX.Element;
 
 function SuspenseFallback() {

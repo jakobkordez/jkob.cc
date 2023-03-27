@@ -1,6 +1,7 @@
 import ModalImage from "@/components/modal_image";
 import { QsoStats } from "@/interfaces/qso_stats";
 import clientPromise from "@/lib/mongodb";
+import { fromGridsquare, toPolarPosition } from "@/util/position";
 import { Metadata } from "next";
 import Breakdown from "./breakdown";
 import Stats from "./stats";
@@ -225,37 +226,58 @@ async function getStats(): Promise<QsoStats | null> {
         },
       ])
       .toArray()
-      .then((gridsquares) => gridsquares.length);
+      .then((e) => e.filter((g) => g._id.length === 4));
 
-    // TODO: Most wanted in log
+    let furthestG = null;
+    let furthest = 0;
+    const from = fromGridsquare("JN76");
+    for (const grid of gridsquares) {
+      const { distance } = toPolarPosition(from, fromGridsquare(grid._id));
+      if (distance > furthest) {
+        furthest = distance;
+        furthestG = grid._id;
+      }
+    }
 
-    // const mostWantedList = await getMostWanted();
-    // let mostWanted = 999;
-    // for (const dxcc of dxccs) {
-    //   const i = mostWantedList.indexOf(dxcc);
-    //   if (i === -1) continue;
+    const mostWantedList = await getMostWanted();
+    let mostWantedI = 999;
+    for (const dxcc of dxccs) {
+      const i = mostWantedList.indexOf(dxcc);
+      if (i === -1) continue;
+      if (i < mostWantedI) mostWantedI = i;
+    }
 
-    // }
+    // Get full callsign for most wanted DXCC
+    const mostWantedDxcc = await db
+      .collection("logentries")
+      .findOne({ "data.DXCC": mostWantedList[mostWantedI] });
 
     return {
       total: count,
       byBand: bands,
       byMode: modes,
       dxccs: dxccsCount,
-      gridsquares,
+      gridsquares: gridsquares.length,
+      mostWanted: {
+        callsign: mostWantedDxcc?.data.CALL,
+        wanted: mostWantedI + 1,
+      },
+      furthest: {
+        distance: furthest,
+        gridsquare: furthestG,
+      },
     };
   } catch (e) {
-    console.error(e);
+    console.log(e);
   }
 
   return null;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function getMostWanted(): Promise<number[]> {
   const uri = "https://clublog.org/mostwanted.php?api=1";
 
   return fetch(uri)
     .then((res) => res.json())
-    .then((json) => Object.values(json).map(Number));
+    .then((json) => Object.values(json));
 }
