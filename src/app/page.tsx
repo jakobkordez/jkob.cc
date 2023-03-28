@@ -95,8 +95,7 @@ function UserCard() {
         priority
       />
       <div className="bg-gradient-to-br from-white/10 to-white/20 px-6 py-4">
-        <div className="text-xl font-bold">Jakob Kordež</div>
-        <div className="mb-2 text-lg font-medium">S52KJ</div>
+        <div className="mb-2 text-xl font-bold">Jakob Kordež</div>
 
         <table>
           <tbody>
@@ -112,18 +111,6 @@ function UserCard() {
               </th>
               <td>Slovenia</td>
             </tr>
-            <tr>
-              <th className="pr-4">CQ</th>
-              <td>15</td>
-            </tr>
-            <tr>
-              <th className="pr-4">ITU</th>
-              <td>28</td>
-            </tr>
-            <tr>
-              <th className="pr-4">Grid</th>
-              <td>JN76db</td>
-            </tr>
           </tbody>
         </table>
 
@@ -131,7 +118,6 @@ function UserCard() {
           <LinkButton href="https://github.com/jakobkordez" icon={faGithub}>
             GitHub
           </LinkButton>
-          <LinkButton href="https://www.qrz.com/db/s52kj">QRZ.com</LinkButton>
         </div>
       </div>
     </div>

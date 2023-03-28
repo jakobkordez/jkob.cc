@@ -4,39 +4,28 @@ import { Suspense } from "react";
 type ByCat = { key: string; count: number }[];
 
 export default function Breakdown() {
-  const byBand = getByBand();
-  const byMode = getByMode();
-  const byCallUsed = getByCallUsed();
-  const byContinent = getByContinent();
+  const cats = [
+    { name: "By mode", entries: getByMode(), columns: 2 },
+    { name: "By band", entries: getByBand(), columns: 3 },
+    { name: "By callsign used", entries: getByCallUsed(), columns: 1 },
+    { name: "By continent", entries: getByContinent(), columns: 2 },
+  ];
 
   return (
-    <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 shadow-2xl md:grid-cols-2">
-      <div className="m-auto">
-        <div className="mb-2 text-center text-lg font-bold">By mode</div>
-        <Suspense fallback={<SuspenseFallback />}>
-          <Table columns={2} entries={byMode} />
-        </Suspense>
-      </div>
-      <div className="m-auto">
-        <div className="mb-2 text-center text-lg font-bold">By band</div>
-        <Suspense fallback={<SuspenseFallback />}>
-          <Table columns={3} entries={byBand} />
-        </Suspense>
-      </div>
-      <div className="m-auto">
-        <div className="mb-2 text-center text-lg font-bold">
-          By callsign used
+    <div className="m-4 grid grid-cols-1 gap-6 md:grid-cols-2">
+      {cats.map(({ name, entries, columns }) => (
+        <div
+          key={name}
+          className="flex flex-col overflow-hidden rounded bg-gradient-to-br from-white/5 to-white/10"
+        >
+          <div className="p-3 pb-2 text-center text-lg font-bold">{name}</div>
+          <div className="flex-grow border-t border-t-gray-400 bg-white/5 p-4 pt-2">
+            <Suspense fallback={<SuspenseFallback />}>
+              <Table columns={columns} entries={entries} />
+            </Suspense>
+          </div>
         </div>
-        <Suspense fallback={<SuspenseFallback />}>
-          <Table columns={1} entries={byCallUsed} />
-        </Suspense>
-      </div>
-      <div className="m-auto">
-        <div className="mb-2 text-center text-lg font-bold">By continent</div>
-        <Suspense fallback={<SuspenseFallback />}>
-          <Table columns={2} entries={byContinent} />
-        </Suspense>
-      </div>
+      ))}
     </div>
   );
 }
@@ -51,7 +40,7 @@ const Table = async function Table({
   const ent = await entries;
 
   return ent ? (
-    <div className="gap-8" style={{ columnCount: columns }}>
+    <div className="gap-4 text-center" style={{ columnCount: columns }}>
       {ent.map(({ key, count }) => (
         <div key={key}>
           {key} - {count}

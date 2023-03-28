@@ -6,9 +6,11 @@ export default function Latest() {
   const latest = getLatest();
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <QsoTable qsosP={latest} />
-    </Suspense>
+    <div className="p-4">
+      <Suspense fallback={<Fallback text="Loading..." />}>
+        <QsoTable qsosP={latest} />
+      </Suspense>
+    </div>
   );
 }
 
@@ -20,7 +22,7 @@ const QsoTable = async function QsoTable({
   const qsos = await qsosP;
 
   return (
-    <table className="w-full table-auto rounded bg-white/5 text-left shadow-2xl">
+    <table className="w-full table-auto overflow-hidden rounded bg-gradient-to-br from-white/5 to-white/10 text-left shadow-2xl">
       <thead className="border-b border-b-gray-400">
         <tr>
           <th className="p-4 pb-2">Date</th>
@@ -47,11 +49,7 @@ const QsoTable = async function QsoTable({
             );
           })
         ) : (
-          <tr>
-            <td colSpan={5} className="px-4 py-2 text-center">
-              No QSOs found
-            </td>
-          </tr>
+          <Fallback text="No QSOs found" />
         )}
       </tbody>
     </table>
@@ -88,4 +86,14 @@ async function getLatest(): Promise<Qso[] | null> {
   }
 
   return null;
+}
+
+function Fallback({ text }: { text: string }) {
+  return (
+    <tr>
+      <td colSpan={5} className="px-4 py-2 text-center">
+        {text}
+      </td>
+    </tr>
+  );
 }

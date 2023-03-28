@@ -9,62 +9,67 @@ export default function Stats() {
   const rarest = dxccs.then((d) => (d ? getRarest(d) : null));
   const furthest = gridsquares.then((g) => (g ? getFurthest(g) : null));
 
+  const firstRow = [
+    { name: "QSOs", value: total },
+    { name: "DXCCs", value: dxccs.then((d) => d?.length ?? null) },
+    { name: "Grid Squares", value: gridsquares.then((g) => g?.length ?? null) },
+  ];
+
+  const secondRow = [
+    {
+      name: "Rarest DXCC",
+      value: rarest.then((r) =>
+        r
+          ? {
+              value: r.callsign,
+              sub: `#${r.rank} most wanted`,
+            }
+          : null
+      ),
+    },
+    {
+      name: "Furthest QSO",
+      value: furthest.then((s) => {
+        if (!s) return null;
+
+        const d = Math.round(s.distance / 1000).toLocaleString();
+
+        return {
+          value: `${d} km`,
+          sub: s.gridsquare,
+        };
+      }),
+    },
+  ];
+
   return (
     <>
-      <div className="grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 text-center shadow-2xl md:grid-cols-3">
-        <div className="m-auto">
-          <div className="mb-1 text-lg">QSOs</div>
-          <Suspense fallback={<SuspenseFallback />}>
-            <Value promise={total} />
-          </Suspense>
-        </div>
-        <div className="m-auto">
-          <div className="mb-1 text-lg">DXCCs</div>
-          <Suspense fallback={<SuspenseFallback />}>
-            <Value promise={dxccs.then((d) => d?.length ?? null)} />
-          </Suspense>
-        </div>
-        <div className="m-auto">
-          <div className="mb-1 text-lg">Grid Squares</div>
-          <Suspense fallback={<SuspenseFallback />}>
-            <Value promise={gridsquares.then((g) => g?.length ?? null)} />
-          </Suspense>
-        </div>
+      <div className="m-4 grid grid-cols-1 gap-4 text-center md:grid-cols-3">
+        {firstRow.map(({ name, value }) => (
+          <div
+            key={name}
+            className="rounded bg-gradient-to-br from-white/10 to-white/20 p-4 shadow-2xl"
+          >
+            <div className="mb-1 text-lg">{name}</div>
+            <Suspense fallback={<SuspenseFallback />}>
+              <Value promise={value} />
+            </Suspense>
+          </div>
+        ))}
       </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-8 overflow-hidden rounded bg-gradient-to-br from-white/10 to-white/20 p-4 text-center shadow-2xl md:grid-cols-2">
-        <div className="m-auto">
-          <div className="mb-1 text-lg">Rarest DXCC</div>
-          <Suspense fallback={<SuspenseFallback />}>
-            <ValueWithSub
-              promise={rarest.then((r) =>
-                r
-                  ? {
-                      value: r.callsign,
-                      sub: `#${r.rank} most wanted`,
-                    }
-                  : null
-              )}
-            />
-          </Suspense>
-        </div>
-        <div className="m-auto">
-          <div className="mb-1 text-lg">Furthest QSO</div>
-          <Suspense fallback={<SuspenseFallback />}>
-            <ValueWithSub
-              promise={furthest.then((s) => {
-                if (!s) return null;
-
-                const d = Math.round(s.distance / 1000).toLocaleString();
-
-                return {
-                  value: `${d} km`,
-                  sub: s.gridsquare,
-                };
-              })}
-            />
-          </Suspense>
-        </div>
+      <div className="m-4 grid grid-cols-1 gap-4 text-center md:grid-cols-2">
+        {secondRow.map(({ name, value }) => (
+          <div
+            key={name}
+            className="rounded bg-gradient-to-br from-white/10 to-white/20 p-4 shadow-2xl"
+          >
+            <div className="mb-1 text-lg">{name}</div>
+            <Suspense fallback={<SuspenseFallback />}>
+              <ValueWithSub promise={value} />
+            </Suspense>
+          </div>
+        ))}
       </div>
 
       {/* TODO: add more stats */}
@@ -100,7 +105,7 @@ const ValueWithSub = async function ValueWithSub({
   return value ? (
     <>
       <div className="text-4xl font-medium">{value.value}</div>
-      <div>{value.sub}</div>
+      <div className="mt-1">{value.sub}</div>
     </>
   ) : (
     <SuspenseFallback />

@@ -31,7 +31,7 @@ interface LinkButtonProps {
 export function LinkButton({ children, icon, href }: LinkButtonProps) {
   return (
     <Link
-      className="inline-flex items-center rounded bg-white/90 py-2 px-4 font-bold text-gray-800 hover:bg-gray-300"
+      className="inline-flex items-center rounded border border-white/90 py-2 px-4 font-bold transition-colors hover:bg-white/20"
       href={href}
     >
       {icon && (
