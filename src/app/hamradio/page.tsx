@@ -1,4 +1,5 @@
 import { LinkButton } from "@/components/button";
+import DateTime from "@/components/date_time";
 import ModalImage from "@/components/modal_image";
 import { Metadata } from "next";
 import Breakdown from "./breakdown";
@@ -17,6 +18,8 @@ export const metadata: Metadata = {
 const colStyle = "gap-10 space-y-10 md:columns-2";
 
 export default function Hamradio() {
+  const lastUpdate = new Date();
+
   return (
     <div className="content">
       <h1>Amateur Radio</h1>
@@ -31,6 +34,9 @@ export default function Hamradio() {
 
       <h2>Most recent QSO&apos;s</h2>
       <Latest />
+      <div className="text-center text-sm text-gray-300">
+        Last updated: <DateTime date={lastUpdate.toISOString()} />
+      </div>
 
       <h2>My radios</h2>
       <div className={colStyle}>
