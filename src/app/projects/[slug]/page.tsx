@@ -2,6 +2,7 @@ import { allProjects } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Metadata } from "next";
+import Image from "next/image";
 import ModalImage from "@/components/modal_image";
 
 interface ProjectPageProps {
@@ -60,8 +61,14 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     <div className="content">
       <article className="blog">
         {project.image && (
-          <div className="h-60 overflow-clip rounded">
-            <ModalImage width={700} height={240} src={project.image} alt="" />
+          <div className="relative h-60 w-full overflow-clip rounded">
+            <Image
+              width={700}
+              height={240}
+              src={project.image}
+              alt=""
+              className="object-cover object-top"
+            />
           </div>
         )}
         <h1>{project.title}</h1>
