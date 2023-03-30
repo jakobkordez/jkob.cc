@@ -79,29 +79,32 @@ function Header() {
           <div className="text-5xl font-medium">S52KJ</div>
         </div>
         <table className="mx-auto">
-          <tr>
-            <th className="pr-4">CQZ</th>
-            <td>15</td>
-          </tr>
-          <tr>
-            <th className="pr-4">ITU</th>
-            <td>28</td>
-          </tr>
-          <tr>
-            <th className="pr-4">DXCC</th>
-            <td>499 (Slovenia)</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th className="pr-4">CQZ</th>
+              <td>15</td>
+            </tr>
+            <tr>
+              <th className="pr-4">ITU</th>
+              <td>28</td>
+            </tr>
+            <tr>
+              <th className="pr-4">DXCC</th>
+              <td>499 (Slovenia)</td>
+            </tr>
+          </tbody>
         </table>
         <table className="mx-auto mb-auto">
-          <tr>
-            <th className="pr-4">Class</th>
-            <td>A + CW</td>
-          </tr>
-          <tr>
-            <th className="pr-4">Grid</th>
-            <td>JN76db</td>
-          </tr>
-          {/* <tr>EU</tr> */}
+          <tbody>
+            <tr>
+              <th className="pr-4">Class</th>
+              <td>A + CW</td>
+            </tr>
+            <tr>
+              <th className="pr-4">Grid</th>
+              <td>JN76db</td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <div className="m-4 flex gap-2 text-sm">
