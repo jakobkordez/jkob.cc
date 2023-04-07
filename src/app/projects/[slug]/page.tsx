@@ -11,12 +11,10 @@ interface ProjectPageProps {
   };
 }
 
-export async function generateMetadata({
-  params,
-}: ProjectPageProps): Promise<Metadata | undefined> {
+export function generateMetadata({ params }: ProjectPageProps): Metadata {
   const project = allProjects.find((project) => project.slug === params.slug);
 
-  if (!project) return;
+  if (!project) return {};
 
   return {
     title: project.title,
