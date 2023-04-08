@@ -3,10 +3,6 @@
 # Contentlayer
 .contentlayer/
 
-# Sitemap and robots
-/public/sitemap*.xml
-/public/robots.txt
-
 # dependencies
 /node_modules
 /.pnp

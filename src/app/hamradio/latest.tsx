@@ -20,13 +20,14 @@ const QsoTable = async function QsoTable({
   qsosP: Promise<Qso[] | null>;
 }) {
   const qsos = await qsosP;
+  const hideClass = " hidden sm:table-cell";
 
   return (
     <table className="w-full table-auto overflow-hidden rounded bg-gradient-to-br from-white/5 to-white/10 text-left shadow-2xl">
       <thead className="border-b border-b-gray-400">
         <tr>
-          <th className="p-4 pb-2">Date</th>
-          <th className="p-4 pb-2">Time</th>
+          <th className={"p-4 pb-2" + hideClass}>Date</th>
+          <th className={"p-4 pb-2" + hideClass}>Time</th>
           <th className="p-4 pb-2">Callsign</th>
           <th className="p-4 pb-2">Frequency</th>
           <th className="p-4 pb-2">Mode</th>
@@ -40,8 +41,8 @@ const QsoTable = async function QsoTable({
 
             return (
               <tr key={qso.date + qso.time + qso.callsign}>
-                <td className={className}>{qso.date}</td>
-                <td className={className}>{qso.time}</td>
+                <td className={className + hideClass}>{qso.date}</td>
+                <td className={className + hideClass}>{qso.time}</td>
                 <td className={className}>{qso.callsign}</td>
                 <td className={className}>{qso.frequency}</td>
                 <td className={className}>{qso.mode}</td>
