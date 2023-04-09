@@ -7,7 +7,12 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['scontent.cdninstagram.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.cdninstagram.com',
+      },
+    ],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
