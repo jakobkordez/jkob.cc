@@ -3,9 +3,17 @@ import { Metadata } from "next";
 import Breakdown from "./breakdown";
 import Latest from "./latest";
 import Stats from "./stats";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import ExpandableImage from "@/components/expandable_image";
 import RelativeTime from "@/components/relative_time";
+
+import portable from "./assets/portable.jpg";
+import setup from "./assets/setup.jpg";
+import linLoaded from "./assets/lin_loaded.jpg";
+import balun41 from "./assets/4_1_balun.jpg";
+import fanDipole from "./assets/multi_inv_v.jpg";
+import qsl from "./assets/qsl_2022.jpg";
+import sota from "./assets/sota_1.jpg";
 
 // Revalidate every 24 hours
 export const revalidate = 86400;
@@ -136,9 +144,9 @@ function MyRadios() {
         </p>
       </div>
 
-      <MImage src="/images/hamradio/portable.jpg" alt="Portable setup" />
+      <MImage src={portable} alt="Portable setup" />
 
-      <MImage src="/images/hamradio/setup.jpg" alt="Home setup" />
+      <MImage src={setup} alt="Home setup" />
     </>
   );
 }
@@ -165,17 +173,11 @@ function MyAntennas() {
         </p>
       </div>
 
-      <MImage src="/images/hamradio/4_1_balun.jpg" alt="4:1 Balun" />
+      <MImage src={balun41} alt="4:1 Balun" />
 
-      <MImage
-        src="/images/hamradio/lin_loaded.jpg"
-        alt="80m linear loaded dipole"
-      />
+      <MImage src={linLoaded} alt="80m linear loaded dipole" />
 
-      <MImage
-        src="/images/hamradio/multi_inv_v.jpg"
-        alt="17m, 15m and 10m Inverted V fan dipole"
-      />
+      <MImage src={fanDipole} alt="17m, 15m and 10m Inverted V fan dipole" />
     </>
   );
 }
@@ -198,7 +200,7 @@ function Qsl() {
         </p>
       </div>
 
-      <MImage src="/images/hamradio/qsl_2022.jpg" alt="My QSL card" />
+      <MImage src={qsl} alt="My QSL card" />
     </>
   );
 }
@@ -211,16 +213,22 @@ function Sota() {
         summits. I&apos;ve activated one summit two times so far.
       </p>
 
-      <MImage src="/images/hamradio/sota_1.jpg" alt="My first SOTA pack" />
+      <MImage src={sota} alt="My first SOTA pack" />
     </>
   );
 }
 
-function MImage({ src, alt }: { src: string; alt: string }) {
+function MImage({ src, alt }: { src: StaticImageData; alt: string }) {
   return (
     <ExpandableImage src={src} alt={alt}>
       <div className="mx-auto mb-auto block w-fit cursor-pointer overflow-hidden rounded bg-white/20 shadow-2xl transition-all ease-in-out hover:brightness-75">
-        <Image src={src} alt={alt} width={500} height={500} />
+        <Image
+          src={src}
+          alt={alt}
+          width={500}
+          height={500}
+          placeholder="blur"
+        />
         {alt && <div className="py-1 px-3">{alt}</div>}
       </div>
     </ExpandableImage>

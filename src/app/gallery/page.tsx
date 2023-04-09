@@ -52,7 +52,8 @@ export default async function Gallery() {
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {posts
-          ?.filter((post) => post.media_type !== "VIDEO")
+          ?.slice(0, 24)
+          .filter((post) => post.media_type !== "VIDEO")
           .map((post) => (
             <IgImage key={post.id} src={post.media_url} />
           ))}

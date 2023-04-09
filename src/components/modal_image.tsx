@@ -2,15 +2,18 @@
 
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 interface ModalImageProps {
-  src: string;
+  src: string | StaticImageData;
   alt: string;
   onClose: () => void;
 }
 
 export default function ModalImage({ src, alt, onClose }: ModalImageProps) {
+  const size = src instanceof String ? 2048 : undefined;
+  const placeholder = src instanceof String ? undefined : "blur";
+
   return (
     <div className="fixed inset-0 z-40 flex flex-col items-center overflow-hidden p-4">
       <div
@@ -29,8 +32,9 @@ export default function ModalImage({ src, alt, onClose }: ModalImageProps) {
         <Image
           src={src}
           alt={alt}
-          height={2048}
-          width={2048}
+          height={size}
+          width={size}
+          placeholder={placeholder}
           className="z-50 m-auto aspect-auto h-auto max-h-full w-auto max-w-full rounded shadow-2xl"
         />
       </div>

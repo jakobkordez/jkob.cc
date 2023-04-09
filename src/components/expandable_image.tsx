@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import ModalImage from "./modal_image";
+import { StaticImageData } from "next/image";
 
 interface ExpandableImageProps {
-  src: string;
+  src: string | StaticImageData;
   alt: string;
   children?: React.ReactNode;
 }
