@@ -1,49 +1,39 @@
 "use client";
 
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import { useState } from "react";
 
 interface ModalImageProps {
   src: string;
   alt: string;
-  width: number;
-  height: number;
+  onClose: () => void;
 }
 
-export default function ModalImage({
-  src,
-  alt,
-  width,
-  height,
-}: ModalImageProps) {
-  const [showModal, setShowModal] = useState(false);
-
+export default function ModalImage({ src, alt, onClose }: ModalImageProps) {
   return (
-    <div>
+    <div className="fixed inset-0 z-40 flex flex-col items-center overflow-hidden p-4">
       <div
-        onClick={() => setShowModal(true)}
-        className="mx-auto mb-auto block w-fit cursor-pointer overflow-hidden rounded bg-white/20 shadow-2xl transition-all ease-in-out hover:brightness-75"
+        className="absolute inset-0 z-40 bg-black opacity-80 transition-opacity"
+        onClick={onClose}
+      />
+
+      <button
+        className="relative z-50 m-2 ml-auto text-2xl text-white transition-colors duration-200 ease-in-out hover:text-gray-200 "
+        onClick={onClose}
       >
-        <Image src={src} alt={alt} width={width} height={height} />
-        {alt && <div className="py-1 px-3">{alt}</div>}
+        <FontAwesomeIcon icon={faClose} />
+      </button>
+
+      <div className="relative flex h-full w-full flex-1 overflow-hidden">
+        <Image
+          src={src}
+          alt={alt}
+          height={2048}
+          width={2048}
+          className="z-50 m-auto aspect-auto h-auto max-h-full w-auto max-w-full rounded shadow-2xl"
+        />
       </div>
-
-      {showModal && (
-        <div className="fixed inset-0 z-40 flex flex-col items-center overflow-hidden py-10 px-20">
-          <div
-            className="absolute inset-0 bg-black opacity-80 transition-opacity"
-            onClick={() => setShowModal(false)}
-          ></div>
-
-          <Image
-            src={src}
-            alt={alt}
-            height={1600}
-            width={1600}
-            className="relative m-auto max-h-full max-w-full rounded shadow-2xl"
-          />
-        </div>
-      )}
     </div>
   );
 }

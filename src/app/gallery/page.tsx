@@ -1,5 +1,6 @@
-import IgImage from "@/components/ig_image";
+import ExpandableImage from "@/components/expandable_image";
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -77,4 +78,18 @@ async function fetchInstagramUser(): Promise<string> {
   const data = await res.json();
 
   return data.username;
+}
+
+function IgImage({ src }: { src: string }) {
+  return (
+    <ExpandableImage src={src} alt="">
+      <Image
+        src={src}
+        alt=""
+        height={500}
+        width={500}
+        className="aspect-square h-full w-full cursor-pointer rounded bg-white/20 object-fill shadow-2xl transition-all ease-in-out hover:brightness-75"
+      />
+    </ExpandableImage>
+  );
 }

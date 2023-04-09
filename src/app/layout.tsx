@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AnalyticsWrapper } from "@/components/analytics";
+import { Analytics } from "@vercel/analytics/react";
 import Header from "@/components/header";
 import "@/styles/globals.scss";
 
@@ -62,7 +62,7 @@ export default function RootLayout({
           </div>
         </main>
 
-        <AnalyticsWrapper />
+        <Analytics />
       </body>
     </html>
   );

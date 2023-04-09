@@ -6,6 +6,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ['scontent.cdninstagram.com'],
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },

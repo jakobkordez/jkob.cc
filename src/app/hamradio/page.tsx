@@ -1,10 +1,11 @@
 import { LinkButton } from "@/components/button";
-import DateTime from "@/components/date_time";
-import ModalImage from "@/components/modal_image";
 import { Metadata } from "next";
 import Breakdown from "./breakdown";
 import Latest from "./latest";
 import Stats from "./stats";
+import Image from "next/image";
+import ExpandableImage from "@/components/expandable_image";
+import RelativeTime from "@/components/relative_time";
 
 // Revalidate every 24 hours
 export const revalidate = 86400;
@@ -35,7 +36,7 @@ export default function Hamradio() {
       <h2>Most recent QSO&apos;s</h2>
       <Latest />
       <div className="text-center text-sm text-gray-300">
-        Last updated: <DateTime date={lastUpdate.toISOString()} />
+        Last updated: <RelativeTime date={lastUpdate.toISOString()} />
       </div>
 
       <h2>My radios</h2>
@@ -135,19 +136,9 @@ function MyRadios() {
         </p>
       </div>
 
-      <ModalImage
-        src="/images/hamradio/portable.jpg"
-        alt="Portable setup"
-        width={500}
-        height={500}
-      />
+      <MImage src="/images/hamradio/portable.jpg" alt="Portable setup" />
 
-      <ModalImage
-        src="/images/hamradio/setup.jpg"
-        alt="Home setup"
-        width={500}
-        height={500}
-      />
+      <MImage src="/images/hamradio/setup.jpg" alt="Home setup" />
     </>
   );
 }
@@ -174,25 +165,16 @@ function MyAntennas() {
         </p>
       </div>
 
-      <ModalImage
-        src="/images/hamradio/4_1_balun.jpg"
-        alt="4:1 Balun"
-        height={500}
-        width={500}
-      />
+      <MImage src="/images/hamradio/4_1_balun.jpg" alt="4:1 Balun" />
 
-      <ModalImage
+      <MImage
         src="/images/hamradio/lin_loaded.jpg"
         alt="80m linear loaded dipole"
-        width={500}
-        height={500}
       />
 
-      <ModalImage
+      <MImage
         src="/images/hamradio/multi_inv_v.jpg"
         alt="17m, 15m and 10m Inverted V fan dipole"
-        width={500}
-        height={500}
       />
     </>
   );
@@ -216,12 +198,7 @@ function Qsl() {
         </p>
       </div>
 
-      <ModalImage
-        src="/images/hamradio/qsl_2022.jpg"
-        alt="My QSL card"
-        width={500}
-        height={500}
-      />
+      <MImage src="/images/hamradio/qsl_2022.jpg" alt="My QSL card" />
     </>
   );
 }
@@ -234,12 +211,18 @@ function Sota() {
         summits. I&apos;ve activated one summit two times so far.
       </p>
 
-      <ModalImage
-        src="/images/hamradio/sota_1.jpg"
-        alt="My first SOTA pack"
-        width={500}
-        height={500}
-      />
+      <MImage src="/images/hamradio/sota_1.jpg" alt="My first SOTA pack" />
     </>
+  );
+}
+
+function MImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <ExpandableImage src={src} alt={alt}>
+      <div className="mx-auto mb-auto block w-fit cursor-pointer overflow-hidden rounded bg-white/20 shadow-2xl transition-all ease-in-out hover:brightness-75">
+        <Image src={src} alt={alt} width={500} height={500} />
+        {alt && <div className="py-1 px-3">{alt}</div>}
+      </div>
+    </ExpandableImage>
   );
 }
