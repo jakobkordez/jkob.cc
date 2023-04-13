@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     icon: "/images/logo/logo_bg_256.png",
     shortcut: "/images/logo/logo_bg_256.png",
   },
+  manifest: "/manifest.json",
   creator: "Jakob Kordež",
   keywords: ["Developer", "Amateur radio", "Software", "Next.js"],
   themeColor: "#12071c",
