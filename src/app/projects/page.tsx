@@ -28,7 +28,7 @@ export default function Projects() {
           .map((project) => (
             <Link
               key={project.slug}
-              className="mb-auto break-inside-avoid overflow-clip rounded transition-all hover:scale-[1.02]"
+              className="mb-auto break-inside-avoid overflow-hidden rounded transition-all hover:scale-[1.02]"
               href={`/projects/${project.slug}`}
             >
               {project.image && (

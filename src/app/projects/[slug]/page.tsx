@@ -59,7 +59,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     <div className="content">
       <article className="blog">
         {project.image && (
-          <div className="relative h-60 w-full overflow-clip rounded">
+          <div className="relative h-60 w-full overflow-hidden rounded">
             <Image
               width={700}
               height={240}

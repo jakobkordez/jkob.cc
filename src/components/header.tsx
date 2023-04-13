@@ -40,9 +40,9 @@ export default function Header() {
               }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <div />
-              <div />
-              <div />
+              <span />
+              <span />
+              <span />
             </button>
           </div>
         </div>
