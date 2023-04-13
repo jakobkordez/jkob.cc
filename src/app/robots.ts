@@ -3,6 +3,7 @@ export default function robots() {
     rules: [
       {
         userAgent: "*",
+        allow: "/",
       },
     ],
     sitemap: "https://jkob.cc/sitemap.xml",
