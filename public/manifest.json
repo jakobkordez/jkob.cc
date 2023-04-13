@@ -1,8 +1,9 @@
 {
   "name": "Jakob Kordež",
   "short_name": "jkob.cc",
+  "description": "Developer and amateur radio enthusiast.",
   "start_url": "/",
-  "display": "browser",
+  "display": "minimal-ui",
   "background_color": "#333333",
   "theme_color": "#0b0115",
   "icons": [
@@ -42,43 +43,43 @@
       "sizes": "512x512"
     },
     {
-      "src": "/images/logo/logo_32.png",
+      "src": "/images/logo/logo_m_32.png",
       "type": "image/png",
       "sizes": "32x32",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo/logo_48.png",
+      "src": "/images/logo/logo_m_48.png",
       "type": "image/png",
       "sizes": "48x48",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo/logo_64.png",
+      "src": "/images/logo/logo_m_64.png",
       "type": "image/png",
       "sizes": "64x64",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo/logo_128.png",
+      "src": "/images/logo/logo_m_128.png",
       "type": "image/png",
       "sizes": "128x128",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo/logo_192.png",
+      "src": "/images/logo/logo_m_192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo/logo_256.png",
+      "src": "/images/logo/logo_m_256.png",
       "type": "image/png",
       "sizes": "256x256",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo/logo_512.png",
+      "src": "/images/logo/logo_m_512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
