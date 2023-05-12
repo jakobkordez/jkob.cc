@@ -1,7 +1,9 @@
 import ExpandableImage from "@/components/expandable_image";
+import LoadingText from "@/components/loading_text";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -17,18 +19,7 @@ interface Post {
   timestamp: string;
 }
 
-export default async function Gallery() {
-  let posts, username;
-
-  try {
-    [posts, username] = await Promise.all([
-      fetchInstagramPosts(),
-      fetchInstagramUser(),
-    ]);
-  } catch (error) {
-    console.log(error);
-  }
-
+export default function Gallery() {
   return (
     <>
       <div className="content mb-8">
@@ -36,9 +27,9 @@ export default async function Gallery() {
         <p>
           These are my latest Instagram posts. If you like what you see, follow
           me on my Instagram profile{" "}
-          <Link className="link" href={`https://www.instagram.com/${username}`}>
-            @{username}
-          </Link>
+          <Suspense fallback={<LoadingText expectedText="@jakoob99" />}>
+            <ProfileLink />
+          </Suspense>
           .
         </p>
         <p>
@@ -51,20 +42,65 @@ export default async function Gallery() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {posts
-          ?.slice(0, 24)
-          .filter((post) => post.media_type !== "VIDEO")
-          .map((post) => (
-            <IgImage key={post.id} src={post.media_url} />
-          ))}
+        <Suspense fallback={<IgPostsLoading />}>
+          <IgPosts />
+        </Suspense>
       </div>
     </>
   );
 }
 
+const ProfileLink = async function ProfileLink() {
+  const username = await fetchInstagramUser();
+
+  return (
+    <Link className="link" href={`https://www.instagram.com/${username}`}>
+      @{username}
+    </Link>
+  );
+} as unknown as () => JSX.Element;
+
+const IgPosts = async function IgPosts() {
+  const posts = await fetchInstagramPosts();
+
+  return (
+    <>
+      {posts
+        ?.filter((post) => post.media_type !== "VIDEO")
+        .slice(0, 24)
+        .map((post) => (
+          <ExpandableImage key={post.id} src={post.media_url} alt="">
+            <Image
+              src={post.media_url}
+              alt=""
+              height={500}
+              width={500}
+              className="aspect-square h-full w-full cursor-pointer rounded bg-white/20 object-fill shadow-2xl transition-all ease-in-out hover:brightness-75"
+            />
+          </ExpandableImage>
+        ))}
+    </>
+  );
+} as unknown as () => JSX.Element;
+
+const IgPostsLoading = function IgPostsLoading() {
+  return (
+    <>
+      {new Array(24).fill(null).map((_, index) => (
+        <div
+          className="aspect-square h-full w-full animate-pulse cursor-pointer rounded bg-white/20 object-fill shadow-2xl transition-all ease-in-out hover:brightness-75"
+          key={index}
+        />
+      ))}
+    </>
+  );
+} as unknown as () => JSX.Element;
+
+const IG_API = "https://graph.instagram.com/v16.0";
+
 async function fetchInstagramPosts(): Promise<Post[]> {
   const res = await fetch(
-    `https://graph.instagram.com/v16.0/${process.env.USER_ID}/media?access_token=${process.env.ACCESS_TOKEN}&fields=id,media_type,media_url,thumbnail_url,timestamp`,
+    `${IG_API}/${process.env.USER_ID}/media?access_token=${process.env.ACCESS_TOKEN}&fields=id,media_type,media_url,thumbnail_url,timestamp`,
     { next: { revalidate: 1800 } }
   );
   const data = await res.json();
@@ -74,23 +110,9 @@ async function fetchInstagramPosts(): Promise<Post[]> {
 
 async function fetchInstagramUser(): Promise<string> {
   const res = await fetch(
-    `https://graph.instagram.com/v16.0/${process.env.USER_ID}?access_token=${process.env.ACCESS_TOKEN}&fields=username`
+    `${IG_API}/${process.env.USER_ID}?access_token=${process.env.ACCESS_TOKEN}&fields=username`
   );
   const data = await res.json();
 
   return data.username;
-}
-
-function IgImage({ src }: { src: string }) {
-  return (
-    <ExpandableImage src={src} alt="">
-      <Image
-        src={src}
-        alt=""
-        height={500}
-        width={500}
-        className="aspect-square h-full w-full cursor-pointer rounded bg-white/20 object-fill shadow-2xl transition-all ease-in-out hover:brightness-75"
-      />
-    </ExpandableImage>
-  );
 }
