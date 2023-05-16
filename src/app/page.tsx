@@ -1,8 +1,8 @@
-import { LinkButton } from "@/components/button";
-import { faGithub, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { faGlobe } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
-import Link from "next/link";
+import { LinkButton } from '@/components/button';
+import { faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
         <h1>Jakob Kordež</h1>
         <p>
           Hi, my name is Jakob and I&apos;m a software developer from Slovenia.
-          I&apos;m currently working at{" "}
+          I&apos;m currently working at{' '}
           <strong className="inline-block">Metrel d. d.</strong> as a software
           developer.
         </p>
@@ -127,7 +127,7 @@ interface TagProps {
 }
 
 function Tag({ color, children, href }: TagProps) {
-  const className = "rounded-full py-1 px-3 font-bold " + color;
+  const className = 'rounded-full py-1 px-3 font-bold ' + color;
 
   return href ? (
     <Link href={href} className={className}>

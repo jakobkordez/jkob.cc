@@ -13,7 +13,7 @@ export const gridsquareRe = /^[A-R]{2}(\d\d([A-X]{2})?)*$/i;
 export function fromGridsquare(value: string): Position {
   value = value.toUpperCase();
   if (!gridsquareRe.test(value)) {
-    throw new Error("Invalid gridsquare");
+    throw new Error('Invalid gridsquare');
   }
 
   let lon = -180.0;

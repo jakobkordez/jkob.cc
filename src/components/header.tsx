@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/projects", label: "Projects" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/hamradio", label: "Amateur Radio" },
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/gallery', label: 'Gallery' },
+  { href: '/hamradio', label: 'Amateur Radio' },
 ];
 
 export default function Header() {
   let pathname = usePathname();
-  if (pathname?.startsWith("/projects/")) {
-    pathname = "/projects";
+  if (pathname?.startsWith('/projects/')) {
+    pathname = '/projects';
   }
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,7 +36,7 @@ export default function Header() {
           <div className="flex md:hidden">
             <button
               className={`burger-button my-auto h-6 w-6 ${
-                isMenuOpen ? "is-active" : ""
+                isMenuOpen ? 'is-active' : ''
               }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
@@ -50,10 +50,10 @@ export default function Header() {
         {links.map(({ href, label }) => (
           <div
             key={href}
-            className={`flex ${isMenuOpen ? "" : "hidden"} md:block`}
+            className={`flex ${isMenuOpen ? '' : 'hidden'} md:block`}
           >
             <Link
-              className={`link my-auto ${pathname === href ? "is-active" : ""}`}
+              className={`link my-auto ${pathname === href ? 'is-active' : ''}`}
               href={href}
               onClick={() => setIsMenuOpen(false)}
             >

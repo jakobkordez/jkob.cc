@@ -1,35 +1,35 @@
-import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/react";
-import Header from "@/components/header";
-import "@/styles/globals.scss";
+import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/react';
+import Header from '@/components/header';
+import '@/styles/globals.scss';
 
-import { config } from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
 export const metadata: Metadata = {
   title: {
-    default: "Jakob Kordež",
-    template: "%s | Jakob Kordež",
+    default: 'Jakob Kordež',
+    template: '%s | Jakob Kordež',
   },
-  description: "Developer and amateur radio enthusiast.",
+  description: 'Developer and amateur radio enthusiast.',
   icons: {
-    icon: "/images/logo/logo_bg_256.png",
-    shortcut: "/images/logo/logo_bg_256.png",
+    icon: '/images/logo/logo_bg_256.png',
+    shortcut: '/images/logo/logo_bg_256.png',
   },
-  manifest: "/manifest.json",
-  creator: "Jakob Kordež",
-  keywords: ["Developer", "Amateur radio", "Software", "Next.js"],
-  themeColor: "#12071c",
-  colorScheme: "dark",
-  category: "portfolio",
+  manifest: '/manifest.json',
+  creator: 'Jakob Kordež',
+  keywords: ['Developer', 'Amateur radio', 'Software', 'Next.js'],
+  themeColor: '#12071c',
+  colorScheme: 'dark',
+  category: 'portfolio',
   openGraph: {
-    title: "Jakob Kordež",
-    description: "Developer and amateur radio enthusiast.",
-    url: "https://jkob.cc",
-    siteName: "Jakob Kordež",
-    locale: "en_US",
-    type: "website",
+    title: 'Jakob Kordež',
+    description: 'Developer and amateur radio enthusiast.',
+    url: 'https://jkob.cc',
+    siteName: 'Jakob Kordež',
+    locale: 'en_US',
+    type: 'website',
   },
   robots: {
     index: true,
@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
     },
   },
   verification: {
-    google: "yB3jGzOHglTepIzL1X99RYU1k5Q_N6GvMjVL3rugUSI",
+    google: 'yB3jGzOHglTepIzL1X99RYU1k5Q_N6GvMjVL3rugUSI',
   },
 };
 

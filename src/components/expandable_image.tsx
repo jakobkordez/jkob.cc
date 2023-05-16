@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image, { StaticImageData } from "next/image";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from 'react';
+import Image, { StaticImageData } from 'next/image';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface ExpandableImageProps {
   src: string | StaticImageData;
@@ -19,14 +19,14 @@ export default function ExpandableImage({
   const [showModal, setShowModal] = useState(false);
 
   const size = isString(src) ? 2048 : undefined;
-  const placeholder = isString(src) ? undefined : "blur";
+  const placeholder = isString(src) ? undefined : 'blur';
 
   return (
     <div>
       <div
         onClick={() => {
           setShowModal(true);
-          window.history.pushState(null, "", "#");
+          window.history.pushState(null, '', '#');
           window.onpopstate = () => setShowModal(false);
         }}
       >
@@ -64,5 +64,5 @@ export default function ExpandableImage({
 }
 
 function isString(s: any) {
-  return typeof s === "string" || s instanceof String;
+  return typeof s === 'string' || s instanceof String;
 }

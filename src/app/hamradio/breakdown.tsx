@@ -1,14 +1,14 @@
-import clientPromise from "@/lib/mongodb";
-import { Suspense } from "react";
+import clientPromise from '@/lib/mongodb';
+import { Suspense } from 'react';
 
 type ByCat = { key: string; count: number }[];
 
 export default function Breakdown() {
   const cats = [
-    { name: "By mode", entries: getByMode(), columns: 2 },
-    { name: "By band", entries: getByBand(), columns: 3 },
-    { name: "By callsign used", entries: getByCallUsed(), columns: 1 },
-    { name: "By continent", entries: getByContinent(), columns: 2 },
+    { name: 'By mode', entries: getByMode(), columns: 2 },
+    { name: 'By band', entries: getByBand(), columns: 3 },
+    { name: 'By callsign used', entries: getByCallUsed(), columns: 1 },
+    { name: 'By continent', entries: getByContinent(), columns: 2 },
   ];
 
   return (
@@ -63,18 +63,18 @@ function SuspenseFallback() {
 }
 
 async function getByBand(): Promise<ByCat | null> {
-  const units = ["mm", "cm", "m"];
+  const units = ['mm', 'cm', 'm'];
 
   try {
     const client = await clientPromise;
     const db = client.db();
 
     const res = await db
-      .collection("logentries")
+      .collection('logentries')
       .aggregate([
         {
           $group: {
-            _id: { $toLower: "$data.BAND" },
+            _id: { $toLower: '$data.BAND' },
             count: { $sum: 1 },
           },
         },
@@ -112,18 +112,18 @@ async function getByBand(): Promise<ByCat | null> {
 }
 
 async function getByMode(): Promise<ByCat | null> {
-  const modesPriority = ["FT8", "SSB", "CW"];
+  const modesPriority = ['FT8', 'SSB', 'CW'];
 
   try {
     const client = await clientPromise;
     const db = client.db();
 
     const res = await db
-      .collection("logentries")
+      .collection('logentries')
       .aggregate([
         {
           $group: {
-            _id: { $toUpper: "$data.MODE" },
+            _id: { $toUpper: '$data.MODE' },
             count: { $sum: 1 },
           },
         },
@@ -158,11 +158,11 @@ async function getByCallUsed(): Promise<ByCat | null> {
     const db = client.db();
 
     const res = await db
-      .collection("logentries")
+      .collection('logentries')
       .aggregate([
         {
           $group: {
-            _id: { $toUpper: "$data.STATION_CALLSIGN" },
+            _id: { $toUpper: '$data.STATION_CALLSIGN' },
             count: { $sum: 1 },
           },
         },
@@ -194,11 +194,11 @@ async function getByContinent(): Promise<ByCat | null> {
     const db = client.db();
 
     const res = await db
-      .collection("logentries")
+      .collection('logentries')
       .aggregate([
         {
           $group: {
-            _id: { $toUpper: "$data.CONT" },
+            _id: { $toUpper: '$data.CONT' },
             count: { $sum: 1 },
           },
         },

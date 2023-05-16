@@ -1,12 +1,12 @@
-import ExpandableImage from "@/components/expandable_image";
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
+import ExpandableImage from '@/components/expandable_image';
+import { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: "Gallery",
-  description: "My latest Instagram posts",
-  keywords: ["gallery", "instagram"],
+  title: 'Gallery',
+  description: 'My latest Instagram posts',
+  keywords: ['gallery', 'instagram'],
 };
 
 interface Post {
@@ -35,14 +35,14 @@ export default async function Gallery() {
         <h1>Gallery</h1>
         <p>
           These are my latest Instagram posts. If you like what you see, follow
-          me on my Instagram profile{" "}
+          me on my Instagram profile{' '}
           <Link className="link" href={`https://www.instagram.com/${username}`}>
             @{username}
           </Link>
           .
         </p>
         <p>
-          To find out how I integrated this check out{" "}
+          To find out how I integrated this check out{' '}
           <Link className="link" href="/projects/ig-feed">
             Instagram integration
           </Link>
@@ -53,7 +53,7 @@ export default async function Gallery() {
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {posts
           ?.slice(0, 24)
-          .filter((post) => post.media_type !== "VIDEO")
+          .filter((post) => post.media_type !== 'VIDEO')
           .map((post) => (
             <IgImage key={post.id} src={post.media_url} />
           ))}

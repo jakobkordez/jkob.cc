@@ -1,37 +1,37 @@
-import { LinkButton } from "@/components/button";
-import { Metadata } from "next";
-import Breakdown from "./breakdown";
-import Latest from "./latest";
-import Stats from "./stats";
-import Image, { StaticImageData } from "next/image";
-import ExpandableImage from "@/components/expandable_image";
-import RelativeTime from "@/components/relative_time";
+import { LinkButton } from '@/components/button';
+import { Metadata } from 'next';
+import Breakdown from './breakdown';
+import Latest from './latest';
+import Stats from './stats';
+import Image, { StaticImageData } from 'next/image';
+import ExpandableImage from '@/components/expandable_image';
+import RelativeTime from '@/components/relative_time';
 
-import portable from "./assets/portable.jpg";
-import setup from "./assets/setup.jpg";
-import linLoaded from "./assets/lin_loaded.jpg";
-import balun41 from "./assets/4_1_balun.jpg";
-import fanDipole from "./assets/multi_inv_v.jpg";
-import qsl from "./assets/qsl_2022.jpg";
-import sota from "./assets/sota_1.jpg";
+import portable from './assets/portable.jpg';
+import setup from './assets/setup.jpg';
+import linLoaded from './assets/lin_loaded.jpg';
+import balun41 from './assets/4_1_balun.jpg';
+import fanDipole from './assets/multi_inv_v.jpg';
+import qsl from './assets/qsl_2022.jpg';
+import sota from './assets/sota_1.jpg';
 
 // Revalidate every 24 hours
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Amateur Radio",
-  description: "My amateur radio activities.",
+  title: 'Amateur Radio',
+  description: 'My amateur radio activities.',
   keywords: [
-    "S52KJ",
-    "ham radio",
-    "amateur radio",
-    "antennas",
-    "qsl card",
-    "sota",
+    'S52KJ',
+    'ham radio',
+    'amateur radio',
+    'antennas',
+    'qsl card',
+    'sota',
   ],
 };
 
-const colStyle = "gap-10 space-y-10 md:columns-2";
+const colStyle = 'gap-10 space-y-10 md:columns-2';
 
 export default function Hamradio() {
   const lastUpdate = new Date();
@@ -150,11 +150,11 @@ function MyRadios() {
           use to recieve higher bands.
         </p>
         <p>
-          For VHF/UHF I use a <strong>Icom IC-275H</strong> and a{" "}
+          For VHF/UHF I use a <strong>Icom IC-275H</strong> and a{' '}
           <strong>Baofeng UV-5RTP</strong> which is a cheap 8W handheld radio.
         </p>
         <p>
-          When I need more power I use my fathers{" "}
+          When I need more power I use my fathers{' '}
           <strong>Yaesu FTDX-3000</strong>.
         </p>
       </div>
@@ -171,19 +171,19 @@ function MyAntennas() {
     <>
       <div>
         <p>
-          Most of my HF antennas are homebrewed. I mostly use a{" "}
+          Most of my HF antennas are homebrewed. I mostly use a{' '}
           <strong>Random wire antenna</strong> with a 9:1 unun I made. I also
-          have an <strong>40m off center fed dipole</strong> in an{" "}
+          have an <strong>40m off center fed dipole</strong> in an{' '}
           <strong>inverted V</strong> configuration with a dual-core 4:1 current
           balun I made.
         </p>
         <p>
-          I also have a 1:1 balun I bought that I use for either a{" "}
-          <strong>40m Inverted V</strong> or a{" "}
+          I also have a 1:1 balun I bought that I use for either a{' '}
+          <strong>40m Inverted V</strong> or a{' '}
           <strong>80m linear loaded Inverted V</strong>.
         </p>
         <p>
-          I used to have a{" "}
+          I used to have a{' '}
           <strong>17m, 15m and 10m Inverted V fan dipole</strong> but had
           problems with it and took it down.
         </p>
@@ -209,17 +209,17 @@ function Qsl() {
       <div>
         <p>
           I use <strong>QRZ&apos;s Logbook</strong> so confirmations there are
-          instant, but I also very frequently confirm my QSO&apos;s via{" "}
+          instant, but I also very frequently confirm my QSO&apos;s via{' '}
           <strong>LOTW</strong>.
         </p>
         <p>
           If you want to send me a QSL card, you can send it to my home address
           or via the <strong>bureau</strong>. My QRZ page has all the details.
-          If you want my QSL card, please contact me or send a request via{" "}
+          If you want my QSL card, please contact me or send a request via{' '}
           <strong>OQRS</strong>.
         </p>
         <p>
-          I rarely upload my QSO&apos;s to <strong>eQSL</strong> and{" "}
+          I rarely upload my QSO&apos;s to <strong>eQSL</strong> and{' '}
           <strong>Clublog</strong>.
         </p>
       </div>
