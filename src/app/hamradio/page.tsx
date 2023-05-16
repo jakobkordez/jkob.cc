@@ -21,7 +21,14 @@ export const revalidate = 86400;
 export const metadata: Metadata = {
   title: "Amateur Radio",
   description: "My amateur radio activities.",
-  keywords: ["hamradio", "amateur radio", "antennas", "qsl card", "sota"],
+  keywords: [
+    "S52KJ",
+    "ham radio",
+    "amateur radio",
+    "antennas",
+    "qsl card",
+    "sota",
+  ],
 };
 
 const colStyle = "gap-10 space-y-10 md:columns-2";
@@ -116,9 +123,17 @@ function Header() {
           </tbody>
         </table>
       </div>
-      <div className="m-4 flex gap-2 text-sm">
+      <div className="m-4 flex items-center gap-2 text-sm">
         <LinkButton href="https://www.qrz.com/db/s52kj">QRZ.com</LinkButton>
         <LinkButton href="https://www.qrzcq.com/call/S52KJ">QRZCQ</LinkButton>
+        <div className="mx-2">|</div>
+        <LinkButton href="https://rklub.vegova.si/">
+          Radioklub Vegova
+        </LinkButton>
+        <LinkButton href="http://lea.hamradio.si/~s50c/">
+          Radioklub Domžale
+        </LinkButton>
+        <LinkButton href="http://www.hamradio.si/">ZRS</LinkButton>
       </div>
     </>
   );
@@ -135,8 +150,8 @@ function MyRadios() {
           use to recieve higher bands.
         </p>
         <p>
-          For VHF/UHF I use a <strong>Baofeng UV-5RTP</strong> which is a cheap
-          8W handheld radio.
+          For VHF/UHF I use a <strong>Icom IC-275H</strong> and a{" "}
+          <strong>Baofeng UV-5RTP</strong> which is a cheap 8W handheld radio.
         </p>
         <p>
           When I need more power I use my fathers{" "}
@@ -144,7 +159,7 @@ function MyRadios() {
         </p>
       </div>
 
-      <MImage src={portable} alt="Portable setup" />
+      <MImage src={portable} alt="Portable HF setup" />
 
       <MImage src={setup} alt="Home setup" />
     </>
@@ -156,10 +171,11 @@ function MyAntennas() {
     <>
       <div>
         <p>
-          All of the antennas are homebrewed. I mostly use a{" "}
+          Most of my HF antennas are homebrewed. I mostly use a{" "}
           <strong>Random wire antenna</strong> with a 9:1 unun I made. I also
           have an <strong>40m off center fed dipole</strong> in an{" "}
-          <strong>inverted V</strong> configuration with a 4:1 balun I made.
+          <strong>inverted V</strong> configuration with a dual-core 4:1 current
+          balun I made.
         </p>
         <p>
           I also have a 1:1 balun I bought that I use for either a{" "}
@@ -171,9 +187,14 @@ function MyAntennas() {
           <strong>17m, 15m and 10m Inverted V fan dipole</strong> but had
           problems with it and took it down.
         </p>
+
+        <p>
+          I&apos;m planning on making a <strong>11 element 2m yagi</strong> to
+          try meteor scatter.
+        </p>
       </div>
 
-      <MImage src={balun41} alt="4:1 Balun" />
+      <MImage src={balun41} alt="Dual-core 4:1 current balun" />
 
       <MImage src={linLoaded} alt="80m linear loaded dipole" />
 
@@ -189,10 +210,13 @@ function Qsl() {
         <p>
           I use <strong>QRZ&apos;s Logbook</strong> so confirmations there are
           instant, but I also very frequently confirm my QSO&apos;s via{" "}
-          <strong>LOTW</strong>. If you want to send me a QSL card, you can send
-          it to my home address or via the <strong>bureau</strong>. My QRZ page
-          has all the details. If you want my QSL card, please contact me or
-          send a request via <strong>OQRS</strong>.
+          <strong>LOTW</strong>.
+        </p>
+        <p>
+          If you want to send me a QSL card, you can send it to my home address
+          or via the <strong>bureau</strong>. My QRZ page has all the details.
+          If you want my QSL card, please contact me or send a request via{" "}
+          <strong>OQRS</strong>.
         </p>
         <p>
           I rarely upload my QSO&apos;s to <strong>eQSL</strong> and{" "}
@@ -208,10 +232,17 @@ function Qsl() {
 function Sota() {
   return (
     <>
-      <p>
-        I sometimes take my radio and antennas with me on hikes and activate
-        summits. I&apos;ve activated one summit two times so far.
-      </p>
+      <div>
+        <p>
+          I sometimes take my radio and antennas with me on hikes and activate
+          summits. I&apos;ve activated one summit two times so far.
+        </p>
+
+        <p>
+          I also do some chasing. Over the weekends I have my Icom IC-275H set
+          on 145.550 MHz to chase any nearby activators.
+        </p>
+      </div>
 
       <MImage src={sota} alt="My first SOTA pack" />
     </>

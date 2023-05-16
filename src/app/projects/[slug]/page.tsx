@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { Metadata } from "next";
 import Image from "next/image";
-import ModalImage from "@/components/modal_image";
+import ExpandableImage from "@/components/expandable_image";
 
 interface ProjectPageProps {
   params: {
@@ -28,7 +28,7 @@ function CustomLink(props: any) {
 }
 
 function MdxImage(props: any) {
-  return <ModalImage width={1000} height={1000} {...props} />;
+  return <ExpandableImage width={1000} height={1000} {...props} />;
 }
 
 function Paragraph(props: any) {
