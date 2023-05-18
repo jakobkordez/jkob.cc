@@ -1,6 +1,6 @@
-import clientPromise from "@/lib/mongodb";
-import { fromGridsquare, toPolarPosition } from "@/util/position";
-import { Suspense } from "react";
+import clientPromise from '@/lib/mongodb';
+import { fromGridsquare, toPolarPosition } from '@/util/position';
+import { Suspense } from 'react';
 
 export default function Stats() {
   const total = getTotal();
@@ -10,14 +10,14 @@ export default function Stats() {
   const furthest = gridsquares.then((g) => (g ? getFurthest(g) : null));
 
   const firstRow = [
-    { name: "QSOs", value: total },
-    { name: "DXCCs", value: dxccs.then((d) => d?.length ?? null) },
-    { name: "Grid Squares", value: gridsquares.then((g) => g?.length ?? null) },
+    { name: 'QSOs', value: total },
+    { name: 'DXCCs', value: dxccs.then((d) => d?.length ?? null) },
+    { name: 'Grid Squares', value: gridsquares.then((g) => g?.length ?? null) },
   ];
 
   const secondRow = [
     {
-      name: "Rarest DXCC",
+      name: 'Rarest DXCC',
       value: rarest.then((r) =>
         r
           ? {
@@ -28,7 +28,7 @@ export default function Stats() {
       ),
     },
     {
-      name: "Furthest QSO",
+      name: 'Furthest QSO',
       value: furthest.then((s) => {
         if (!s) return null;
 
@@ -125,7 +125,7 @@ async function getTotal(): Promise<number | null> {
     const client = await clientPromise;
     const db = client.db();
 
-    return db.collection("logentries").countDocuments();
+    return db.collection('logentries').countDocuments();
   } catch (e) {
     console.log(e);
   }
@@ -138,7 +138,7 @@ async function getDxccs(): Promise<string[] | null> {
     const client = await clientPromise;
     const db = client.db();
 
-    return db.collection("logentries").distinct("data.DXCC");
+    return db.collection('logentries').distinct('data.DXCC');
   } catch (e) {
     console.log(e);
   }
@@ -152,11 +152,11 @@ async function getGridsquares(): Promise<string[] | null> {
     const db = client.db();
 
     return db
-      .collection("logentries")
+      .collection('logentries')
       .aggregate([
         {
           $group: {
-            _id: { $toUpper: { $substr: ["$data.GRIDSQUARE", 0, 4] } },
+            _id: { $toUpper: { $substr: ['$data.GRIDSQUARE', 0, 4] } },
             count: { $sum: 1 },
           },
         },
@@ -188,8 +188,8 @@ async function getRarest(
 
     // Get full callsign for most wanted DXCC
     const callsign = await db
-      .collection("logentries")
-      .findOne({ "data.DXCC": mostWantedList[mostWantedI] })
+      .collection('logentries')
+      .findOne({ 'data.DXCC': mostWantedList[mostWantedI] })
       .then((e) => e?.data.CALL);
 
     return {
@@ -207,10 +207,10 @@ async function getFurthest(
   gridsquares: string[]
 ): Promise<{ gridsquare: string; distance: number } | null> {
   try {
-    let furthestG = "JN76";
+    let furthestG = 'JN76';
     let furthest = 0;
 
-    const from = fromGridsquare("JN76");
+    const from = fromGridsquare('JN76');
     for (const grid of gridsquares) {
       const { distance } = toPolarPosition(from, fromGridsquare(grid));
       if (distance > furthest) {
@@ -228,7 +228,7 @@ async function getFurthest(
 }
 
 async function getMostWanted(): Promise<string[]> {
-  const uri = "https://clublog.org/mostwanted.php?api=1";
+  const uri = 'https://clublog.org/mostwanted.php?api=1';
 
   return fetch(uri)
     .then((res) => res.json())

@@ -1,14 +1,14 @@
-import ExpandableImage from "@/components/expandable_image";
-import LoadingText from "@/components/loading_text";
-import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import { Suspense } from "react";
+import ExpandableImage from '@/components/expandable_image';
+import LoadingText from '@/components/loading_text';
+import { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
-  title: "Gallery",
-  description: "My latest Instagram posts",
-  keywords: ["gallery", "instagram"],
+  title: 'Gallery',
+  description: 'My latest Instagram posts',
+  keywords: ['gallery', 'instagram'],
 };
 
 interface Post {
@@ -26,14 +26,14 @@ export default function Gallery() {
         <h1>Gallery</h1>
         <p>
           These are my latest Instagram posts. If you like what you see, follow
-          me on my Instagram profile{" "}
+          me on my Instagram profile{' '}
           <Suspense fallback={<LoadingText expectedText="@jakoob99" />}>
             <ProfileLink />
           </Suspense>
           .
         </p>
         <p>
-          To find out how I integrated this check out{" "}
+          To find out how I integrated this check out{' '}
           <Link className="link" href="/projects/ig-feed">
             Instagram integration
           </Link>
@@ -66,7 +66,7 @@ const IgPosts = async function IgPosts() {
   return (
     <>
       {posts
-        ?.filter((post) => post.media_type !== "VIDEO")
+        ?.filter((post) => post.media_type !== 'VIDEO')
         .slice(0, 24)
         .map((post) => (
           <ExpandableImage key={post.id} src={post.media_url} alt="">
@@ -96,7 +96,7 @@ const IgPostsLoading = function IgPostsLoading() {
   );
 } as unknown as () => JSX.Element;
 
-const IG_API = "https://graph.instagram.com/v16.0";
+const IG_API = 'https://graph.instagram.com/v16.0';
 
 async function fetchInstagramPosts(): Promise<Post[]> {
   const res = await fetch(

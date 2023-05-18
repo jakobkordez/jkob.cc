@@ -2,11 +2,11 @@ export default function robots() {
   return {
     rules: [
       {
-        userAgent: "*",
-        allow: "/",
+        userAgent: '*',
+        allow: '/',
       },
     ],
-    sitemap: "https://jkob.cc/sitemap.xml",
-    host: "https://jkob.cc",
+    sitemap: 'https://jkob.cc/sitemap.xml',
+    host: 'https://jkob.cc',
   };
 }

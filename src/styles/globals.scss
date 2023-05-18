@@ -1,6 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 body {
   background: linear-gradient(80deg, #010f2a 0%, #27021e 100%);
@@ -13,7 +13,7 @@ nav {
   .link {
     position: relative;
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       width: 0;
       bottom: -0.3rem;
