@@ -50,7 +50,7 @@ export default function Gallery() {
   );
 }
 
-const ProfileLink = async function ProfileLink() {
+async function ProfileLink() {
   const username = await fetchInstagramUser();
 
   return (
@@ -58,9 +58,9 @@ const ProfileLink = async function ProfileLink() {
       @{username}
     </Link>
   );
-} as unknown as () => JSX.Element;
+}
 
-const IgPosts = async function IgPosts() {
+async function IgPosts() {
   const posts = await fetchInstagramPosts();
 
   return (
@@ -81,7 +81,7 @@ const IgPosts = async function IgPosts() {
         ))}
     </>
   );
-} as unknown as () => JSX.Element;
+}
 
 const IgPostsLoading = function IgPostsLoading() {
   return (
@@ -94,7 +94,7 @@ const IgPostsLoading = function IgPostsLoading() {
       ))}
     </>
   );
-} as unknown as () => JSX.Element;
+};
 
 const IG_API = 'https://graph.instagram.com/v16.0';
 

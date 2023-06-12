@@ -77,11 +77,7 @@ export default function Stats() {
   );
 }
 
-const Value = async function Value({
-  promise,
-}: {
-  promise: Promise<number | null>;
-}) {
+async function Value({ promise }: { promise: Promise<number | null> }) {
   const value = await promise;
 
   return value ? (
@@ -89,13 +85,9 @@ const Value = async function Value({
   ) : (
     <SuspenseFallback />
   );
-} as unknown as ({
-  promise,
-}: {
-  promise: Promise<number | null>;
-}) => JSX.Element;
+}
 
-const ValueWithSub = async function ValueWithSub({
+async function ValueWithSub({
   promise,
 }: {
   promise: Promise<{ value: string; sub: string } | null>;
@@ -110,11 +102,7 @@ const ValueWithSub = async function ValueWithSub({
   ) : (
     <SuspenseFallback />
   );
-} as unknown as ({
-  promise,
-}: {
-  promise: Promise<{ value: string; sub: string } | null>;
-}) => JSX.Element;
+}
 
 function SuspenseFallback() {
   return <div className="text-center text-4xl font-medium">-</div>;

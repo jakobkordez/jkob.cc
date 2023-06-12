@@ -14,11 +14,7 @@ export default function Latest() {
   );
 }
 
-const QsoTable = async function QsoTable({
-  qsosP,
-}: {
-  qsosP: Promise<Qso[] | null>;
-}) {
+async function QsoTable({ qsosP }: { qsosP: Promise<Qso[] | null> }) {
   const qsos = await qsosP;
   const hideClass = ' hidden sm:table-cell';
 
@@ -55,7 +51,7 @@ const QsoTable = async function QsoTable({
       </tbody>
     </table>
   );
-} as unknown as ({ qsosP }: { qsosP: Promise<Qso[] | null> }) => JSX.Element;
+}
 
 async function getLatest(): Promise<Qso[] | null> {
   try {

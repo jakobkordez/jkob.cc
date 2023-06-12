@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/header';
-import '@/styles/globals.scss';
+import './globals.scss';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   themeColor: '#12071c',
   colorScheme: 'dark',
   category: 'portfolio',
+  metadataBase: new URL('https://jkob.cc'),
   openGraph: {
     title: 'Jakob Kordež',
     description: 'Developer and amateur radio enthusiast.',

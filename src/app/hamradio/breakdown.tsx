@@ -30,7 +30,7 @@ export default function Breakdown() {
   );
 }
 
-const Table = async function Table({
+async function Table({
   columns,
   entries,
 }: {
@@ -50,13 +50,7 @@ const Table = async function Table({
   ) : (
     <SuspenseFallback />
   );
-} as unknown as ({
-  columns,
-  entries,
-}: {
-  columns: number;
-  entries: Promise<ByCat | null>;
-}) => JSX.Element;
+}
 
 function SuspenseFallback() {
   return <div className="text-center text-4xl font-medium">-</div>;
