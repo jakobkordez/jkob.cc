@@ -15,8 +15,8 @@ import fanDipole from './assets/multi_inv_v.jpg';
 import qsl from './assets/qsl_2022.jpg';
 import sota from './assets/sota_1.jpg';
 
-// Revalidate every 24 hours
-export const revalidate = 86400;
+// Revalidate only with /api/revalidate
+export const revalidate = false;
 
 export const metadata: Metadata = {
   title: 'Amateur Radio',
@@ -67,6 +67,11 @@ export default function Hamradio() {
       <h2>QSL</h2>
       <div className={colStyle}>
         <Qsl />
+      </div>
+
+      <h2>Contesing</h2>
+      <div className={colStyle}>
+        <Contesting />
       </div>
 
       <h2>SOTA</h2>
@@ -123,7 +128,7 @@ function Header() {
           </tbody>
         </table>
       </div>
-      <div className="m-4 flex items-center gap-2 text-sm">
+      <div className="m-4 flex flex-wrap items-center gap-2 text-sm">
         <LinkButton href="https://www.qrz.com/db/s52kj">QRZ.com</LinkButton>
         <LinkButton href="https://www.qrzcq.com/call/S52KJ">QRZCQ</LinkButton>
         <div className="mx-2">|</div>
@@ -133,6 +138,7 @@ function Header() {
         <LinkButton href="http://lea.hamradio.si/~s50c/">
           Radioklub Domžale
         </LinkButton>
+        <LinkButton href="https://s5cc.eu/">Slovenia Contest Club</LinkButton>
         <LinkButton href="http://www.hamradio.si/">ZRS</LinkButton>
       </div>
     </>
@@ -144,24 +150,27 @@ function MyRadios() {
     <>
       <div>
         <p>
-          My primary TRX is a <strong>Xiegu G90</strong> which is a 20W HF all
-          mode transceiver and an <strong>Icom IC-726</strong> that needs some
-          fixing. I also have a <strong>RTL-SDR v3</strong> which I sometimes
-          use to recieve higher bands.
+          Since late june 2023 my primary TRX has been an{' '}
+          <strong>Icom IC-7300</strong> which is a 100W HF SDR transceiver.
+        </p>
+        <p>
+          I used to have a Xiegu G90 and an Icom IC-726 before I got the
+          IC-7300. The G90 served me well, but I wanted an upgrade and I
+          wasn&apos;t using it for portable operations as much as I thought I
+          would.
         </p>
         <p>
           For VHF/UHF I use a <strong>Icom IC-275H</strong> and a{' '}
           <strong>Baofeng UV-5RTP</strong> which is a cheap 8W handheld radio.
         </p>
         <p>
-          When I need more power I use my fathers{' '}
-          <strong>Yaesu FTDX-3000</strong>.
+          I also have a <strong>RTL-SDR v3</strong> which I rarely use.
         </p>
       </div>
 
       <MImage src={portable} alt="Portable HF setup" />
 
-      <MImage src={setup} alt="Home setup" />
+      <MImage src={setup} alt="Old setup (Xiegu G90 and Icom IC-726)" />
     </>
   );
 }
@@ -189,8 +198,13 @@ function MyAntennas() {
         </p>
 
         <p>
-          I&apos;m planning on making a <strong>11 element 2m yagi</strong> to
-          try meteor scatter.
+          I&apos;m planning on making a{' '}
+          <strong>9 element yagi for 144 MHz</strong> to try meteor scatter.
+        </p>
+
+        <p>
+          I&apos;m in the process of testing the <strong>Loop on Ground</strong>{' '}
+          antenna by KK5JY as a receive antenna.
         </p>
       </div>
 
@@ -226,6 +240,29 @@ function Qsl() {
 
       <MImage src={qsl} alt="My QSL card" />
     </>
+  );
+}
+
+function Contesting() {
+  return (
+    <div>
+      <p>
+        I try and participate in the larger HF contests like CQWW, CQWPX, IARU
+        HF, etc. I mostly operate from home in the{' '}
+        <strong>single operator, all band, low power</strong> category. I usualy
+        don&apos;t compete in digital modes, I prefer{' '}
+        <strong>CW and SSB</strong>.
+      </p>
+      <p>
+        I like to participate in the{' '}
+        <strong>Youngsters on the air contest</strong>. In 2023 I participated
+        in the 1<sup>st</sup> round from the Slovenia Contest Club location.
+      </p>
+      <p>
+        I also participate in the <strong>KVP ZRS</strong> contests on 80m in
+        which I use my linear loaded dipole.
+      </p>
+    </div>
   );
 }
 
