@@ -63,6 +63,7 @@ export default function ExpandableImage({
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isString(s: any) {
   return typeof s === 'string' || s instanceof String;
 }

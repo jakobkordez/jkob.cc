@@ -42,7 +42,7 @@ export default function Projects() {
               ) : (
                 <div className="aspect-video bg-white/30" />
               )}
-              <div className="flex-1 bg-gradient-to-br from-white/10 to-white/20 py-4 px-6">
+              <div className="flex-1 bg-gradient-to-br from-white/10 to-white/20 px-6 py-4">
                 <div className="mb-2 text-xl font-bold">{project.title}</div>
                 {project.description && (
                   <div className="text-sm">{project.description}</div>

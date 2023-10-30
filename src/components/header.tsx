@@ -21,7 +21,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="py-4 px-6 font-medium tracking-wider drop-shadow-md backdrop-brightness-50 backdrop-saturate-200">
+    <header className="px-6 py-4 font-medium tracking-wider drop-shadow-md backdrop-brightness-50 backdrop-saturate-200">
       <nav className="flex-none flex-wrap space-y-4 text-lg md:flex md:space-x-8 md:space-y-0">
         <div className="flex grow">
           <Link className="mr-auto" href="/">

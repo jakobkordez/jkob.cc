@@ -23,18 +23,22 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function CustomLink(props: any) {
   return <a className="link" {...props} />;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MdxImage(props: any) {
   return <ExpandableImage width={1000} height={1000} {...props} />;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Paragraph(props: any) {
   return <div className="mb-4" {...props} />;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function List(props: any) {
   return <ul className="mb-4 ml-8 list-disc" {...props} />;
 }

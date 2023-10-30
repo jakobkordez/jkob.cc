@@ -1,4 +1,3 @@
-import { LinkButton } from '@/components/button';
 import { Metadata } from 'next';
 import Breakdown from './breakdown';
 import Latest from './latest';
@@ -11,9 +10,10 @@ import portable from './assets/portable.jpg';
 import setup from './assets/setup.jpg';
 import linLoaded from './assets/lin_loaded.jpg';
 import balun41 from './assets/4_1_balun.jpg';
-import fanDipole from './assets/multi_inv_v.jpg';
+import balun49 from './assets/49_1_balun.jpg';
 import qsl from './assets/qsl_2022.jpg';
 import sota from './assets/sota_1.jpg';
+import Link from 'next/link';
 
 // Revalidate only with /api/revalidate
 export const revalidate = false;
@@ -94,7 +94,7 @@ export default function Hamradio() {
 function Header() {
   return (
     <>
-      <div className="m-4 grid grid-cols-2 gap-4 rounded bg-gradient-to-br from-white/10 to-white/20 py-4 px-6 shadow-2xl md:grid-cols-3">
+      <div className="m-4 grid grid-cols-2 gap-4 rounded bg-gradient-to-br from-white/10 to-white/20 px-6 py-4 shadow-2xl md:grid-cols-3">
         <div className="col-span-2 m-auto text-center md:col-span-1">
           <div className="text-sm">Callsign</div>
           <div className="text-5xl font-medium">S52KJ</div>
@@ -129,17 +129,25 @@ function Header() {
         </table>
       </div>
       <div className="m-4 flex flex-wrap items-center gap-2 text-sm">
-        <LinkButton href="https://www.qrz.com/db/s52kj">QRZ.com</LinkButton>
-        <LinkButton href="https://www.qrzcq.com/call/S52KJ">QRZCQ</LinkButton>
+        <Link className="button" href="https://www.qrz.com/db/s52kj">
+          QRZ.com
+        </Link>
+        <Link className="button" href="https://www.qrzcq.com/call/S52KJ">
+          QRZCQ
+        </Link>
         <div className="mx-2">|</div>
-        <LinkButton href="https://rklub.vegova.si/">
+        <Link className="button" href="https://www.s59veg.si/">
           Radioklub Vegova
-        </LinkButton>
-        <LinkButton href="http://lea.hamradio.si/~s50c/">
+        </Link>
+        <Link className="button" href="http://lea.hamradio.si/~s50c/">
           Radioklub Domžale
-        </LinkButton>
-        <LinkButton href="https://s5cc.eu/">Slovenia Contest Club</LinkButton>
-        <LinkButton href="http://www.hamradio.si/">ZRS</LinkButton>
+        </Link>
+        <Link className="button" href="https://s5cc.eu/">
+          Slovenia Contest Club
+        </Link>
+        <Link className="button" href="http://www.hamradio.si/">
+          ZRS
+        </Link>
       </div>
     </>
   );
@@ -183,18 +191,12 @@ function MyAntennas() {
           Most of my HF antennas are homebrewed. I mostly use a{' '}
           <strong>Random wire antenna</strong> with a 9:1 unun I made. I also
           have an <strong>40m off center fed dipole</strong> in an{' '}
-          <strong>inverted V</strong> configuration with a dual-core 4:1 current
-          balun I made.
+          <strong>inverted V</strong> configuration with a 4:1 hybrid balun I made.
         </p>
         <p>
           I also have a 1:1 balun I bought that I use for either a{' '}
           <strong>40m Inverted V</strong> or a{' '}
           <strong>80m linear loaded Inverted V</strong>.
-        </p>
-        <p>
-          I used to have a{' '}
-          <strong>17m, 15m and 10m Inverted V fan dipole</strong> but had
-          problems with it and took it down.
         </p>
 
         <p>
@@ -208,11 +210,11 @@ function MyAntennas() {
         </p>
       </div>
 
-      <MImage src={balun41} alt="Dual-core 4:1 current balun" />
+      <MImage src={balun41} alt="4:1 hybrid balun" />
+      
+      <MImage src={balun49} alt="49:1 unun" />
 
       <MImage src={linLoaded} alt="80m linear loaded dipole" />
-
-      <MImage src={fanDipole} alt="17m, 15m and 10m Inverted V fan dipole" />
     </>
   );
 }
@@ -297,7 +299,7 @@ function MImage({ src, alt }: { src: StaticImageData; alt: string }) {
           height={500}
           placeholder="blur"
         />
-        {alt && <div className="py-1 px-3">{alt}</div>}
+        {alt && <div className="px-3 py-1">{alt}</div>}
       </div>
     </ExpandableImage>
   );

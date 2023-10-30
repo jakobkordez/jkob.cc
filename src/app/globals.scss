@@ -1,6 +1,10 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button {
+  @apply flex items-center gap-2 rounded border border-white/90 px-4 py-2 font-bold transition-colors hover:bg-white/20 active:bg-white/30;
+}
 
 body {
   background: linear-gradient(80deg, #010f2a 0%, #27021e 100%);

@@ -1,6 +1,6 @@
-import { LinkButton } from '@/components/button';
 import { faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -73,18 +73,18 @@ export default function Home() {
       <div className="content">
         <h2>Find me on</h2>
         <div className="flex flex-wrap gap-2">
-          <LinkButton icon={faGithub} href="https://github.com/jakobkordez">
-            Github
-          </LinkButton>
-          <LinkButton icon={faGlobe} href="https://www.qrz.com/db/s52kj">
-            QRZ.com
-          </LinkButton>
-          <LinkButton
-            icon={faInstagram}
-            href="https://www.instagram.com/jakoob99/"
-          >
-            Instagram
-          </LinkButton>
+          <Link className="button" href="https://github.com/jakobkordez">
+            <FontAwesomeIcon icon={faGithub} />
+            <span>Github</span>
+          </Link>
+          <Link className="button" href="https://www.qrz.com/db/s52kj">
+            <FontAwesomeIcon icon={faGlobe} />
+            <span>QRZ.com</span>
+          </Link>
+          <Link className="button" href="https://www.instagram.com/jakoob99/">
+            <FontAwesomeIcon icon={faInstagram} />
+            <span>Instagram</span>
+          </Link>
         </div>
       </div>
 
