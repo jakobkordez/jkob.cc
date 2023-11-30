@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     siteName: 'Jakob Kordež',
     locale: 'en_US',
     type: 'website',
+    images: {
+      url: 'https://jkob.cc/images/portrait.jpg',
+    },
   },
   robots: {
     index: true,

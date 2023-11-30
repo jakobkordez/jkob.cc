@@ -6,6 +6,7 @@ import Image, { StaticImageData } from 'next/image';
 import ExpandableImage from '@/components/expandable_image';
 import RelativeTime from '@/components/relative_time';
 
+import wrtc from './assets/wrtc.jpg';
 import portable from './assets/portable.jpg';
 import setup from './assets/setup.jpg';
 import linLoaded from './assets/lin_loaded.jpg';
@@ -82,11 +83,25 @@ export default function Hamradio() {
       {/* DIY */}
 
       <h2>Other callsigns I used</h2>
-      <p>
-        I&apos;ve used the callsign <strong>S52KJ/P</strong> for SOTA
-        activations. I also participated in the 2022 YOTA month with the
-        callsign <strong>S50YOTA</strong>.
-      </p>
+      <div className={colStyle}>
+        <div>
+          <p>
+            I&apos;ve used the callsign <strong>S52KJ/P</strong> for SOTA
+            activations.
+          </p>
+          <p>
+            In 2023 I was a youth volunteer at WRTC in Italy, at that time I
+            participated in the IARU HF contest with the callsigns{' '}
+            <strong>I4/S52KJ</strong> and <strong>I41A</strong>.
+          </p>
+          <p>
+            I also participated in the 2022 YOTA month with the callsign{' '}
+            <strong>S50YOTA</strong>.
+          </p>
+        </div>
+
+        <MImage src={wrtc} alt="WRTC 2021" />
+      </div>
     </div>
   );
 }
@@ -191,7 +206,8 @@ function MyAntennas() {
           Most of my HF antennas are homebrewed. I mostly use a{' '}
           <strong>Random wire antenna</strong> with a 9:1 unun I made. I also
           have an <strong>40m off center fed dipole</strong> in an{' '}
-          <strong>inverted V</strong> configuration with a 4:1 hybrid balun I made.
+          <strong>inverted V</strong> configuration with a 4:1 hybrid balun I
+          made.
         </p>
         <p>
           I also have a 1:1 balun I bought that I use for either a{' '}
@@ -211,7 +227,7 @@ function MyAntennas() {
       </div>
 
       <MImage src={balun41} alt="4:1 hybrid balun" />
-      
+
       <MImage src={balun49} alt="49:1 unun" />
 
       <MImage src={linLoaded} alt="80m linear loaded dipole" />
@@ -247,24 +263,26 @@ function Qsl() {
 
 function Contesting() {
   return (
-    <div>
-      <p>
-        I try and participate in the larger HF contests like CQWW, CQWPX, IARU
-        HF, etc. I mostly operate from home in the{' '}
-        <strong>single operator, all band, low power</strong> category. I usualy
-        don&apos;t compete in digital modes, I prefer{' '}
-        <strong>CW and SSB</strong>.
-      </p>
-      <p>
-        I like to participate in the{' '}
-        <strong>Youngsters on the air contest</strong>. In 2023 I participated
-        in the 1<sup>st</sup> round from the Slovenia Contest Club location.
-      </p>
-      <p>
-        I also participate in the <strong>KVP ZRS</strong> contests on 80m in
-        which I use my linear loaded dipole.
-      </p>
-    </div>
+    <>
+      <div>
+        <p>
+          I try and participate in the larger HF contests like CQWW, CQWPX, IARU
+          HF, etc. I mostly operate from home in the{' '}
+          <strong>single operator, all band, low power</strong> category. I
+          usualy don&apos;t compete in digital modes, I prefer{' '}
+          <strong>CW and SSB</strong>.
+        </p>
+        <p>
+          I like to participate in the{' '}
+          <strong>Youngsters on the air contest</strong>. In 2023 I participated
+          in the 1<sup>st</sup> round from the Slovenia Contest Club location.
+        </p>
+        <p>
+          I also participate in the <strong>KVP ZRS</strong> contests on 80m in
+          which I use my linear loaded dipole.
+        </p>
+      </div>
+    </>
   );
 }
 
