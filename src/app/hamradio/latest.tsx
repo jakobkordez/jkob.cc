@@ -40,7 +40,9 @@ async function QsoTable({ qsosP }: { qsosP: Promise<Qso[] | null> }) {
                 <td className={className + hideClass}>{qso.date}</td>
                 <td className={className + hideClass}>{qso.time}</td>
                 <td className={className}>{qso.callsign}</td>
-                <td className={className}>{qso.frequency}</td>
+                <td className={className}>
+                  {parseFloat(qso.frequency).toFixed(3)}
+                </td>
                 <td className={className}>{qso.mode}</td>
               </tr>
             );
