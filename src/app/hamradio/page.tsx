@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
+import Image, { StaticImageData } from 'next/image';
 import Breakdown from './breakdown';
 import Latest from './latest';
 import Stats from './stats';
-import Image, { StaticImageData } from 'next/image';
 import ExpandableImage from '@/components/expandable_image';
 import RelativeTime from '@/components/relative_time';
 
@@ -14,7 +15,8 @@ import balun41 from './assets/4_1_balun.jpg';
 import balun49 from './assets/49_1_balun.jpg';
 import qsl from './assets/qsl_2022.jpg';
 import sota from './assets/sota_1.jpg';
-import Link from 'next/link';
+import dxcomanderParts from './assets/dxcomander_parts.jpg';
+import dxcomander from './assets/dxcomander.jpg';
 
 // Revalidate only with /api/revalidate
 export const revalidate = false;
@@ -84,23 +86,7 @@ export default function Hamradio() {
 
       <h2>Other callsigns I used</h2>
       <div className={colStyle}>
-        <div>
-          <p>
-            I&apos;ve used the callsign <strong>S52KJ/P</strong> for SOTA
-            activations.
-          </p>
-          <p>
-            In 2023 I was a youth volunteer at WRTC in Italy, at that time I
-            participated in the IARU HF contest with the callsigns{' '}
-            <strong>I4/S52KJ</strong> and <strong>I41A</strong>.
-          </p>
-          <p>
-            I also participated in the 2022 YOTA month with the callsign{' '}
-            <strong>S50YOTA</strong>.
-          </p>
-        </div>
-
-        <MImage src={wrtc} alt="WRTC 2021" />
+        <CallsignsUsed />
       </div>
     </div>
   );
@@ -203,16 +189,17 @@ function MyAntennas() {
     <>
       <div>
         <p>
-          Most of my HF antennas are homebrewed. I mostly use a{' '}
-          <strong>Random wire antenna</strong> with a 9:1 unun I made. I also
-          have an <strong>40m off center fed dipole</strong> in an{' '}
-          <strong>inverted V</strong> configuration with a 4:1 hybrid balun I
-          made.
+          Most of my HF antennas are homebrewed. My main antenna is an{' '}
+          <strong>off center fed dipole</strong> in an inverted V configuration
+          with a 4:1 hybrid balun I made. It works on 40m, 20m, 15m, 12m and
+          10m. I also have an <strong>end-fed half-wave antenna</strong> with a
+          49:1 unun and a loading coil I made to cover the other bands. I used
+          to use a <strong>Random wire antenna</strong> with a 9:1 unun I made.
         </p>
         <p>
           I also have a 1:1 balun I bought that I use for either a{' '}
-          <strong>40m Inverted V</strong> or a{' '}
-          <strong>80m linear loaded Inverted V</strong>.
+          <strong>normal or multiband inverted V</strong> or a{' '}
+          <strong>80m linear loaded inverted V</strong>.
         </p>
 
         <p>
@@ -224,6 +211,16 @@ function MyAntennas() {
           I&apos;m in the process of testing the <strong>Loop on Ground</strong>{' '}
           antenna by KK5JY as a receive antenna.
         </p>
+
+        <p>
+          Recently I made a DXComander-style antenna for my expedition in
+          Croatia. I bought a 10m fiberglass pole, some wire for the elements
+          and radials, some rope for guying and some nuts and bolts. The
+          seperators are 3D printed from PLA plastic. The antenna has 4 elements
+          for 5 bands and 48m of radials in 3m lengths. The elements for 40m,
+          20m and 10m are verticals and the 80m element is an inverted L. The
+          15m band is covered by the 40m element (3rd harmonic).
+        </p>
       </div>
 
       <MImage src={balun41} alt="4:1 hybrid balun" />
@@ -231,6 +228,10 @@ function MyAntennas() {
       <MImage src={balun49} alt="49:1 unun" />
 
       <MImage src={linLoaded} alt="80m linear loaded dipole" />
+
+      <MImage src={dxcomanderParts} alt="DIY DXComander parts" />
+
+      <MImage src={dxcomander} alt="DIY DXComander" />
     </>
   );
 }
@@ -251,8 +252,7 @@ function Qsl() {
           <strong>OQRS</strong>.
         </p>
         <p>
-          I rarely upload my QSO&apos;s to <strong>eQSL</strong> and{' '}
-          <strong>Clublog</strong>.
+          I no longer upload my QSO&apos;s to <strong>eQSL</strong>.
         </p>
       </div>
 
@@ -270,12 +270,14 @@ function Contesting() {
           HF, etc. I mostly operate from home in the{' '}
           <strong>single operator, all band, low power</strong> category. I
           usualy don&apos;t compete in digital modes, I prefer{' '}
-          <strong>CW and SSB</strong>.
+          <strong>CW and SSB</strong>. I usualy participate with my callsign (
+          <strong>S52KJ</strong>) or the club callsign <strong>S56V</strong>.
         </p>
         <p>
           I like to participate in the{' '}
           <strong>Youngsters on the air contest</strong>. In 2023 I participated
-          in the 1<sup>st</sup> round from the Slovenia Contest Club location.
+          in the 1<sup>st</sup> and 2<sup>nd</sup> round from the Slovenia
+          Contest Club location.
         </p>
         <p>
           I also participate in the <strong>KVP ZRS</strong> contests on 80m in
@@ -306,10 +308,48 @@ function Sota() {
   );
 }
 
+function CallsignsUsed() {
+  return (
+    <>
+      <div>
+        <p>
+          I&apos;ve used the callsign <strong>S52KJ/P</strong> for SOTA
+          activations.
+        </p>
+        <p>
+          In 2023 I was a youth volunteer at WRTC in Italy, at that time I
+          participated in the IARU HF contest with the callsigns{' '}
+          <strong>I4/S52KJ</strong> and <strong>I41A</strong>.
+        </p>
+        <p>
+          In december 2023 I traveled to Croatia and activated with the callsign{' '}
+          <strong>9A/S52KJ</strong> with a DXComander-style antenna I made
+        </p>
+        <p>
+          I also sometimes use the callsign <strong>S56V</strong> for contesting
+          which is the callsign of Radioklub Vegova.
+        </p>
+        <p>
+          I also participated in the 2022 and 2023 YOTA month with the callsign{' '}
+          <strong>S50YOTA</strong>. I also used the callsign{' '}
+          <strong>9A0YOTA</strong> with a remote station in Croatia.
+        </p>
+        <p>
+          For the 2<sup>nd</sup> round of the 2023 YOTA contest I used the
+          callsign <strong>S51A</strong> which is the contest callsign of
+          Radioklub Triglav.
+        </p>
+      </div>
+
+      <MImage src={wrtc} alt="WRTC 2021" />
+    </>
+  );
+}
+
 function MImage({ src, alt }: { src: StaticImageData; alt: string }) {
   return (
     <ExpandableImage src={src} alt={alt}>
-      <div className="mx-auto mb-auto block w-fit cursor-pointer overflow-hidden rounded bg-white/20 shadow-2xl transition-all ease-in-out hover:brightness-75">
+      <div className="mx-auto mb-auto block w-fit cursor-pointer overflow-hidden rounded bg-white/20 shadow-2xl transition-all ease-in-out hover:scale-[1.01]">
         <Image
           src={src}
           alt={alt}

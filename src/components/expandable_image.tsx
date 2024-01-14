@@ -41,7 +41,7 @@ export default function ExpandableImage({
           />
 
           <button
-            className="relative z-50 m-2 ml-auto text-2xl text-white transition-colors duration-200 ease-in-out hover:text-gray-200 "
+            className="relative z-50 m-2 ml-auto text-2xl text-white transition-colors duration-200 ease-in-out hover:text-gray-200"
             onClick={() => window.history.back()}
           >
             <FontAwesomeIcon icon={faClose} />
