@@ -1,4 +1,8 @@
-import { faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import {
+  faGithub,
+  faInstagram,
+  faLinkedin,
+} from '@fortawesome/free-brands-svg-icons';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
@@ -57,6 +61,9 @@ export default function Home() {
           <Tag color="bg-white text-black" href="https://nextjs.org/">
             Next.js
           </Tag>
+          <Tag color="bg-[#f73c00]" href="https://svelte.dev/">
+            Svelte
+          </Tag>
           <Tag color="bg-purple-700" href="https://dotnet.microsoft.com/">
             .NET
           </Tag>
@@ -84,6 +91,13 @@ export default function Home() {
           <Link className="button" href="https://www.instagram.com/jakoob99/">
             <FontAwesomeIcon icon={faInstagram} />
             <span>Instagram</span>
+          </Link>
+          <Link
+            className="button"
+            href="https://www.linkedin.com/in/jakob-kordez-02644028a/"
+          >
+            <FontAwesomeIcon icon={faLinkedin} />
+            <span>LinkedIn</span>
           </Link>
         </div>
       </div>
