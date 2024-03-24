@@ -17,6 +17,9 @@ export default function Header() {
   if (pathname?.startsWith('/projects/')) {
     pathname = '/projects';
   }
+  if (pathname?.startsWith('/hamradio/')) {
+    pathname = '/hamradio';
+  }
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

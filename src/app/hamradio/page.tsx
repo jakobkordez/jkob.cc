@@ -17,6 +17,7 @@ import qsl from './assets/qsl_2022.jpg';
 import sota from './assets/sota_1.jpg';
 import dxcomanderParts from './assets/dxcomander_parts.jpg';
 import dxcomander from './assets/dxcomander.jpg';
+import { ContestList } from './contests/contest';
 
 // Revalidate only with /api/revalidate
 export const revalidate = false;
@@ -75,6 +76,13 @@ export default function Hamradio() {
       <h2>Contesing</h2>
       <div className={colStyle}>
         <Contesting />
+      </div>
+      <h3>Recent contests</h3>
+      <ContestList count={4} />
+      <div className="flex">
+        <Link className="button mt-3 text-sm" href="/hamradio/contests">
+          MORE CONTESTS
+        </Link>
       </div>
 
       <h2>SOTA</h2>
@@ -140,7 +148,7 @@ function Header() {
         <Link className="button" href="https://www.s59veg.si/">
           Radioklub Vegova
         </Link>
-        <Link className="button" href="http://lea.hamradio.si/~s50c/">
+        <Link className="button" href="http://s50c.hamradio.si/">
           Radioklub Domžale
         </Link>
         <Link className="button" href="https://s5cc.eu/">
@@ -338,6 +346,11 @@ function CallsignsUsed() {
           For the 2<sup>nd</sup> round of the 2023 YOTA contest I used the
           callsign <strong>S51A</strong> which is the contest callsign of
           Radioklub Triglav.
+        </p>
+        <p>
+          For the 1<sup>st</sup> round of the 2024 YOTA contest I used the
+          callsign <strong>S50C</strong> which is the contest callsign of
+          Radioklub Domžale.
         </p>
       </div>
 
