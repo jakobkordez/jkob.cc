@@ -1,25 +1,27 @@
-import { allProjects } from 'contentlayer/generated';
+import { getPosts } from '@/util/posts';
 import { notFound } from 'next/navigation';
-import { useMDXComponent } from 'next-contentlayer/hooks';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import ExpandableImage from '@/components/expandable_image';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
-interface ProjectPageProps {
+interface PostPageProps {
   params: {
     slug: string;
   };
 }
 
-export function generateMetadata({ params }: ProjectPageProps): Metadata {
-  const project = allProjects.find((project) => project.slug === params.slug);
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
+  const post = (await getPosts()).find((post) => post.slug === params.slug);
 
-  if (!project) return {};
+  if (!post) return {};
 
   return {
-    title: project.title,
-    description: project.description,
-    keywords: project.tags,
+    title: post.title,
+    description: post.description,
+    keywords: post.tags,
   };
 }
 
@@ -50,32 +52,30 @@ const components = {
   ul: List,
 };
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = allProjects.find((project) => project.slug === params.slug);
+export default async function PostPage({ params }: PostPageProps) {
+  const post = (await getPosts()).find((post) => post.slug === params.slug);
 
-  if (!project) {
+  if (!post) {
     notFound();
   }
-
-  const Component = useMDXComponent(project.body.code);
 
   return (
     <div className="content">
       <article className="blog">
-        {project.image && (
+        {post.image && (
           <div className="relative h-60 w-full overflow-hidden rounded">
             <Image
               width={700}
               height={240}
-              src={project.image}
+              src={post.image}
               alt=""
               className="object-cover object-top"
             />
           </div>
         )}
-        <h1>{project.title}</h1>
+        <h1>{post.title}</h1>
         <div className="mb-8 flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
+          {post.tags.map((tag) => (
             <div
               key={tag}
               className="rounded-full bg-gray-400/20 px-3 py-1 text-sm font-medium"
@@ -85,14 +85,18 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           ))}
         </div>
 
-        <Component components={components} />
+        <MDXRemote
+          source={post.content}
+          components={components}
+          options={{ parseFrontmatter: true }}
+        />
       </article>
     </div>
   );
 }
 
 export async function generateStaticParams() {
-  return allProjects.map((project) => ({
-    slug: project.slug,
+  return (await getPosts()).map((post) => ({
+    slug: post.slug,
   }));
 }

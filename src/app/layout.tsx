@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/header';
 import './globals.scss';
@@ -6,6 +6,11 @@ import './globals.scss';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
+
+export const viewport: Viewport = {
+  themeColor: '#12071c',
+  colorScheme: 'dark',
+};
 
 export const metadata: Metadata = {
   title: {
@@ -20,8 +25,6 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
   creator: 'Jakob Kordež',
   keywords: ['Developer', 'Amateur radio', 'Software', 'Next.js'],
-  themeColor: '#12071c',
-  colorScheme: 'dark',
   category: 'portfolio',
   metadataBase: new URL('https://jkob.cc'),
   openGraph: {

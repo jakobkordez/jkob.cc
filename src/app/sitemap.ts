@@ -1,9 +1,9 @@
-import { allProjects } from 'contentlayer/generated';
+import { getPosts } from '@/util/posts';
 
 const baseUrl = 'https://jkob.cc';
 
-export default function sitemap() {
-  const projects = allProjects.map((project) => ({
+export default async function sitemap() {
+  const projects = (await getPosts()).map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,
     lastModified: project.date,
   }));
