@@ -28,7 +28,10 @@ export const metadata: Metadata = {
   category: 'portfolio',
   metadataBase: new URL('https://jkob.cc'),
   openGraph: {
-    title: 'Jakob Kordež',
+    title: {
+      default: 'Jakob Kordež',
+      template: '%s | Jakob Kordež',
+    },
     description: 'Developer and amateur radio enthusiast.',
     url: 'https://jkob.cc',
     siteName: 'Jakob Kordež',

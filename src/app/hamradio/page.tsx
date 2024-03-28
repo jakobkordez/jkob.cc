@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
 import Image, { StaticImageData } from 'next/image';
 import Breakdown from './breakdown';
@@ -21,19 +20,6 @@ import { ContestList } from './contests/contest';
 
 // Revalidate only with /api/revalidate
 export const revalidate = false;
-
-export const metadata: Metadata = {
-  title: 'Amateur Radio',
-  description: 'My amateur radio activities.',
-  keywords: [
-    'S52KJ',
-    'ham radio',
-    'amateur radio',
-    'antennas',
-    'qsl card',
-    'sota',
-  ],
-};
 
 const colStyle = 'gap-10 space-y-10 md:columns-2';
 

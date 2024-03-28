@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: 'Posts',
   description: 'Things I have worked on.',
   keywords: ['posts', 'projects', 'blog'],
+  openGraph: {
+    title: 'Posts',
+    description: 'Things I have worked on.',
+  },
 };
 
 export default async function Projects() {

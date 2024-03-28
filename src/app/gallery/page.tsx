@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   title: 'Gallery',
   description: 'My latest Instagram posts',
   keywords: ['gallery', 'instagram'],
+  openGraph: {
+    title: 'Gallery',
+    description: 'My latest Instagram posts',
+  },
 };
 
 interface Post {
@@ -101,7 +105,7 @@ const IG_API = 'https://graph.instagram.com/v16.0';
 async function fetchInstagramPosts(): Promise<Post[]> {
   const res = await fetch(
     `${IG_API}/${process.env.USER_ID}/media?access_token=${process.env.ACCESS_TOKEN}&fields=id,media_type,media_url,thumbnail_url,timestamp`,
-    { next: { revalidate: 1800 } }
+    { next: { revalidate: 1800 } },
   );
   const data = await res.json();
 
@@ -110,7 +114,7 @@ async function fetchInstagramPosts(): Promise<Post[]> {
 
 async function fetchInstagramUser(): Promise<string> {
   const res = await fetch(
-    `${IG_API}/${process.env.USER_ID}?access_token=${process.env.ACCESS_TOKEN}&fields=username`
+    `${IG_API}/${process.env.USER_ID}?access_token=${process.env.ACCESS_TOKEN}&fields=username`,
   );
   const data = await res.json();
 
