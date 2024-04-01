@@ -12,13 +12,22 @@ interface Contest {
 
 const contests: Contest[] = [
   {
+    img: '/images/hamradio/CQ.png',
+    name: 'CQ WPX SSB',
+    date: '2024',
+    callsign: 'S50C',
+    category: 'SOAB LP',
+    qsos: 1118,
+    score: 1_516_690,
+  },
+  {
     img: '/images/hamradio/YOTA.png',
     name: 'YOTA 1st Round',
     date: '2024',
     callsign: 'S50C',
     category: 'SOAB YOTA',
     qsos: 588,
-    score: 383350,
+    score: 370668,
   },
   {
     img: '/images/hamradio/ARRL.png',
