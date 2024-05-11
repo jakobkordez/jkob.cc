@@ -12,6 +12,15 @@ interface Contest {
 
 const contests: Contest[] = [
   {
+    img: '/images/hamradio/ari.png',
+    name: 'ARI DX',
+    date: '2024',
+    callsign: 'S52KJ',
+    category: 'SOAB CW LP',
+    qsos: 40,
+    score: 5110,
+  },
+  {
     img: '/images/hamradio/CQ.png',
     name: 'CQ WPX SSB',
     date: '2024',
