@@ -12,6 +12,15 @@ interface Contest {
 
 const contests: Contest[] = [
   {
+    img: '/images/hamradio/CQ.png',
+    name: 'CQ WPX CW',
+    date: '2024',
+    callsign: 'S52KJ',
+    category: 'SOAB LP',
+    qsos: 1108,
+    score: 1_342_664,
+  },
+  {
     img: '/images/hamradio/ari.png',
     name: 'ARI DX',
     date: '2024',
@@ -28,6 +37,15 @@ const contests: Contest[] = [
     category: 'SOAB LP',
     qsos: 1118,
     score: 1_516_690,
+  },
+  {
+    img: '/images/hamradio/rdxc_logo.png',
+    name: 'Russian DX Contest',
+    date: '2024',
+    callsign: 'S52KJ',
+    category: 'SOAB LP CW',
+    qsos: 85,
+    score: 46_726,
   },
   {
     img: '/images/hamradio/YOTA.png',
@@ -187,13 +205,15 @@ export function ContestList({ count }: ContestListProps) {
           className="flex flex-col items-center gap-3 rounded bg-white/5 p-4 text-center"
           key={i}
         >
-          <Image
-            src={c.img}
-            alt={c.name}
-            width={100}
-            height={100}
-            className="max-h-[100px] max-w-[100px] rounded"
-          />
+          <div className="flex h-24 w-24">
+            <Image
+              src={c.img}
+              alt={c.name}
+              width={100}
+              height={100}
+              className="m-auto max-h-full max-w-full rounded"
+            />
+          </div>
           <div>
             <div className="text-xl font-bold">{c.name}</div>
             <div className="text-sm">{c.date}</div>
