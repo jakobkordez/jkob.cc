@@ -1,4 +1,4 @@
-import clientPromise from '@/lib/mongodb';
+import { supabase } from '@/lib/supabase';
 import { fromGridsquare, toPolarPosition } from '@/util/position';
 import { Suspense } from 'react';
 
@@ -24,7 +24,7 @@ export default function Stats() {
               value: r.callsign,
               sub: `#${r.rank} most wanted`,
             }
-          : null
+          : null,
       ),
     },
     {
@@ -110,10 +110,10 @@ function SuspenseFallback() {
 
 async function getTotal(): Promise<number | null> {
   try {
-    const client = await clientPromise;
-    const db = client.db();
-
-    return db.collection('logentries').countDocuments();
+    const res = await supabase
+      .from('qso')
+      .select('*', { count: 'exact', head: true });
+    return res.count;
   } catch (e) {
     console.log(e);
   }
@@ -121,12 +121,12 @@ async function getTotal(): Promise<number | null> {
   return null;
 }
 
-async function getDxccs(): Promise<string[] | null> {
+async function getDxccs(): Promise<number[] | null> {
   try {
-    const client = await clientPromise;
-    const db = client.db();
-
-    return db.collection('logentries').distinct('data.DXCC');
+    const res = await supabase.from('qso_dxcc_summary').select('*');
+    return res
+      .data!.filter((d) => d.dxcc !== null && d.dxcc > 0)
+      .map((d) => d.dxcc!);
   } catch (e) {
     console.log(e);
   }
@@ -136,22 +136,8 @@ async function getDxccs(): Promise<string[] | null> {
 
 async function getGridsquares(): Promise<string[] | null> {
   try {
-    const client = await clientPromise;
-    const db = client.db();
-
-    return db
-      .collection('logentries')
-      .aggregate([
-        {
-          $group: {
-            _id: { $toUpper: { $substr: ['$data.GRIDSQUARE', 0, 4] } },
-            count: { $sum: 1 },
-          },
-        },
-      ])
-      .toArray()
-      .then((e) => e.filter((g) => g._id.length === 4))
-      .then((e) => e.map((g) => g._id));
+    const res = await supabase.from('qso_grid_summary').select('*');
+    return res.data!.map((d) => d.grid!);
   } catch (e) {
     console.log(e);
   }
@@ -160,12 +146,9 @@ async function getGridsquares(): Promise<string[] | null> {
 }
 
 async function getRarest(
-  dxccs: string[]
+  dxccs: number[],
 ): Promise<{ callsign: string; rank: number } | null> {
   try {
-    const client = await clientPromise;
-    const db = client.db();
-
     const mostWantedList = await getMostWanted();
     let mostWantedI = 999;
     for (const dxcc of dxccs) {
@@ -175,10 +158,11 @@ async function getRarest(
     }
 
     // Get full callsign for most wanted DXCC
-    const callsign = await db
-      .collection('logentries')
-      .findOne({ 'data.DXCC': mostWantedList[mostWantedI] })
-      .then((e) => e?.data.CALL);
+    const res = await supabase
+      .from('qso')
+      .select('call')
+      .eq('dxcc', mostWantedList[mostWantedI]);
+    const callsign = res.data![0].call;
 
     return {
       callsign,
@@ -192,7 +176,7 @@ async function getRarest(
 }
 
 async function getFurthest(
-  gridsquares: string[]
+  gridsquares: string[],
 ): Promise<{ gridsquare: string; distance: number } | null> {
   try {
     let furthestG = 'JN76';
@@ -215,10 +199,10 @@ async function getFurthest(
   return null;
 }
 
-async function getMostWanted(): Promise<string[]> {
+async function getMostWanted(): Promise<number[]> {
   const uri = 'https://clublog.org/mostwanted.php?api=1';
 
   return fetch(uri)
     .then((res) => res.json())
-    .then((json) => Object.values(json));
+    .then((json) => Object.values(json).map(Number));
 }

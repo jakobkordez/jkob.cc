@@ -1,7 +1,6 @@
 export default interface Qso {
   callsign: string;
-  frequency: string;
+  band: string;
   mode: string;
   date: string;
-  time: string;
 }

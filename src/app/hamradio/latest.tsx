@@ -1,5 +1,5 @@
 import Qso from '@/interfaces/qso';
-import clientPromise from '@/lib/mongodb';
+import { supabase } from '@/lib/supabase';
 import { Suspense } from 'react';
 
 export default function Latest() {
@@ -20,31 +20,27 @@ async function QsoTable({ qsosP }: { qsosP: Promise<Qso[] | null> }) {
 
   return (
     <table className="w-full table-auto overflow-hidden rounded bg-gradient-to-br from-white/5 to-white/10 text-left shadow-2xl">
-      <thead className="border-b border-b-gray-400">
-        <tr>
-          <th className={'p-4 pb-2' + hideClass}>Date</th>
-          <th className="p-4 pb-2">Callsign</th>
-          <th className="p-4 pb-2">Frequency</th>
-          <th className="p-4 pb-2">Mode</th>
+      <thead className="border-b border-b-gray-400 text-sm">
+        <tr className="[&>*]:px-4 [&>*]:py-2">
+          <th className={hideClass}>Date</th>
+          <th>Callsign</th>
+          <th>Band</th>
+          <th>Mode</th>
         </tr>
       </thead>
       <tbody className="bg-white/5">
         {qsos ? (
-          qsos.map((qso, i) => {
-            let className = 'px-4 py-1';
-            if (i !== 0) className += ' border-t border-t-gray-700';
-
-            return (
-              <tr key={qso.date + qso.time + qso.callsign}>
-                <td className={className + hideClass}>{qso.date}</td>
-                <td className={className}>{qso.callsign}</td>
-                <td className={className}>
-                  {parseFloat(qso.frequency).toFixed(3)}
-                </td>
-                <td className={className}>{qso.mode}</td>
-              </tr>
-            );
-          })
+          qsos.map((qso) => (
+            <tr
+              key={qso.date + qso.callsign}
+              className="border-t border-t-white/10 [&>*]:px-4 [&>*]:py-1"
+            >
+              <td className={hideClass}>{qso.date}</td>
+              <td>{qso.callsign}</td>
+              <td>{qso.band}</td>
+              <td>{qso.mode}</td>
+            </tr>
+          ))
         ) : (
           <Fallback text="No QSOs found" />
         )}
@@ -55,27 +51,20 @@ async function QsoTable({ qsosP }: { qsosP: Promise<Qso[] | null> }) {
 
 async function getLatest(): Promise<Qso[] | null> {
   try {
-    const client = await clientPromise;
-    const db = client.db();
+    const latest = await supabase
+      .from('qso')
+      .select('*')
+      .order('datetime', { ascending: false })
+      .limit(10);
 
-    const latest = await db
-      .collection('logentries')
-      .find()
-      .sort({ datetime_on: -1, _id: -1 })
-      .limit(10)
-      .toArray();
-
-    return latest.map((qso) => {
-      const d = qso.data.QSO_DATE;
-      const f = qso.data.FREQ;
+    return latest.data!.map((qso) => {
+      const d = new Date(qso.datetime).toISOString().substring(0, 10);
 
       return {
-        callsign: qso.data.CALL.toUpperCase(),
-        frequency: f.substring(0, f.indexOf('.') + 4),
-        mode: qso.data.MODE.toUpperCase(),
-        date:
-          d.substring(0, 4) + '-' + d.substring(4, 6) + '-' + d.substring(6, 8),
-        time: qso.data.TIME_ON.substring(0, 4),
+        callsign: qso.call,
+        band: qso.band ?? '',
+        mode: qso.mode,
+        date: d,
       };
     });
   } catch (error) {

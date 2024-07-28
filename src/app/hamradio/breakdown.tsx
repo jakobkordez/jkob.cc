@@ -1,4 +1,4 @@
-import clientPromise from '@/lib/mongodb';
+import { supabase } from '@/lib/supabase';
 import { Suspense } from 'react';
 
 type ByCat = { key: string; count: number }[];
@@ -7,7 +7,7 @@ export default function Breakdown() {
   const cats = [
     { name: 'By mode', entries: getByMode(), columns: 2 },
     { name: 'By band', entries: getByBand(), columns: 3 },
-    { name: 'By callsign used', entries: getByCallUsed(), columns: 1 },
+    { name: 'By callsign used', entries: getByCallUsed(), columns: 2 },
     { name: 'By continent', entries: getByContinent(), columns: 2 },
   ];
 
@@ -19,7 +19,7 @@ export default function Breakdown() {
           className="flex flex-col overflow-hidden rounded bg-gradient-to-br from-white/5 to-white/10"
         >
           <div className="p-3 pb-2 text-center text-lg font-bold">{name}</div>
-          <div className="flex-grow border-t border-t-gray-400 bg-white/5 p-4 pt-2">
+          <div className="flex-grow border-t border-t-white/10 bg-white/5 p-4 pt-2">
             <Suspense fallback={<SuspenseFallback />}>
               <Table columns={columns} entries={entries} />
             </Suspense>
@@ -60,31 +60,18 @@ async function getByBand(): Promise<ByCat | null> {
   const units = ['mm', 'cm', 'm'];
 
   try {
-    const client = await clientPromise;
-    const db = client.db();
-
-    const res = await db
-      .collection('logentries')
-      .aggregate([
-        {
-          $group: {
-            _id: { $toLower: '$data.BAND' },
-            count: { $sum: 1 },
-          },
-        },
-      ])
-      .toArray();
+    const res = await supabase.from('qso_band_summary').select('*');
 
     const byBand = res
-      .map(({ _id, count }) => {
-        const band = _id.toLowerCase();
+      .data!.map(({ band, qso_count }) => {
+        band = band!.toLowerCase();
 
         // Split to number and unit
         const [number, unit] = band.split(/(\d+)/).filter(Boolean);
 
         return {
           key: band,
-          count,
+          count: qso_count!,
           number: parseInt(number),
           unit: units.indexOf(unit),
         };
@@ -109,26 +96,17 @@ async function getByMode(): Promise<ByCat | null> {
   const modesPriority = ['FT8', 'SSB', 'CW'];
 
   try {
-    const client = await clientPromise;
-    const db = client.db();
-
-    const res = await db
-      .collection('logentries')
-      .aggregate([
-        {
-          $group: {
-            _id: { $toUpper: '$data.MODE' },
-            count: { $sum: 1 },
-          },
-        },
-      ])
-      .toArray();
+    const res = await supabase.from('qso_mode_summary').select('*');
 
     const byMode = res
-      .map(({ _id, count }) => {
-        const mode = _id.toUpperCase();
+      .data!.map(({ mode, qso_count }) => {
+        mode = mode!.toUpperCase();
 
-        return { key: mode, count, priority: modesPriority.indexOf(mode) };
+        return {
+          key: mode,
+          count: qso_count!,
+          priority: modesPriority.indexOf(mode),
+        };
       })
       .sort((a, b) => {
         if (a.priority === -1 && b.priority === -1) {
@@ -148,26 +126,13 @@ async function getByMode(): Promise<ByCat | null> {
 
 async function getByCallUsed(): Promise<ByCat | null> {
   try {
-    const client = await clientPromise;
-    const db = client.db();
-
-    const res = await db
-      .collection('logentries')
-      .aggregate([
-        {
-          $group: {
-            _id: { $toUpper: '$data.STATION_CALLSIGN' },
-            count: { $sum: 1 },
-          },
-        },
-      ])
-      .toArray();
+    const res = await supabase.from('qso_call_summary').select('*');
 
     const byCallUsed = res
-      .map(({ _id, count }) => {
-        const call = _id.toUpperCase();
+      .data!.map(({ call, qso_count }) => {
+        call = call!.toUpperCase();
 
-        return { key: call, count };
+        return { key: call, count: qso_count! };
       })
       .filter((e) => e.key)
       .sort((a, b) => {
@@ -184,26 +149,13 @@ async function getByCallUsed(): Promise<ByCat | null> {
 
 async function getByContinent(): Promise<ByCat | null> {
   try {
-    const client = await clientPromise;
-    const db = client.db();
-
-    const res = await db
-      .collection('logentries')
-      .aggregate([
-        {
-          $group: {
-            _id: { $toUpper: '$data.CONT' },
-            count: { $sum: 1 },
-          },
-        },
-      ])
-      .toArray();
-
+    const res = await supabase.from('qso_cont_summary').select('*');
     const byContinent = res
-      .map(({ _id, count }) => {
-        const continent = _id.toUpperCase();
+      .data!.filter(({ cont }) => cont)
+      .map(({ cont, qso_count }) => {
+        const continent = cont?.toUpperCase() ?? '?';
 
-        return { key: continent, count };
+        return { key: continent, count: qso_count! };
       })
       .filter((e) => e.key)
       .sort((a, b) => {

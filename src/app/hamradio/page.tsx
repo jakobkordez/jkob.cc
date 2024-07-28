@@ -18,8 +18,8 @@ import dxcomanderParts from './assets/dxcomander_parts.jpg';
 import dxcomander from './assets/dxcomander.jpg';
 import { ContestList } from './contests/contest';
 
-// Revalidate only with /api/revalidate
-export const revalidate = false;
+// Revalidates every 1h
+export const revalidate = 3600;
 
 const colStyle = 'gap-10 space-y-10 md:columns-2';
 

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ./src/**/*.{ts,tsx,mdx,md,yml,json}"
+    "format": "prettier --write ./src/**/*.{ts,tsx,mdx,md,yml,json}",
+    "supabase:gen": "supabase gen types typescript --project-id ucetbiziqepeihxlgvrq > src/lib/database.types.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
@@ -15,8 +16,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@supabase/supabase-js": "^2.44.4",
     "@vercel/analytics": "^1.0.2",
-    "mongodb": "^6.5.0",
     "next": "^14.1.4",
     "next-mdx-remote": "^4.4.1",
     "react": "^18",
@@ -37,6 +38,7 @@
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.5",
     "sass": "^1.69.2",
+    "supabase": "^1.187.3",
     "tailwindcss": "^3",
     "typescript": "^5"
   }
