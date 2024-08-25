@@ -68,7 +68,7 @@ export type Database = {
           country: string | null;
           created_at: string;
           datetime: string;
-          dxcc: number;
+          dxcc: number | null;
           frequency: number;
           gridsquare: string | null;
           id: number;
@@ -89,7 +89,7 @@ export type Database = {
           country?: string | null;
           created_at?: string;
           datetime: string;
-          dxcc?: number;
+          dxcc?: number | null;
           frequency: number;
           gridsquare?: string | null;
           id?: number;
@@ -110,7 +110,7 @@ export type Database = {
           country?: string | null;
           created_at?: string;
           datetime?: string;
-          dxcc?: number;
+          dxcc?: number | null;
           frequency?: number;
           gridsquare?: string | null;
           id?: number;

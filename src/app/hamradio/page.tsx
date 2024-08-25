@@ -16,6 +16,7 @@ import qsl from './assets/qsl_2022.jpg';
 import sota from './assets/sota_1.jpg';
 import dxcomanderParts from './assets/dxcomander_parts.jpg';
 import dxcomander from './assets/dxcomander.jpg';
+import yota from './assets/yota.jpg';
 import { ContestList } from './contests/contest';
 
 // Revalidates every 1h
@@ -76,7 +77,19 @@ export default function Hamradio() {
         <Sota />
       </div>
 
-      {/* DIY */}
+      <h2>Youngsters On The Air</h2>
+      <div className={colStyle}>
+        <div>
+          <p>
+            I&apos;m quite active in the YOTA community. I regularly participate
+            in the YOTA contests and the December YOTA months. I also attended
+            the 2024 YOTA summer camp in Prague, where I met a lot of new
+            friends and got to experience a lot of new things.
+          </p>
+        </div>
+
+        <MImage src={yota} alt="A memento of the 2024 YOTA summer camp" />
+      </div>
 
       <h2>Other callsigns I used</h2>
       <div className={colStyle}>
@@ -173,7 +186,7 @@ function MyRadios() {
 
       <MImage src={portable} alt="Portable HF setup" />
 
-      <MImage src={setup} alt="Old setup (Xiegu G90 and Icom IC-726)" />
+      <MImage src={setup} alt="HF Setup" />
     </>
   );
 }
@@ -337,6 +350,11 @@ function CallsignsUsed() {
           For the 1<sup>st</sup> round of the 2024 YOTA contest I used the
           callsign <strong>S50C</strong> which is the contest callsign of
           Radioklub Domžale.
+        </p>
+        <p>
+          While attending the 2024 YOTA summer camp in Prague I used the
+          callsign <strong>OK/S52KJ</strong> with my DIY DXCommander antenna and
+          the Icom IC-705.
         </p>
       </div>
 
