@@ -119,7 +119,7 @@ function Header() {
             </tr>
             <tr>
               <th className="pr-4">DXCC</th>
-              <td>499 (Slovenia)</td>
+              <td>Slovenia</td>
             </tr>
           </tbody>
         </table>
@@ -136,6 +136,30 @@ function Header() {
           </tbody>
         </table>
       </div>
+
+      <div className="m-4 grid grid-cols-2 gap-4 rounded bg-gradient-to-br from-white/10 to-white/20 px-6 py-4 shadow-2xl md:grid-cols-3">
+        <div className="col-span-2 m-auto text-center md:col-span-1">
+          <div className="text-sm">FCC License Callsign</div>
+          <div className="text-3xl font-medium">AD2IV</div>
+        </div>
+        <table className="mx-auto">
+          <tbody>
+            <tr>
+              <th className="pr-4">DXCC</th>
+              <td>United States</td>
+            </tr>
+          </tbody>
+        </table>
+        <table className="mx-auto">
+          <tbody>
+            <tr>
+              <th className="pr-4">Class</th>
+              <td>Extra</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div className="m-4 flex flex-wrap items-center gap-2 text-sm">
         <Link className="button" href="https://www.qrz.com/db/s52kj">
           QRZ.com

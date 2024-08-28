@@ -5,10 +5,10 @@ type ByCat = { key: string; count: number }[];
 
 export default function Breakdown() {
   const cats = [
-    { name: 'By mode', entries: getByMode(), columns: 2 },
-    { name: 'By band', entries: getByBand(), columns: 3 },
-    { name: 'By callsign used', entries: getByCallUsed(), columns: 2 },
-    { name: 'By continent', entries: getByContinent(), columns: 2 },
+    { name: 'By Mode', entries: getByMode(), columns: 2 },
+    { name: 'By Band', entries: getByBand(), columns: 3 },
+    { name: 'By Callsign Used', entries: getByCallUsed(), columns: 2 },
+    { name: 'By Continent', entries: getByContinent(), columns: 2 },
   ];
 
   return (
@@ -18,7 +18,7 @@ export default function Breakdown() {
           key={name}
           className="flex flex-col overflow-hidden rounded bg-gradient-to-br from-white/5 to-white/10"
         >
-          <div className="p-3 pb-2 text-center text-lg font-bold">{name}</div>
+          <div className="p-3 py-2 text-center text-lg">{name}</div>
           <div className="flex-grow border-t border-t-white/10 bg-white/5 p-4 pt-2">
             <Suspense fallback={<SuspenseFallback />}>
               <Table columns={columns} entries={entries} />
@@ -42,8 +42,9 @@ async function Table({
   return ent ? (
     <div className="gap-4 text-center" style={{ columnCount: columns }}>
       {ent.map(({ key, count }) => (
-        <div key={key}>
-          {key} - {count}
+        <div key={key} className="flex gap-3 text-right [&>*]:flex-1">
+          <span className="font-semibold">{key}</span>
+          <span className="text-left">{count}</span>
         </div>
       ))}
     </div>
