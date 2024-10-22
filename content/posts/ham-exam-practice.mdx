@@ -1,0 +1,39 @@
+---
+title: 'Slovenian amateur radio exam practice'
+description: 'A website for practicing the Slovenian amateur radio exam'
+date: 2023-03-01
+tags:
+  - 'Amateur radio'
+  - 'Exam'
+  - 'Next.js'
+  - 'Tailwind CSS'
+image: '/images/projects/ham-practice.png'
+---
+
+What started of as a Flutter website for practicing Slovenian amateur radio exam questions, turned into a Next.js website with more...
+
+The website is available at [izpit.jkob.cc](https://izpit.jkob.cc/).
+
+The source code is available on [GitHub](https://github.com/jakobkordez/s5_practice).
+
+## How it started
+
+When I wanted to practice for the Slovenian amateur radio exam, the only available website was a plain white page generating random questions.
+I decided to make a better website with a modern design.
+
+I started with parsing the exam questions from four PDF files and storing them in a JSON file.
+Uploading the PDFs to a website that converts them to text, and to another website that extracts the images from the PDFs, I was able to extract the questions and answers with a Python script.
+One challenge was to correctly parse the questions and identifing the errors.
+The other challenge was to manually assign each question to a category.
+
+Once the questions were parsed, I started with a Flutter app.
+The app had a simple mode that showed a random question and a practice exam generator.
+The website was hosted on GitHub Pages.
+
+## Next.js
+
+Rewriting the website in Next.js was pretty trivial.
+After the initial rewrite, I expanded the website to give more information about the amateur radio exam.
+It briefly explains amateur radio, the exam, the categories and how to aquire a license after passing the exam.
+
+The website is now hosted on Vercel and uses Vercel analytics to track the usage of the website.

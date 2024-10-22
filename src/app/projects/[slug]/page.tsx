@@ -67,20 +67,20 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <div className="content">
-      <article className="blog">
+    <div className="prose prose-invert mx-auto">
+      <article>
         {post.image && (
-          <div className="relative h-60 w-full overflow-hidden rounded">
+          <div className="relative mb-5 w-full">
             <Image
-              width={700}
-              height={240}
+              width={1000}
+              height={500}
               src={post.image}
               alt=""
-              className="object-cover object-top"
+              className="h-64 w-full rounded object-cover object-center"
             />
           </div>
         )}
-        <h1>{post.title}</h1>
+        <h1 className="mb-2">{post.title}</h1>
         <div className="mb-8 flex flex-wrap gap-2">
           {post.tags.map((tag) => (
             <div

@@ -6,7 +6,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Posts',
   description: 'Things I have worked on.',
-  keywords: ['posts', 'projects', 'blog'],
+  keywords: ['posts', 'projects', 'blog', 'portfolio', 'work'],
   openGraph: {
     title: 'Posts',
     description: 'Things I have worked on.',

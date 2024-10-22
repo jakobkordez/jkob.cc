@@ -26,7 +26,7 @@ interface Post {
 export default function Gallery() {
   return (
     <>
-      <div className="content mb-8">
+      <div className="prose mb-8">
         <h1>Gallery</h1>
         <p>
           These are my latest Instagram posts. If you like what you see, follow

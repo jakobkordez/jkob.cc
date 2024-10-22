@@ -11,8 +11,8 @@ import Link from 'next/link';
 export default function Home() {
   return (
     <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-      <div className="content">
-        <h1>Jakob Kordež</h1>
+      <div className="prose prose-invert">
+        <h1>About me</h1>
         <p>
           Hi, my name is Jakob and I&apos;m a software developer from Slovenia.
           I&apos;m currently working at{' '}
@@ -20,9 +20,9 @@ export default function Home() {
           developer.
         </p>
         <p>
-          I&apos;m a student at the <strong>University of Maribor</strong> where
-          I&apos;m studying computer science. I&apos;m currently in my 2
-          <sup>nd</sup> year of the postgraduate study program.
+          In 2024 I graduated with a Master&apos;s degree in Computer Science
+          and Information Technologies from the{' '}
+          <strong>University of Maribor</strong>.
         </p>
         <p>
           I&apos;m also an amateur radio operator. My callsign is S52KJ. I
@@ -39,8 +39,8 @@ export default function Home() {
         priority
       />
 
-      <div className="content">
-        <h2>Most proficient with</h2>
+      <div>
+        <h2 className="mb-2 text-xl font-medium">Most proficient with</h2>
         <div className="flex flex-wrap gap-2 text-white">
           <Tag color="bg-sky-700" href="https://www.python.org/">
             Python
@@ -69,7 +69,7 @@ export default function Home() {
           </Tag>
         </div>
 
-        <h2>Tools I use</h2>
+        <h2 className="mb-2 mt-6 text-xl font-medium">Tools I use</h2>
         <div className="flex flex-wrap gap-2 text-white">
           <Tag color="bg-sky-600">Visual Studio Code</Tag>
           <Tag color="bg-orange-600">Git</Tag>
@@ -77,8 +77,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="content">
-        <h2>Find me on</h2>
+      <div>
+        <h2 className="mb-2 text-xl font-medium">Find me on</h2>
         <div className="flex flex-wrap gap-2">
           <Link className="button" href="https://github.com/jakobkordez">
             <FontAwesomeIcon icon={faGithub} />
@@ -102,32 +102,32 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="content flex flex-col gap-4">
-        <h2>Education</h2>
+      <div className="col-span-2 flex flex-col gap-4">
+        <h2 className="text-2xl font-medium">Education</h2>
         <div>
           <div>
-            <strong>Technical Gymnasium</strong>
+            <div className="text-lg font-semibold">Technical Gymnasium</div>
           </div>
-          <div>Vegova Ljubljana</div>
-          <div>2014 - 2018</div>
+          <div className="font-light">Vegova Ljubljana</div>
+          <div className="opacity-70">2014 - 2018</div>
         </div>
         <div>
           <div>
-            <strong>
+            <div className="text-lg font-semibold">
               Undergraduate Computer Science and Information Technologies
-            </strong>
+            </div>
           </div>
-          <div>University of Maribor</div>
-          <div>2018 - 2021</div>
+          <div className="font-light">University of Maribor</div>
+          <div className="opacity-70">2018 - 2021</div>
         </div>
         <div>
           <div>
-            <strong>
+            <div className="text-lg font-semibold">
               Postgraduate Computer Science and Information Technologies
-            </strong>
+            </div>
           </div>
-          <div>University of Maribor</div>
-          <div>2021 - present</div>
+          <div className="font-light">University of Maribor</div>
+          <div className="opacity-70">2021 - 2024</div>
         </div>
       </div>
     </div>
@@ -141,7 +141,7 @@ interface TagProps {
 }
 
 function Tag({ color, children, href }: TagProps) {
-  const className = 'rounded-full py-1 px-3 font-bold ' + color;
+  const className = 'rounded-full py-1 px-3 font-semibold text-base ' + color;
 
   return href ? (
     <Link href={href} className={className}>

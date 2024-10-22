@@ -22,78 +22,100 @@ import { ContestList } from './contests/contest';
 // Revalidates every 1h
 export const revalidate = 3600;
 
-const colStyle = 'gap-10 space-y-10 md:columns-2';
+const colStyle =
+  'gap-10 space-y-10 md:columns-2 prose prose-invert max-w-none prose-img:m-0';
 
 export default function Hamradio() {
   const lastUpdate = new Date();
 
   return (
-    <div className="content">
-      <h1>Amateur Radio</h1>
-
-      <Header />
-
-      <h2>My Stats</h2>
-      <Stats />
-
-      <h2>QSO breakdown</h2>
-      <Breakdown />
-
-      <h2>Most recent QSO&apos;s</h2>
-      <Latest />
-      <div className="text-center text-sm text-gray-300">
-        Last updated: <RelativeTime date={lastUpdate.toISOString()} />
+    <div className="flex flex-col gap-10 [&_h2]:text-2xl [&_h2]:font-semibold">
+      <div>
+        <h1 className="text-4xl font-semibold">Amateur Radio</h1>
+        <Header />
       </div>
 
-      <h2>My radios</h2>
-      <div className={colStyle}>
-        <MyRadios />
+      <div>
+        <h2>My Stats</h2>
+        <Stats />
       </div>
 
-      <h2>My antennas</h2>
-      <div className={colStyle}>
-        <MyAntennas />
+      <div>
+        <h2>QSO breakdown</h2>
+        <Breakdown />
       </div>
 
-      <h2>QSL</h2>
-      <div className={colStyle}>
-        <Qsl />
-      </div>
-
-      <h2>Contesing</h2>
-      <div className={colStyle}>
-        <Contesting />
-      </div>
-      <h3>Recent contests</h3>
-      <ContestList count={4} />
-      <div className="flex">
-        <Link className="button mt-3 text-sm" href="/hamradio/contests">
-          MORE CONTESTS
-        </Link>
-      </div>
-
-      <h2>SOTA</h2>
-      <div className={colStyle}>
-        <Sota />
-      </div>
-
-      <h2>Youngsters On The Air</h2>
-      <div className={colStyle}>
-        <div>
-          <p>
-            I&apos;m quite active in the YOTA community. I regularly participate
-            in the YOTA contests and the December YOTA months. I also attended
-            the 2024 YOTA summer camp in Prague, where I met a lot of new
-            friends and got to experience a lot of new things.
-          </p>
+      <div>
+        <h2>Most recent QSO&apos;s</h2>
+        <Latest />
+        <div className="text-center text-sm text-gray-300">
+          Last updated: <RelativeTime date={lastUpdate.toISOString()} />
         </div>
-
-        <MImage src={yota} alt="A memento of the 2024 YOTA summer camp" />
       </div>
 
-      <h2>Other callsigns I used</h2>
-      <div className={colStyle}>
-        <CallsignsUsed />
+      <div>
+        <h2>My radios</h2>
+        <div className={colStyle}>
+          <MyRadios />
+        </div>
+      </div>
+
+      <div>
+        <h2>My antennas</h2>
+        <div className={colStyle}>
+          <MyAntennas />
+        </div>
+      </div>
+
+      <div>
+        <h2>QSL</h2>
+        <div className={colStyle}>
+          <Qsl />
+        </div>
+      </div>
+
+      <div>
+        <h2>Contesing</h2>
+        <div className={colStyle}>
+          <Contesting />
+        </div>
+        <h3 className="mb-3 text-xl font-semibold">Recent contests</h3>
+        <ContestList count={4} />
+        <div className="flex">
+          <Link className="button mt-3 text-sm" href="/hamradio/contests">
+            MORE CONTESTS
+          </Link>
+        </div>
+      </div>
+
+      <div>
+        <h2>SOTA</h2>
+        <div className={colStyle}>
+          <Sota />
+        </div>
+      </div>
+
+      <div>
+        <h2>Youngsters On The Air</h2>
+        <div className={colStyle}>
+          <div>
+            <p>
+              I&apos;m quite active in the YOTA community. I regularly
+              participate in the YOTA contests and the December YOTA months. I
+              also attended the 2024 YOTA summer camp in Prague, where I met a
+              lot of new friends and got to experience a lot of new things.
+            </p>
+          </div>
+
+          <MImage src={yota} alt="A memento of the 2024 YOTA summer camp" />
+        </div>
+      </div>
+
+      <div>
+        <h2>Other callsigns I used</h2>
+        <div className={colStyle}>
+          <CallsignsUsed />
+        </div>
       </div>
     </div>
   );
@@ -191,7 +213,7 @@ function MyRadios() {
       <div>
         <p>
           Since late june 2023 my primary TRX has been an{' '}
-          <strong>Icom IC-7300</strong> which is a 100W HF SDR transceiver.
+          <strong>Icom IC-7300</strong>, a 100W HF SDR transceiver.
         </p>
         <p>
           I used to have a Xiegu G90 and an Icom IC-726 before I got the
@@ -244,13 +266,13 @@ function MyAntennas() {
         </p>
 
         <p>
-          Recently I made a DXComander-style antenna for my expedition in
-          Croatia. I bought a 10m fiberglass pole, some wire for the elements
-          and radials, some rope for guying and some nuts and bolts. The
-          seperators are 3D printed from PLA plastic. The antenna has 4 elements
-          for 5 bands and 48m of radials in 3m lengths. The elements for 40m,
-          20m and 10m are verticals and the 80m element is an inverted L. The
-          15m band is covered by the 40m element (3rd harmonic).
+          Recently I made a <strong>DXComander-style</strong> antenna for my
+          expedition in Croatia. I bought a 10m fiberglass pole, some wire for
+          the elements and radials, some rope for guying and some nuts and
+          bolts. The separators are 3D printed from PLA plastic. The antenna has
+          4 elements for 5 bands and 48m of radials in 3m lengths. The elements
+          for 40m, 20m and 10m are verticals and the 80m element is an inverted
+          L. The 15m band is covered by the 40m element (3rd harmonic).
         </p>
       </div>
 

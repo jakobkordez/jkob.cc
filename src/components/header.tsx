@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -8,7 +7,7 @@ import { useState } from 'react';
 const links = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Projects' },
-  { href: '/gallery', label: 'Gallery' },
+  // { href: '/gallery', label: 'Gallery' },
   { href: '/hamradio', label: 'Amateur Radio' },
 ];
 
@@ -25,16 +24,10 @@ export default function Header() {
 
   return (
     <header className="px-6 py-4 font-medium tracking-wider drop-shadow-md backdrop-brightness-50 backdrop-saturate-200">
-      <nav className="flex-none flex-wrap space-y-4 text-lg md:flex md:space-x-8 md:space-y-0">
+      <nav className="flex-none flex-wrap space-y-4 md:flex md:space-x-8 md:space-y-0">
         <div className="flex grow">
-          <Link className="mr-auto" href="/">
-            <Image
-              src="/images/logo/logo_128.png"
-              height={48}
-              width={48}
-              alt="Logo"
-              className="mx-auto h-10 w-10"
-            />
+          <Link className="mr-auto text-xl font-semibold" href="/">
+            Jakob Kordež
           </Link>
           <div className="flex md:hidden">
             <button

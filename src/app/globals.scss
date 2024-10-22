@@ -62,63 +62,58 @@ img {
   height: auto;
 }
 
-article.blog {
-  max-width: 700px;
-  margin: 0 auto;
-}
+// .content {
+//   font-size: large;
+//   color: #eee;
 
-.content {
-  font-size: large;
-  color: #eee;
+//   .link {
+//     color: #ccf;
 
-  .link {
-    color: #ccf;
+//     &:hover {
+//       color: #fff;
+//     }
+//   }
 
-    &:hover {
-      color: #fff;
-    }
-  }
+//   h1 {
+//     font-size: 2rem;
+//     font-weight: bold;
 
-  h1 {
-    font-size: 2rem;
-    font-weight: bold;
+//     &:not(:first-child) {
+//       margin-top: 1.6rem;
+//     }
 
-    &:not(:first-child) {
-      margin-top: 1.6rem;
-    }
+//     &:not(:last-child) {
+//       margin-bottom: 0.5rem;
+//     }
+//   }
 
-    &:not(:last-child) {
-      margin-bottom: 0.5rem;
-    }
-  }
+//   h2 {
+//     font-size: 1.5rem;
+//     font-weight: bold;
 
-  h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
+//     &:not(:first-child) {
+//       margin-top: 1.6rem;
+//     }
 
-    &:not(:first-child) {
-      margin-top: 1.6rem;
-    }
+//     &:not(:last-child) {
+//       margin-bottom: 0.5rem;
+//     }
+//   }
 
-    &:not(:last-child) {
-      margin-bottom: 0.5rem;
-    }
-  }
+//   h3 {
+//     font-size: 1.2rem;
+//     font-weight: bold;
 
-  h3 {
-    font-size: 1.2rem;
-    font-weight: bold;
+//     &:not(:first-child) {
+//       margin-top: 1.6rem;
+//     }
 
-    &:not(:first-child) {
-      margin-top: 1.6rem;
-    }
+//     &:not(:last-child) {
+//       margin-bottom: 0.5rem;
+//     }
+//   }
 
-    &:not(:last-child) {
-      margin-bottom: 0.5rem;
-    }
-  }
-
-  p {
-    margin: 1rem 0;
-  }
-}
+//   p {
+//     margin: 1rem 0;
+//   }
+// }
