@@ -15,8 +15,10 @@ export const metadata: Metadata = {
 
 export default async function Projects() {
   return (
-    <div className="content mx-auto max-w-4xl">
-      <h1>Projects</h1>
+    <div className="mx-auto max-w-4xl">
+      <div className="prose prose-invert">
+        <h1>Projects</h1>
+      </div>
 
       <div className="mt-8 flex flex-col gap-6">
         {(await getPosts())

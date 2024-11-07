@@ -34,27 +34,27 @@ export default function ExpandableImage({
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-40 flex flex-col items-center overflow-hidden p-4">
+        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center overflow-hidden p-4">
           <div
-            className="absolute inset-0 z-40 bg-black opacity-80 transition-opacity"
+            className="absolute inset-0 z-40 bg-black/80 backdrop-blur-sm"
             onClick={() => window.history.back()}
           />
 
           <button
-            className="relative z-50 m-2 ml-auto text-2xl text-white transition-colors duration-200 ease-in-out hover:text-gray-200"
+            className="absolute right-6 top-6 z-[60] rounded-full px-4 py-2 text-2xl text-white transition-colors duration-200 ease-in-out hover:bg-black/40 hover:text-gray-200"
             onClick={() => window.history.back()}
           >
             <FontAwesomeIcon icon={faClose} />
           </button>
 
-          <div className="relative flex h-full w-full flex-1 overflow-hidden">
+          <div className="relative z-50 max-h-full max-w-full">
             <Image
               src={src}
               alt={alt}
               height={size}
               width={size}
               placeholder={placeholder}
-              className="z-50 m-auto aspect-auto h-auto max-h-full w-auto max-w-full rounded shadow-2xl"
+              className="h-auto max-h-full w-auto max-w-full rounded shadow-2xl"
             />
           </div>
         </div>

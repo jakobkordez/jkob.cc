@@ -4,17 +4,25 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import ExpandableImage from '@/components/expandable_image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCode,
+  faExternalLink,
+  faGlobe,
+} from '@fortawesome/free-solid-svg-icons';
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
-  const post = (await getPosts()).find((post) => post.slug === params.slug);
+  const slug = (await params).slug;
+  const post = (await getPosts()).find((post) => post.slug === slug);
 
   if (!post) return {};
 
@@ -60,7 +68,8 @@ const components = {
 };
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = (await getPosts()).find((post) => post.slug === params.slug);
+  const slug = (await params).slug;
+  const post = (await getPosts()).find((post) => post.slug === slug);
 
   if (!post) {
     notFound();
@@ -91,6 +100,25 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
           ))}
         </div>
+
+        {(post.website || post.source) && (
+          <div className="not-prose mb-8 flex flex-wrap gap-4">
+            {post.website && (
+              <Link href={post.website} target="_blank" className="button">
+                <FontAwesomeIcon icon={faGlobe} />
+                <span>Website</span>
+                <FontAwesomeIcon icon={faExternalLink} className="h-3 w-3" />
+              </Link>
+            )}
+            {post.source && (
+              <Link href={post.source} target="_blank" className="button">
+                <FontAwesomeIcon icon={faCode} />
+                <span>Source code</span>
+                <FontAwesomeIcon icon={faExternalLink} className="h-3 w-3" />
+              </Link>
+            )}
+          </div>
+        )}
 
         <MDXRemote
           source={post.content}

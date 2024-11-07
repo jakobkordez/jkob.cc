@@ -9,6 +9,8 @@ export interface Post {
   date: string;
   tags: string[];
   image?: string;
+  website?: string;
+  source?: string;
   content: string;
 }
 
@@ -26,6 +28,8 @@ export const getPosts = async (): Promise<Post[]> => {
         date: x.frontmatter.date as string,
         tags: x.frontmatter.tags as string[],
         image: x.frontmatter.image as string | undefined,
+        website: x.frontmatter.website as string | undefined,
+        source: x.frontmatter.source as string | undefined,
         slug: file.replace(/\.mdx$/, ''),
         content: source,
       };

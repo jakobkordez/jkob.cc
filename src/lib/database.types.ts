@@ -15,6 +15,7 @@ export type Database = {
           country: string;
           cqz: number | null;
           created_at: string;
+          deleted_at: string | null;
           dxcc: number;
           grid: string | null;
           id: number;
@@ -28,6 +29,7 @@ export type Database = {
           country: string;
           cqz?: number | null;
           created_at?: string;
+          deleted_at?: string | null;
           dxcc: number;
           grid?: string | null;
           id?: number;
@@ -41,6 +43,7 @@ export type Database = {
           country?: string;
           cqz?: number | null;
           created_at?: string;
+          deleted_at?: string | null;
           dxcc?: number;
           grid?: string | null;
           id?: number;
@@ -49,15 +52,7 @@ export type Database = {
           title?: string | null;
           user_id?: string | null;
         };
-        Relationships: [
-          {
-            foreignKeyName: 'profile_user_id_fkey';
-            columns: ['user_id'];
-            isOneToOne: false;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
+        Relationships: [];
       };
       qso: {
         Row: {
@@ -68,6 +63,7 @@ export type Database = {
           country: string | null;
           created_at: string;
           datetime: string;
+          deleted_at: string | null;
           dxcc: number | null;
           frequency: number;
           gridsquare: string | null;
@@ -89,6 +85,7 @@ export type Database = {
           country?: string | null;
           created_at?: string;
           datetime: string;
+          deleted_at?: string | null;
           dxcc?: number | null;
           frequency: number;
           gridsquare?: string | null;
@@ -110,6 +107,7 @@ export type Database = {
           country?: string | null;
           created_at?: string;
           datetime?: string;
+          deleted_at?: string | null;
           dxcc?: number | null;
           frequency?: number;
           gridsquare?: string | null;
@@ -129,13 +127,6 @@ export type Database = {
             columns: ['log_id'];
             isOneToOne: false;
             referencedRelation: 'log';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'qso_user_id_fkey';
-            columns: ['user_id'];
-            isOneToOne: false;
-            referencedRelation: 'users';
             referencedColumns: ['id'];
           },
         ];
@@ -168,13 +159,6 @@ export type Database = {
             columns: ['default_log_id'];
             isOneToOne: false;
             referencedRelation: 'log';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'user_info_user_id_fkey';
-            columns: ['user_id'];
-            isOneToOne: true;
-            referencedRelation: 'users';
             referencedColumns: ['id'];
           },
         ];
@@ -314,4 +298,19 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
     ? PublicSchema['Enums'][PublicEnumNameOrOptions]
+    : never;
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema['CompositeTypes']
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database;
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema['CompositeTypes']
+    ? PublicSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
     : never;

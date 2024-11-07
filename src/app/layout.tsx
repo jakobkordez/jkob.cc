@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/header';
 import { Inter } from 'next/font/google';
-import './globals.scss';
+import './globals.css';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';

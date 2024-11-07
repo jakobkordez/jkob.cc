@@ -7,7 +7,7 @@ export default function Latest() {
 
   return (
     <div className="p-4">
-      <Suspense fallback={<Fallback text="Loading..." />}>
+      <Suspense fallback={'Loading...'}>
         <QsoTable qsosP={latest} />
       </Suspense>
     </div>
@@ -42,7 +42,11 @@ async function QsoTable({ qsosP }: { qsosP: Promise<Qso[] | null> }) {
             </tr>
           ))
         ) : (
-          <Fallback text="No QSOs found" />
+          <tr>
+            <td colSpan={5} className="px-4 py-2 text-center">
+              No QSOs found
+            </td>
+          </tr>
         )}
       </tbody>
     </table>
@@ -72,14 +76,4 @@ async function getLatest(): Promise<Qso[] | null> {
   }
 
   return null;
-}
-
-function Fallback({ text }: { text: string }) {
-  return (
-    <tr>
-      <td colSpan={5} className="px-4 py-2 text-center">
-        {text}
-      </td>
-    </tr>
-  );
 }

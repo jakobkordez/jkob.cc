@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button {
+  @apply flex items-center justify-center gap-2 rounded bg-white/10 px-5 py-2 font-semibold transition-colors hover:bg-white/20 active:bg-white/30;
+}
+
+body {
+  background: linear-gradient(80deg, #010f2a 0%, #27021e 100%);
+  box-shadow: 0 0 200px rgba(0, 0, 0, 0.9) inset;
+  color: #eee;
+  min-height: 100vh;
+}
+
+nav .link {
+  position: relative;
+}
+nav .link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  bottom: -0.3rem;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+nav .link:hover::after,
+nav .link.is-active::after {
+  border: 1px solid #fff;
+  width: 2rem;
+}
+
+.burger-button > span {
+  display: block;
+  background-color: #eee;
+  width: 100%;
+  height: 2px;
+  margin: 6px 0;
+  transition: all 0.2s ease-in-out;
+  border-radius: 999px;
+}
+
+.burger-button.is-active > *:nth-child(1) {
+  transform: translate(0, 8px) rotate(45deg);
+}
+
+.burger-button.is-active > *:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-button.is-active > *:nth-child(3) {
+  transform: translate(0, -8px) rotate(-45deg);
+}
+
+img {
+  width: auto;
+  height: auto;
+}
