@@ -16,8 +16,8 @@ export default function Home() {
         <p>
           Hi, my name is Jakob and I&apos;m a software developer from Slovenia.
           I&apos;m currently working at{' '}
-          <strong className="inline-block">Metrel d. d.</strong> as a software
-          developer.
+          <strong className="inline-block">Metrel d. o. o.</strong> as a
+          software developer.
         </p>
         <p>
           In 2024 I graduated with a Master&apos;s degree in Computer Science
