@@ -136,8 +136,16 @@ async function getDxccs(): Promise<number[] | null> {
 
 async function getGridsquares(): Promise<string[] | null> {
   try {
-    const res = await supabase.from('qso_grid_summary').select('*');
-    return res.data!.map((d) => d.grid!);
+    const ret: string[] = [];
+    for (let i = 0; true; i = ret.length) {
+      const res = await supabase
+        .from('qso_grid_summary')
+        .select('*')
+        .range(i, i + 500);
+      ret.push(...res.data!.map((d) => d.grid!));
+      if (res.data!.length < 500) break;
+    }
+    return ret;
   } catch (e) {
     console.log(e);
   }

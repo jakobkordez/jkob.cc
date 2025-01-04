@@ -13,6 +13,42 @@ interface Contest {
 const contests: Contest[] = [
   {
     img: '/images/hamradio/YOTA.png',
+    name: 'YOTA 3rd Round',
+    date: '2024',
+    callsign: 'S51YOTA',
+    category: 'SOAB YOTA',
+    qsos: 1111,
+    score: 967050,
+  },
+  {
+    img: '/images/hamradio/CQ.png',
+    name: 'CQ WW DX CW',
+    date: '2024',
+    callsign: 'S52KJ',
+    category: 'SOAB LP',
+    qsos: 712,
+    score: 245_358,
+  },
+  {
+    img: '/images/hamradio/scc.png',
+    name: 'EU HF Championship',
+    date: '2024',
+    callsign: 'S52KJ',
+    category: 'SOAB LP',
+    qsos: 402,
+    score: 66_000,
+  },
+  {
+    img: '/images/hamradio/ARRL.png',
+    name: 'IARU HF World Championship',
+    date: '2024',
+    callsign: 'S50HQ',
+    category: 'Headquarters',
+    qsos: 14_646,
+    score: 20_609_316,
+  },
+  {
+    img: '/images/hamradio/YOTA.png',
     name: 'YOTA 2nd Round',
     date: '2024',
     callsign: 'S52KJ',
@@ -223,12 +259,12 @@ export function ContestList({ count }: ContestListProps) {
           className="flex flex-col items-center gap-3 rounded bg-white/5 p-4 text-center"
           key={i}
         >
-          <div className="flex h-24 w-24">
+          <div className="flex h-24 w-full">
             <Image
               src={c.img}
               alt={c.name}
-              width={100}
-              height={100}
+              width={150}
+              height={150}
               className="m-auto max-h-full max-w-full rounded"
             />
           </div>
